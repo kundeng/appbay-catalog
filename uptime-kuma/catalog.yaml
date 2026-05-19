@@ -7,11 +7,7 @@ source:
   type: git
   url: https://github.com/louislam/uptime-kuma
 readiness: augmented
-required_inputs:
-  - name: UPTIME_KUMA_HOST
-    description: Hostname for the web UI
-    type: string
-    default: "status.${{project.DOMAIN}}"
+required_inputs: []
 traits_summary:
   - "ingress: internal HTTPS"
 maintainer: appbay
