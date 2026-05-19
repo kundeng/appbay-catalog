@@ -1,0 +1,17 @@
+name: uptime-kuma
+description: Self-hosted monitoring tool with status pages and notifications
+version: "1"
+category: monitoring
+tags: [monitoring, uptime, status-page, notifications]
+source:
+  type: git
+  url: https://github.com/louislam/uptime-kuma
+readiness: augmented
+required_inputs:
+  - name: UPTIME_KUMA_HOST
+    description: Hostname for the web UI
+    type: string
+    default: "status.${{project.DOMAIN}}"
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

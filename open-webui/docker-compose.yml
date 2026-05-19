@@ -1,0 +1,15 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    ports:
+      - "${WEBUI_PORT:-3080}:8080"
+    volumes:
+      - open-webui-data:/app/backend/data
+    environment:
+      WEBUI_NAME: ${WEBUI_NAME:-Appbay Chat}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://appbay.ollama:11434}
+
+volumes:
+  open-webui-data:

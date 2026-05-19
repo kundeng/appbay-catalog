@@ -1,0 +1,23 @@
+name: grafana
+description: Observability dashboards with Prometheus metrics collection
+version: latest
+category: monitoring
+tags: [monitoring, metrics, dashboards, prometheus, observability]
+source:
+  type: git
+  url: https://github.com/grafana/grafana
+readiness: augmented
+required_inputs:
+  - name: GRAFANA_HOST
+    description: Hostname for the Grafana web UI
+    type: string
+    default: "grafana.${{project.DOMAIN}}"
+  - name: GF_SECURITY_ADMIN_PASSWORD
+    description: Grafana admin password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: internal HTTPS"
+  - "secrets: 1 auto-generated (admin password)"
+  - "backup: daily, 14-day retention"
+maintainer: appbay

@@ -1,0 +1,27 @@
+name: n8n
+description: Workflow automation tool with 400+ integrations
+version: latest
+category: automation
+tags: [automation, workflow, integrations, no-code]
+source:
+  type: git
+  url: https://github.com/n8n-io/n8n
+readiness: augmented
+required_inputs:
+  - name: N8N_HOST
+    description: Hostname for the n8n web UI
+    type: string
+    default: "n8n.${{project.DOMAIN}}"
+  - name: N8N_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  - name: N8N_ENCRYPTION_KEY
+    description: Encryption key for credentials storage
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+  - "secrets: 2 auto-generated (DB password, encryption key)"
+  - "backup: daily, 7-day retention"
+maintainer: appbay
