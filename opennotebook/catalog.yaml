@@ -1,25 +1,16 @@
 name: opennotebook
-description: Open-source NotebookLM alternative for AI-powered document analysis, notes, and knowledge management
+description: AI-powered notebook interface with multi-provider LLM support and SurrealDB backend
 version: latest
 category: ai
-tags: [rag, chat, tools]
+tags: [notebook, llm, tools]
 source:
   type: git
   url: https://github.com/lfnovo/open-notebook
 readiness: raw
 required_inputs:
-  - name: OPENAI_API_KEY
-    description: OpenAI API key
-    type: string
-    default: ""
-  - name: ANTHROPIC_API_KEY
-    description: Anthropic API key
-    type: string
-    default: ""
-  - name: OPEN_NOTEBOOK_PASSWORD
-    description: Password for OpenNotebook access
-    type: string
-    default: ""
+  - name: OPENNOTEBOOK_PASSWORD
+    description: Password for Open Notebook web access
+    type: secret
 traits_summary:
   - "ingress: external HTTPS"
 maintainer: appbay

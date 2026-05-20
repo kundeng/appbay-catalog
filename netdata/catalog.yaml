@@ -1,7 +1,7 @@
 name: netdata
 description: Real-time infrastructure monitoring and troubleshooting dashboard with per-second granularity
 version: latest
-category: ai
+category: monitoring
 tags: [monitoring]
 source:
   type: git

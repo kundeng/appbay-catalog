@@ -1,0 +1,16 @@
+name: jupyter
+description: JupyterLab notebook server for interactive data science, ML experimentation, and code execution
+version: latest
+category: ai
+tags:
+  - notebook
+  - data-science
+  - python
+source:
+  type: git
+  url: https://github.com/jupyterlab/jupyterlab
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 8888)
+maintainer: appbay

@@ -1,6 +1,6 @@
 services:
   docling:
-    image: ds4sd/docling-serve:latest
+    image: ghcr.io/docling-project/docling-serve-cpu:latest
     container_name: docling
     ports:
       - ${DOCLING_PORT:-5001}:5001

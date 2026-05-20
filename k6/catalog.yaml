@@ -1,0 +1,16 @@
+name: k6
+description: Load testing tool with InfluxDB storage and Grafana dashboards for performance analysis
+version: latest
+category: utilities
+tags:
+  - testing
+  - load-testing
+  - performance
+source:
+  type: git
+  url: https://github.com/grafana/k6
+readiness: raw
+required_inputs: []
+traits_summary:
+  - ingress (Grafana dashboard on port 3000)
+maintainer: appbay

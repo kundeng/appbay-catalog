@@ -1,13 +1,14 @@
 name: docling
-description: IBM's document parsing and conversion tool that extracts structured data from PDFs and documents
+description: Document parsing and conversion API for extracting structured data from PDFs and documents
 version: latest
 category: ai
 tags:
-  - rag
-  - tools
+  - document-processing
+  - ocr
+  - api
 source:
   type: git
-  url: https://github.com/DS4SD/docling
+  url: https://github.com/docling-project/docling-serve
 readiness: augmented
 required_inputs: []
 traits_summary:

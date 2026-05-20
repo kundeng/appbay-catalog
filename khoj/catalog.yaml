@@ -1,0 +1,20 @@
+name: khoj
+description: Self-hosted AI personal assistant with web search, document RAG, and multi-model chat
+version: latest
+category: ai
+tags:
+  - chat
+  - rag
+  - llm
+  - agents
+source:
+  type: git
+  url: https://github.com/khoj-ai/khoj
+readiness: augmented
+required_inputs:
+  - KHOJ_DJANGO_SECRET_KEY
+  - KHOJ_ADMIN_EMAIL
+  - KHOJ_ADMIN_PASSWORD
+traits_summary:
+  - ingress (web UI on port 42110)
+maintainer: appbay

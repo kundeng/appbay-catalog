@@ -1,0 +1,25 @@
+services:
+  jupyter:
+    image: pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
+    container_name: jupyter
+    ports:
+      - ${JUPYTER_PORT:-8888}:8888
+    command:
+      - jupyter
+      - lab
+      - --port=8888
+      - --ip=0.0.0.0
+      - --allow-root
+      - --no-browser
+      - "--IdentityProvider.token=''"
+      - "--ServerApp.password=''"
+      - --allow_remote_access=true
+    volumes:
+      - jupyter_workspace:/app/workspace
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+
+volumes:
+  jupyter_workspace:
+  hf_cache:

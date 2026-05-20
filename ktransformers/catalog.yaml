@@ -1,0 +1,19 @@
+name: ktransformers
+description: High-performance LLM inference framework with CPU/GPU hybrid execution for large models
+version: latest
+category: ai
+tags:
+  - inference
+  - llm
+  - openai-compatible
+source:
+  type: git
+  url: https://github.com/kvcache-ai/ktransformers
+readiness: raw
+required_inputs:
+  - HF_TOKEN
+  - KTRANSFORMERS_MODEL
+  - KTRANSFORMERS_GGUF
+traits_summary:
+  - ingress (API on port 12456)
+maintainer: appbay

@@ -1,0 +1,16 @@
+services:
+  kobold:
+    image: koboldai/koboldcpp:latest
+    container_name: kobold
+    ports:
+      - ${KOBOLD_PORT:-5001}:5001
+    volumes:
+      - kobold_workspace:/workspace
+      - hf_cache:/hf
+    environment:
+      - KCPP_MODEL=${KOBOLD_MODEL:-}
+      - KCPP_ARGS=${KOBOLD_ARGS:-}
+
+volumes:
+  kobold_workspace:
+  hf_cache:

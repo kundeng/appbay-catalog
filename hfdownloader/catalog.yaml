@@ -1,0 +1,16 @@
+name: hfdownloader
+description: Dedicated CLI tool for downloading models from HuggingFace with resume support
+version: latest
+category: ai
+tags:
+  - cli
+  - huggingface
+  - models
+  - downloader
+source:
+  type: git
+  url: https://github.com/bodaay/HuggingFaceModelDownloader
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

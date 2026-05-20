@@ -1,0 +1,16 @@
+name: hf
+description: HuggingFace CLI for downloading, managing, and interacting with models and datasets
+version: latest
+category: ai
+tags:
+  - cli
+  - huggingface
+  - models
+source:
+  type: git
+  url: https://github.com/huggingface/huggingface_hub
+readiness: raw
+required_inputs:
+  - HF_TOKEN
+traits_summary: []
+maintainer: appbay

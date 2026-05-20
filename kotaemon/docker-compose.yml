@@ -1,0 +1,15 @@
+services:
+  kotaemon:
+    image: ghcr.io/cinnamon/kotaemon:main-full
+    container_name: kotaemon
+    entrypoint: ["python", "app.py"]
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
+    ports:
+      - ${KOTAEMON_PORT:-7860}:7860
+    volumes:
+      - kotaemon_data:/app/ktem_app_data
+
+volumes:
+  kotaemon_data:

@@ -1,9 +1,9 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [self-hosted]
 tags:
   tier: app
-  role: code-sandbox
+  role: terminal
 
 upstream:
   source: ./docker-compose.yml
@@ -12,9 +12,7 @@ upstream:
 
 traits:
   - type: ingress
-    host: "openterminal.${{project.DOMAIN}}"
+    host: "terminal.${{project.DOMAIN}}"
     port: 8000
     service: openterminal
     exposure: external
-    tls:
-      staging: false

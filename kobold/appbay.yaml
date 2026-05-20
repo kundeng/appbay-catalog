@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: kobold
+    port: 5001

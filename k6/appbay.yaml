@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: k6-grafana
+    port: 3000

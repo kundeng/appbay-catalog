@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: jupyter
+    port: 8888

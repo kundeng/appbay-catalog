@@ -1,0 +1,17 @@
+services:
+  ktransformers:
+    image: ghcr.io/kvcache-ai/ktransformers:latest
+    container_name: ktransformers
+    ipc: host
+    ports:
+      - ${KTRANSFORMERS_PORT:-12456}:12456
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+    command: >
+      --model_path ${KTRANSFORMERS_MODEL:-}
+      --gguf_path ${KTRANSFORMERS_GGUF:-}
+
+volumes:
+  hf_cache:

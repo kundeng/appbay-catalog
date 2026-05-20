@@ -1,0 +1,4 @@
+services:
+  gum:
+    image: ghcr.io/charmbracelet/gum:latest
+    container_name: gum

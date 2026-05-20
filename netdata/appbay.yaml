@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [self-hosted]
 tags:
   tier: infra
   role: monitoring
@@ -16,5 +16,3 @@ traits:
     port: 19999
     service: netdata
     exposure: external
-    tls:
-      staging: false

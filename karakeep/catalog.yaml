@@ -1,0 +1,17 @@
+name: karakeep
+description: AI-powered bookmarking and read-later app with full-text search and AI tagging
+version: latest
+category: utilities
+tags:
+  - bookmarks
+  - read-later
+  - search
+  - ai-enhanced
+source:
+  type: git
+  url: https://github.com/karakeep-app/karakeep
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 3000)
+maintainer: appbay

@@ -1,17 +1,16 @@
 name: openterminal
-description: Sandboxed code execution environment with web terminal and Jupyter notebook support for AI agents
+description: Web-based terminal and notebook environment with configurable package installation
 version: latest
 category: ai
-tags: [coding, tools, agents]
+tags: [tools, terminal, notebook]
 source:
   type: git
-  url: https://github.com/open-terminal/open-terminal
+  url: https://github.com/nicepkg/open-terminal
 readiness: raw
 required_inputs:
-  - name: OPEN_TERMINAL_API_KEY
-    description: API key for OpenTerminal access
-    type: string
-    default: ""
+  - name: OPENTERMINAL_API_KEY
+    description: API key for Open Terminal access
+    type: secret
 traits_summary:
   - "ingress: external HTTPS"
 maintainer: appbay

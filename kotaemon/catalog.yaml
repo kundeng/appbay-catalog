@@ -1,0 +1,16 @@
+name: kotaemon
+description: Open-source RAG-based document QA tool with Gradio web interface for chatting with your documents
+version: latest
+category: ai
+tags:
+  - rag
+  - chat
+  - llm
+source:
+  type: git
+  url: https://github.com/Cinnamon/kotaemon
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 7860)
+maintainer: appbay

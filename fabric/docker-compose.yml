@@ -1,6 +1,9 @@
 services:
   fabric:
-    image: danielmiessler/fabric:latest
+    image: ghcr.io/ksylvan/fabric:latest
     container_name: fabric
     volumes:
       - fabric_config:/root/.config/fabric
+
+volumes:
+  fabric_config:

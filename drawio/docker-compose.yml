@@ -1,6 +1,6 @@
 services:
   drawio:
-    image: jgraph/drawio:latest
+    image: ghcr.io/dayuanjiang/next-ai-draw-io:latest
     container_name: drawio
     ports:
       - ${DRAWIO_PORT:-3000}:3000
@@ -8,8 +8,6 @@ services:
       - AI_PROVIDER=${DRAWIO_AI_PROVIDER:-openai}
       - AI_MODEL=${DRAWIO_AI_MODEL:-gpt-4o}
       - TEMPERATURE=${DRAWIO_TEMPERATURE:-0.7}
-      - ACCESS_CODE_LIST=${DRAWIO_ACCESS_CODE:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - GOOGLE_GENERATIVE_AI_API_KEY=${GOOGLE_API_KEY:-}
-      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}

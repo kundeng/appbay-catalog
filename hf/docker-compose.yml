@@ -1,0 +1,12 @@
+services:
+  hf:
+    image: python:3.11-slim
+    container_name: hf
+    command: pip install huggingface_hub[cli] && huggingface-cli
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+
+volumes:
+  hf_cache:

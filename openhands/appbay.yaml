@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [self-hosted]
 tags:
   tier: app
   role: coding-agent
@@ -16,5 +16,3 @@ traits:
     port: 3000
     service: openhands
     exposure: external
-    tls:
-      staging: false

@@ -1,0 +1,16 @@
+name: hollama
+description: Minimal web UI for chatting with Ollama models with a clean, distraction-free interface
+version: latest
+category: ai
+tags:
+  - chat
+  - llm
+  - ollama
+source:
+  type: git
+  url: https://github.com/fmaclen/hollama
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 4173)
+maintainer: appbay

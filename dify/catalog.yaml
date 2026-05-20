@@ -1,19 +1,18 @@
 name: dify
-description: Open-source LLM application development platform with visual workflow builder, RAG pipeline, and agent framework
+description: Open-source LLM app development platform with visual workflow builder, RAG, and agent capabilities
 version: latest
 category: ai
 tags:
   - workflow
-  - agents
   - rag
+  - agents
   - llm
-  - chat
+  - platform
 source:
   type: git
   url: https://github.com/langgenius/dify
 readiness: augmented
-required_inputs:
-  - OPENAI_API_KEY
+required_inputs: []
 traits_summary:
   - ingress (web UI on port 80)
 maintainer: appbay

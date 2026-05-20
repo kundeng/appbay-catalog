@@ -2,7 +2,7 @@ name: tts
 description: OpenAI-compatible text-to-speech server with multiple voice and model backends
 version: latest
 category: ai
-tags: [tts, inference]
+tags: [tts, audio, inference]
 source:
   type: git
   url: https://github.com/matatonic/openedai-speech

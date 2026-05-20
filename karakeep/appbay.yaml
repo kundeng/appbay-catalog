@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: karakeep
+    port: 3000

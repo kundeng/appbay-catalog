@@ -1,9 +1,11 @@
 name: gum
-description: Glamorous shell scripts toolkit for building interactive CLI prompts and selections
+description: Tool for building glamorous shell scripts with interactive prompts, spinners, and styled text
 version: latest
-category: ai
+category: utilities
 tags:
-  - tools
+  - cli
+  - shell
+  - tui
 source:
   type: git
   url: https://github.com/charmbracelet/gum

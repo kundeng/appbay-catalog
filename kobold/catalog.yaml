@@ -1,0 +1,16 @@
+name: kobold
+description: KoboldCpp - easy-to-use GGUF model inference server with built-in web UI for text generation
+version: latest
+category: ai
+tags:
+  - inference
+  - llm
+  - chat
+source:
+  type: git
+  url: https://github.com/LostRuins/koboldcpp
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 5001)
+maintainer: appbay

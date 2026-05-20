@@ -1,13 +1,12 @@
 name: optillm
-description: OpenAI-compatible proxy that applies optimization techniques (chain-of-thought, mixture-of-agents, etc.) to LLM requests
+description: OpenAI-compatible proxy that applies inference-time optimization techniques to LLM requests
 version: latest
 category: ai
-tags: [inference, llm, tools]
+tags: [llm, proxy, inference]
 source:
   type: git
   url: https://github.com/codelion/optillm
 readiness: raw
 required_inputs: []
-traits_summary:
-  - "ingress: external HTTPS"
+traits_summary: []
 maintainer: appbay

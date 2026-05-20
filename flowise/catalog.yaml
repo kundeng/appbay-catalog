@@ -1,11 +1,11 @@
 name: flowise
-description: Drag-and-drop UI for building LLM flows and AI agents with LangChain integration
+description: Drag-and-drop LLM workflow builder for creating chatbots, agents, and RAG pipelines
 version: latest
 category: ai
 tags:
   - workflow
-  - agents
   - llm
+  - chatbot
   - rag
 source:
   type: git

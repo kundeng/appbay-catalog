@@ -1,0 +1,9 @@
+services:
+  hfdownloader:
+    image: ghcr.io/bodaay/hfdownloader:latest
+    container_name: hfdownloader
+    volumes:
+      - hf_cache:/app/hf
+
+volumes:
+  hf_cache:

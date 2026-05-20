@@ -1,10 +1,11 @@
 name: fabric
-description: AI framework for augmenting humans with reusable prompt patterns for common tasks
+description: CLI framework for augmenting humans with AI using composable prompt patterns
 version: latest
 category: ai
 tags:
+  - cli
   - llm
-  - tools
+  - prompts
 source:
   type: git
   url: https://github.com/danielmiessler/fabric

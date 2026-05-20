@@ -1,11 +1,12 @@
 name: gptme
-description: Personal AI assistant for the terminal with code execution, file editing, and tool use
+description: Personal AI assistant CLI with code execution, file editing, and shell access
 version: latest
 category: ai
 tags:
-  - coding
+  - cli
   - llm
-  - tools
+  - coding
+  - assistant
 source:
   type: git
   url: https://github.com/ErikBjare/gptme

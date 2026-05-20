@@ -1,20 +1,18 @@
 name: opint
-description: Open Interpreter - natural language interface for executing code on your computer via LLMs
+description: Open Interpreter CLI agent that executes code locally via OpenAI-compatible API
 version: latest
 category: ai
-tags: [coding, agents]
+tags: [agents, coding, cli]
 source:
   type: git
   url: https://github.com/OpenInterpreter/open-interpreter
 readiness: raw
 required_inputs:
   - name: OPENAI_API_KEY
-    description: OpenAI API key for LLM access
-    type: string
-    default: ""
+    description: OpenAI API key or compatible endpoint key
+    type: secret
   - name: OPENAI_API_BASE
-    description: Custom OpenAI-compatible API base URL
+    description: Base URL for the OpenAI-compatible API
     type: string
-    default: ""
 traits_summary: []
 maintainer: appbay
