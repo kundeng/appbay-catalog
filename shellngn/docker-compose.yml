@@ -1,0 +1,12 @@
+services:
+  shellngn:
+    image: shellngn/pro
+    container_name: shellngn
+    restart: unless-stopped
+    volumes:
+      - shellngn-data:/home/node/server/data
+    ports:
+      - "${SHELLNGN_PORT:-8022}:8080"
+
+volumes:
+  shellngn-data:

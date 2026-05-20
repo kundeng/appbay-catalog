@@ -1,0 +1,12 @@
+name: slidev
+description: Developer-friendly presentation slides with Markdown and Vue components
+version: latest
+category: developer
+tags: [presentations, markdown, developer]
+source:
+  type: git
+  url: https://github.com/slidevjs/slidev
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay
