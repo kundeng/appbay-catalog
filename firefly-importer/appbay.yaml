@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [utilities]
+tags:
+  tier: app
+  role: finance-importer
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - firefly-importer
+
+traits:
+  - type: ingress
+    host: "firefly-importer.${{project.DOMAIN}}"
+    port: 8080
+    service: firefly-importer
+    exposure: internal

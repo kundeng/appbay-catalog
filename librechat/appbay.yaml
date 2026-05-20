@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: chat-ui
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - librechat
+
+traits:
+  - type: ingress
+    host: "librechat.${{project.DOMAIN}}"
+    port: 3080
+    service: librechat
+    exposure: external
+    tls:
+      staging: false

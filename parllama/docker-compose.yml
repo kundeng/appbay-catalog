@@ -1,0 +1,11 @@
+services:
+  parllama:
+    image: ghcr.io/paulpierre/parllama:latest
+    container_name: parllama
+    tty: true
+    user: root
+    volumes:
+      - parllama-data:/root/.local/share/parllama
+
+volumes:
+  parllama-data:

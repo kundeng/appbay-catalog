@@ -1,0 +1,9 @@
+services:
+  mcp-inspector:
+    image: ghcr.io/modelcontextprotocol/inspector:latest
+    container_name: mcp-inspector
+    restart: unless-stopped
+    command: npx @modelcontextprotocol/inspector
+    ports:
+      - "${MCP_INSPECTOR_PORT:-6274}:6274"
+      - "${MCP_INSPECTOR_CLIENT_PORT:-6277}:6277"

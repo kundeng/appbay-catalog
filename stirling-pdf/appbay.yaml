@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [utilities]
+tags:
+  tier: app
+  role: pdf-tools
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - stirling-pdf
+
+traits:
+  - type: ingress
+    host: "pdf.${{project.DOMAIN}}"
+    port: 8080
+    service: stirling-pdf
+    exposure: internal

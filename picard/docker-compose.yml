@@ -1,0 +1,23 @@
+services:
+  picard:
+    image: mikenye/picard:latest
+    container_name: picard
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${PICARD_PORT:-5800}:5800"
+    volumes:
+      - picard-config:/config
+      - ${DOWNLOADS_DIR:-/data/downloads}:/downloads
+      - /dev/shm:/dev/shm
+    environment:
+      USER_ID: ${PUID:-1000}
+      GROUP_ID: ${PGID:-1000}
+      TZ: ${TZ:-Etc/UTC}
+      UMASK: "002"
+      DISPLAY_WIDTH: 1600
+      DISPLAY_HEIGHT: 960
+
+volumes:
+  picard-config:

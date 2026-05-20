@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: usenet-downloader
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - sabnzbd
+
+traits:
+  - type: ingress
+    host: "sabnzbd.${{project.DOMAIN}}"
+    port: 8080
+    service: sabnzbd
+    exposure: internal

@@ -1,0 +1,27 @@
+services:
+  raglite:
+    image: ghcr.io/superlinear-ai/raglite:latest
+    container_name: raglite
+    ports:
+      - "${RAGLITE_PORT:-8000}:8000"
+    volumes:
+      - raglite-hf-cache:/root/.cache/huggingface
+      - raglite-data:/root/raglite
+      - raglite-chainlit:/.chainlit
+    environment:
+      HF_TOKEN: ${HF_TOKEN:-}
+      CHAINLIT_HOST: 0.0.0.0
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+    command: >
+      raglite
+      --llm ${RAGLITE_MODEL:-}
+      --embedder ${RAGLITE_EMBEDDER:-}
+      chainlit
+
+volumes:
+  raglite-hf-cache:
+  raglite-data:
+  raglite-chainlit:

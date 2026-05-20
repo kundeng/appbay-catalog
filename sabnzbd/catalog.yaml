@@ -1,0 +1,13 @@
+name: sabnzbd
+description: Binary newsreader and NZB downloader for Usenet with web UI
+version: latest
+category: media
+tags: [media, usenet, downloads, nzb]
+source:
+  type: git
+  url: https://github.com/sabnzbd/sabnzbd
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

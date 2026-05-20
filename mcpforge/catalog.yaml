@@ -1,0 +1,33 @@
+name: mcpforge
+description: MCP Gateway server with web UI for managing and routing MCP tool servers
+version: latest
+category: ai
+tags: [mcp, tools]
+source:
+  type: git
+  url: https://github.com/mcpgateway/mcpgateway
+readiness: raw
+required_inputs:
+  - name: JWT_SECRET_KEY
+    description: Secret key for JWT token signing
+    type: string
+    default: ""
+  - name: BASIC_AUTH_USER
+    description: Basic auth username for API access
+    type: string
+    default: "admin"
+  - name: BASIC_AUTH_PASSWORD
+    description: Basic auth password for API access
+    type: string
+    default: ""
+  - name: PLATFORM_ADMIN_EMAIL
+    description: Admin email for platform login
+    type: string
+    default: ""
+  - name: PLATFORM_ADMIN_PASSWORD
+    description: Admin password for platform login
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

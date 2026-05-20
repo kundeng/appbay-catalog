@@ -1,0 +1,24 @@
+services:
+  presenton:
+    image: ghcr.io/presenton-ai/presenton:latest
+    container_name: presenton
+    ports:
+      - "${PRESENTON_PORT:-8080}:80"
+    volumes:
+      - presenton-data:/app_data
+    environment:
+      CAN_CHANGE_KEYS: ${PRESENTON_CAN_CHANGE_KEYS:-true}
+      LLM: ${PRESENTON_LLM:-openai}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${PRESENTON_OPENAI_MODEL:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      GOOGLE_MODEL: ${PRESENTON_GOOGLE_MODEL:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${PRESENTON_ANTHROPIC_MODEL:-}
+      OLLAMA_URL: ${PRESENTON_OLLAMA_URL:-}
+      OLLAMA_MODEL: ${PRESENTON_OLLAMA_MODEL:-}
+      IMAGE_PROVIDER: ${PRESENTON_IMAGE_PROVIDER:-}
+      DISABLE_ANONYMOUS_TRACKING: ${PRESENTON_DISABLE_TRACKING:-true}
+
+volumes:
+  presenton-data:

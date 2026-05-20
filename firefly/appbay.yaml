@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [utilities]
+tags:
+  tier: app
+  role: finance
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - firefly
+
+traits:
+  - type: ingress
+    host: "firefly.${{project.DOMAIN}}"
+    port: 8080
+    service: firefly
+    exposure: internal

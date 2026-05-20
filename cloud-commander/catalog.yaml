@@ -1,0 +1,13 @@
+name: cloud-commander
+description: Web-based file manager with console, editor, and viewer
+version: latest
+category: utilities
+tags: [files, file-manager, web, editor]
+source:
+  type: git
+  url: https://github.com/coderaiser/cloudcmd
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

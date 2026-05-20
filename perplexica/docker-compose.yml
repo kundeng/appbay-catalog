@@ -1,0 +1,28 @@
+services:
+  perplexica:
+    image: andypenno/perplexica-frontend:latest
+    container_name: perplexica
+    depends_on:
+      - perplexica-be
+    ports:
+      - "${PERPLEXICA_PORT:-3000}:3000"
+    environment:
+      BACKEND_API_URL: http://localhost:${PERPLEXICA_BACKEND_PORT:-3001}/api
+      BACKEND_WS_URL: ws://localhost:${PERPLEXICA_BACKEND_PORT:-3001}
+
+  perplexica-be:
+    image: andypenno/perplexica-backend:latest
+    container_name: perplexica-be
+    ports:
+      - "${PERPLEXICA_BACKEND_PORT:-3001}:3001"
+    volumes:
+      - perplexica-data:/home/perplexica/data
+    environment:
+      PORT: "3001"
+      SIMILARITY_MEASURE: cosine
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+
+volumes:
+  perplexica-data:

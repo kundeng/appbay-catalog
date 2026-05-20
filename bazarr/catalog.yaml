@@ -1,0 +1,13 @@
+name: bazarr
+description: Automated subtitle download and management companion for Sonarr and Radarr
+version: latest
+category: media
+tags: [media, subtitles, sonarr, radarr, arr]
+source:
+  type: git
+  url: https://github.com/morpheus65535/bazarr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

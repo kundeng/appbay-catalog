@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: infra
+  role: inference-server
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - lmdeploy
+
+traits:
+  - type: ingress
+    host: "lmdeploy.${{project.DOMAIN}}"
+    port: 23333
+    service: lmdeploy
+    exposure: external
+    tls:
+      staging: false

@@ -1,0 +1,16 @@
+name: airweave
+description: Universal data connector platform for syncing any data source into vector databases for RAG
+version: latest
+category: ai
+tags:
+  - rag
+  - vector-db
+  - tools
+source:
+  type: git
+  url: https://github.com/airweave-ai/airweave
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 8080)
+maintainer: appbay

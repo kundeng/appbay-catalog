@@ -1,0 +1,13 @@
+name: dozzle
+description: Real-time Docker container log viewer with web UI
+version: latest
+category: monitoring
+tags: [docker, logs, monitoring, real-time]
+source:
+  type: git
+  url: https://github.com/amir20/dozzle
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

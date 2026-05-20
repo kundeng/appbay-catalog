@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: llm-proxy
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - litellm
+
+traits:
+  - type: ingress
+    host: "litellm.${{project.DOMAIN}}"
+    port: 4000
+    service: litellm
+    exposure: external
+    tls:
+      staging: false

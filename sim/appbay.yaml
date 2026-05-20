@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: app
+  role: agent-builder
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - sim
+
+traits:
+  - type: ingress
+    host: "sim.${{project.DOMAIN}}"
+    port: 3000
+    service: sim
+    exposure: external

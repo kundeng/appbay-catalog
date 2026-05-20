@@ -1,0 +1,25 @@
+name: langfuse
+description: Open-source LLM engineering platform for observability, metrics, evals, and prompt management
+version: latest
+category: ai
+tags: [monitoring, llm, tools]
+source:
+  type: git
+  url: https://github.com/langfuse/langfuse
+readiness: raw
+required_inputs:
+  - name: LANGFUSE_SECRET_KEY
+    description: Secret key for Langfuse authentication
+    type: string
+    default: ""
+  - name: LANGFUSE_NEXT_AUTH_SECRET
+    description: NextAuth secret for session encryption
+    type: string
+    default: ""
+  - name: REDIS_AUTH
+    description: Redis password
+    type: string
+    default: "myredissecret"
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: mcp-debugger
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mcp-inspector
+
+traits:
+  - type: ingress
+    host: "mcp-inspector.${{project.DOMAIN}}"
+    port: 6274
+    service: mcp-inspector
+    exposure: external
+    tls:
+      staging: false

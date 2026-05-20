@@ -1,0 +1,21 @@
+services:
+  sillytavern:
+    image: ghcr.io/sillytavern/sillytavern:latest
+    container_name: sillytavern
+    ports:
+      - "${SILLYTAVERN_PORT:-8000}:8000"
+    volumes:
+      - sillytavern-config:/home/node/app/config
+      - sillytavern-data:/home/node/app/data
+      - sillytavern-plugins:/home/node/app/plugins
+      - sillytavern-extensions:/home/node/app/public/scripts/extensions/third-party
+    environment:
+      SILLYTAVERN_LISTEN: "true"
+      SILLYTAVERN_PORT: "8000"
+      SILLYTAVERN_WHITELIST: '["0.0.0.0/0"]'
+
+volumes:
+  sillytavern-config:
+  sillytavern-data:
+  sillytavern-plugins:
+  sillytavern-extensions:

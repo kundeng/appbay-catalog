@@ -1,0 +1,25 @@
+name: gluetun
+description: VPN client container supporting WireGuard and OpenVPN with multiple providers
+version: latest
+category: security
+tags: [vpn, wireguard, openvpn, privacy, network]
+source:
+  type: git
+  url: https://github.com/qdm12/gluetun
+readiness: raw
+required_inputs:
+  - name: VPN_SERVICE_PROVIDER
+    description: VPN provider name (e.g. mullvad, nordvpn, surfshark)
+    type: string
+  - name: VPN_TYPE
+    description: VPN protocol type (wireguard or openvpn)
+    type: string
+    default: wireguard
+  - name: WIREGUARD_PRIVATE_KEY
+    description: WireGuard private key from your VPN provider
+    type: secret
+  - name: WIREGUARD_ADDRESSES
+    description: WireGuard interface addresses
+    type: string
+traits_summary: []
+maintainer: appbay

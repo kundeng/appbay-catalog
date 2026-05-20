@@ -1,0 +1,19 @@
+services:
+  cloud-commander:
+    image: coderaiser/cloudcmd:latest
+    container_name: cloud-commander
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${CLOUDCOMMANDER_PORT:-8000}:8000"
+    volumes:
+      - cloud-commander-config:/root
+      - ${DATA_DIR:-/data}:/data
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-Etc/UTC}
+
+volumes:
+  cloud-commander-config:

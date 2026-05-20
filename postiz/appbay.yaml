@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+  role: social-media-scheduler
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - postiz
+
+traits:
+  - type: ingress
+    host: "postiz.${{project.DOMAIN}}"
+    port: 5000
+    service: postiz
+    exposure: external

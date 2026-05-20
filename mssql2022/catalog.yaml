@@ -1,0 +1,15 @@
+name: mssql2022
+description: Microsoft SQL Server 2022 database engine for Linux containers
+version: "2022-latest"
+category: database
+tags: [database, sql-server, microsoft, relational]
+source:
+  type: local
+readiness: raw
+required_inputs:
+  - name: MSSQL_SA_PASSWORD
+    description: SA (system administrator) password for SQL Server
+    type: secret
+    auto_generate: true
+traits_summary: []
+maintainer: appbay

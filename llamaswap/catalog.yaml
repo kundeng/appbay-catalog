@@ -1,0 +1,13 @@
+name: llamaswap
+description: Hot-swappable LLM model proxy that dynamically loads/unloads models behind a single endpoint
+version: latest
+category: ai
+tags: [inference, llm, tools]
+source:
+  type: git
+  url: https://github.com/mostlygeek/llamaswap
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

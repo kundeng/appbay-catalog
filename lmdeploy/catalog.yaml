@@ -1,0 +1,17 @@
+name: lmdeploy
+description: High-throughput LLM deployment toolkit from OpenMMLab with TurboMind engine and OpenAI-compatible API
+version: latest
+category: ai
+tags: [inference, llm, gpu]
+source:
+  type: git
+  url: https://github.com/InternLM/lmdeploy
+readiness: raw
+required_inputs:
+  - name: LMDEPLOY_MODEL
+    description: Model name or path to serve
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

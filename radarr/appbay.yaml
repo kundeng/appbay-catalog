@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: movie-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - radarr
+
+traits:
+  - type: ingress
+    host: "radarr.${{project.DOMAIN}}"
+    port: 7878
+    service: radarr
+    exposure: internal

@@ -1,0 +1,36 @@
+services:
+  plandex-server:
+    image: ghcr.io/wipash/plandex:rolling
+    container_name: plandex-server
+    restart: unless-stopped
+    ports:
+      - "${PLANDEX_PORT:-8080}:8080"
+    environment:
+      GOENV: development
+      DATABASE_URL: postgresql://postgres:postgres@plandex-db:5432/postgres?sslmode=disable
+      PLANDEX_BASE_DIR: /app/data
+    volumes:
+      - plandex-data:/app/data
+    depends_on:
+      plandex-db:
+        condition: service_healthy
+    command: ["./plandex-server"]
+
+  plandex-db:
+    image: postgres:16-alpine
+    container_name: plandex-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - plandex-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  plandex-data:
+  plandex-db:

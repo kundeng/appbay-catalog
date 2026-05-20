@@ -1,0 +1,17 @@
+name: anythingllm
+description: All-in-one AI desktop app for RAG, agents, and chat with any document using any LLM
+version: latest
+category: ai
+tags:
+  - rag
+  - chat
+  - llm
+  - agents
+source:
+  type: git
+  url: https://github.com/Mintplex-Labs/anything-llm
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 3001)
+maintainer: appbay

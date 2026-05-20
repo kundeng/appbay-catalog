@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: chat-ui
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - lobechat
+
+traits:
+  - type: ingress
+    host: "lobechat.${{project.DOMAIN}}"
+    port: 3210
+    service: lobechat
+    exposure: external
+    tls:
+      staging: false

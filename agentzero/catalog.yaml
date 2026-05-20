@@ -1,0 +1,18 @@
+name: agentzero
+description: General-purpose AI agent framework with multi-provider LLM support
+version: latest
+category: ai
+tags:
+  - agents
+  - llm
+  - chat
+source:
+  type: git
+  url: https://github.com/frdel/agent-zero
+readiness: augmented
+required_inputs:
+  - ANTHROPIC_API_KEY
+  - OPENAI_API_KEY
+traits_summary:
+  - ingress (web UI on port 80)
+maintainer: appbay

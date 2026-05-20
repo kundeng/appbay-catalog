@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: indexer-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - prowlarr
+
+traits:
+  - type: ingress
+    host: "prowlarr.${{project.DOMAIN}}"
+    port: 9696
+    service: prowlarr
+    exposure: internal

@@ -1,0 +1,19 @@
+services:
+  ldr:
+    image: learningcircuit/local-deep-research:latest
+    container_name: ldr
+    restart: unless-stopped
+    ports:
+      - "${LDR_PORT:-5000}:5000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - LDR_OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - LDR_ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    volumes:
+      - ldr_config:/root/.config/local_deep_research
+      - ldr_data:/usr/local/lib/python3.13/site-packages/data
+
+volumes:
+  ldr_config:
+  ldr_data:

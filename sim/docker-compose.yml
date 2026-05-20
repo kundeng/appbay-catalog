@@ -1,0 +1,88 @@
+services:
+  sim:
+    image: ghcr.io/simstudio/sim:latest
+    container_name: sim
+    restart: unless-stopped
+    ports:
+      - "${SIM_PORT:-3000}:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${SIM_DB_USER:-sim}:${SIM_DB_PASSWORD}@sim-postgres:5432/${SIM_DB_NAME:-sim}
+      BETTER_AUTH_SECRET: ${SIM_AUTH_SECRET}
+      ENCRYPTION_KEY: ${SIM_ENCRYPTION_KEY}
+      INTERNAL_API_SECRET: ${SIM_INTERNAL_API_SECRET:-}
+      OLLAMA_URL: ${SIM_OLLAMA_URL:-http://host.docker.internal:11434}
+      SOCKET_SERVER_URL: http://sim-realtime:3002
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      sim-postgres:
+        condition: service_healthy
+      sim-migrations:
+        condition: service_completed_successfully
+      sim-realtime:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '--quiet', 'http://127.0.0.1:3000']
+      interval: 90s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  sim-realtime:
+    image: ghcr.io/simstudio/sim-realtime:latest
+    container_name: sim-realtime
+    restart: unless-stopped
+    ports:
+      - "${SIM_REALTIME_PORT:-3002}:3002"
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    environment:
+      DATABASE_URL: postgresql://${SIM_DB_USER:-sim}:${SIM_DB_PASSWORD}@sim-postgres:5432/${SIM_DB_NAME:-sim}
+      BETTER_AUTH_SECRET: ${SIM_AUTH_SECRET}
+    depends_on:
+      sim-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '--quiet', 'http://127.0.0.1:3002/health']
+      interval: 90s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  sim-migrations:
+    image: ghcr.io/simstudio/sim-migrations:latest
+    container_name: sim-migrations
+    working_dir: /app/packages/db
+    environment:
+      DATABASE_URL: postgresql://${SIM_DB_USER:-sim}:${SIM_DB_PASSWORD}@sim-postgres:5432/${SIM_DB_NAME:-sim}
+    depends_on:
+      sim-postgres:
+        condition: service_healthy
+    command: ['bun', 'run', 'db:migrate']
+    restart: 'no'
+
+  sim-postgres:
+    image: postgres:16-alpine
+    container_name: sim-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${SIM_DB_USER:-sim}
+      POSTGRES_PASSWORD: ${SIM_DB_PASSWORD}
+      POSTGRES_DB: ${SIM_DB_NAME:-sim}
+    volumes:
+      - sim-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${SIM_DB_USER:-sim}']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  sim-db:

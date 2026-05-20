@@ -1,0 +1,13 @@
+name: libretranslate
+description: Free and open-source self-hosted machine translation API with support for many languages
+version: latest
+category: ai
+tags: [tools, inference]
+source:
+  type: git
+  url: https://github.com/LibreTranslate/LibreTranslate
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [admin]
+tags:
+  tier: app
+  role: database-ui
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - adminer
+
+traits:
+  - type: ingress
+    host: "adminer.${{project.DOMAIN}}"
+    port: 8080
+    service: adminer
+    exposure: internal

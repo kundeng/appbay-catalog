@@ -1,0 +1,13 @@
+name: lidarr
+description: Music collection manager and downloader for Usenet and BitTorrent
+version: latest
+category: media
+tags: [media, music, arr, downloads, automation]
+source:
+  type: git
+  url: https://github.com/Lidarr/Lidarr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

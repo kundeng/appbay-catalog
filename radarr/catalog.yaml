@@ -1,0 +1,13 @@
+name: radarr
+description: Movie collection manager and downloader for Usenet and BitTorrent
+version: latest
+category: media
+tags: [media, movies, arr, downloads, automation]
+source:
+  type: git
+  url: https://github.com/Radarr/Radarr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

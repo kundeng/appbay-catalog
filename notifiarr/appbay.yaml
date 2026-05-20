@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: notifications
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - notifiarr
+
+traits:
+  - type: ingress
+    host: "notifiarr.${{project.DOMAIN}}"
+    port: 5454
+    service: notifiarr
+    exposure: internal

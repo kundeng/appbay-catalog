@@ -1,0 +1,20 @@
+name: presenton
+description: AI-powered presentation generator supporting multiple LLM providers (OpenAI, Anthropic, Ollama, Google)
+version: latest
+category: ai
+tags: [llm, tools]
+source:
+  type: git
+  url: https://github.com/presenton-ai/presenton
+readiness: raw
+required_inputs:
+  - name: PRESENTON_LLM
+    description: LLM provider to use (openai, anthropic, ollama, google, custom)
+    type: string
+    default: openai
+  - name: OPENAI_API_KEY
+    description: OpenAI API key (if using openai provider)
+    type: secret
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

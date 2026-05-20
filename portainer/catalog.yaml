@@ -1,0 +1,12 @@
+name: portainer
+description: Lightweight container management UI for Docker, Swarm, and Kubernetes
+version: latest
+category: admin
+tags: [docker, containers, management, admin]
+source:
+  type: local
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

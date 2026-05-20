@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: mcp-gateway
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mcpforge
+
+traits:
+  - type: ingress
+    host: "mcpforge.${{project.DOMAIN}}"
+    port: 4444
+    service: mcpforge
+    exposure: external
+    tls:
+      staging: false

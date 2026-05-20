@@ -1,0 +1,69 @@
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat-dev:latest
+    container_name: librechat
+    restart: unless-stopped
+    ports:
+      - "${LIBRECHAT_PORT:-3080}:3080"
+    depends_on:
+      - librechat-db
+      - librechat-rag
+      - librechat-search
+      - librechat-vector
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - MONGO_URI=mongodb://librechat-db:27017/LibreChat
+      - MEILI_HOST=http://librechat-search:7700
+      - RAG_PORT=8000
+      - RAG_API_URL=http://librechat-rag:8000
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_KEY=${GOOGLE_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+
+  librechat-db:
+    image: mongo
+    container_name: librechat-db
+    restart: unless-stopped
+    volumes:
+      - librechat_db:/data/db
+    command: mongod --noauth
+
+  librechat-search:
+    image: getmeili/meilisearch:v1.12.3
+    container_name: librechat-search
+    restart: unless-stopped
+    environment:
+      - MEILI_HOST=http://librechat-search:7700
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - librechat_meili:/meili_data
+
+  librechat-vector:
+    image: ankane/pgvector:latest
+    container_name: librechat-vector
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - librechat_vectordb:/var/lib/postgresql/data
+
+  librechat-rag:
+    image: ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
+    container_name: librechat-rag
+    restart: unless-stopped
+    environment:
+      - DB_HOST=librechat-vector
+      - RAG_PORT=8000
+      - EMBEDDINGS_PROVIDER=ollama
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      - EMBEDDINGS_MODEL=mxbai-embed-large
+    depends_on:
+      - librechat-vector
+
+volumes:
+  librechat_db:
+  librechat_meili:
+  librechat_vectordb:

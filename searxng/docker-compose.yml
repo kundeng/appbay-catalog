@@ -1,0 +1,20 @@
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    ports:
+      - "${SEARXNG_PORT:-8080}:8080"
+    volumes:
+      - searxng-data:/etc/searxng
+    environment:
+      INSTANCE_NAME: searxng
+      BASE_URL: http://0.0.0.0:8080
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+      start_period: 2s
+
+volumes:
+  searxng-data:

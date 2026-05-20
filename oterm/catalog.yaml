@@ -1,0 +1,12 @@
+name: oterm
+description: Terminal-based Ollama chat client with conversation history
+version: latest
+category: ai
+tags: [llm, chat, tools]
+source:
+  type: git
+  url: https://github.com/ggozad/oterm
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

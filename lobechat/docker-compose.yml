@@ -1,0 +1,7 @@
+services:
+  lobechat:
+    image: lobehub/lobe-chat:latest
+    container_name: lobechat
+    restart: unless-stopped
+    ports:
+      - "${LOBECHAT_PORT:-3210}:3210"

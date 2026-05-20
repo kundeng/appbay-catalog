@@ -1,0 +1,16 @@
+name: botpress
+description: Open-source chatbot builder with visual flow editor and NLU engine
+version: latest
+category: automation
+tags: [chatbot, ai, nlp, low-code]
+source:
+  type: local
+readiness: augmented
+required_inputs:
+  - name: BP_DATABASE_URL
+    description: Database connection URL for Botpress
+    type: string
+    default: "sqlite:./data/botpress.db"
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

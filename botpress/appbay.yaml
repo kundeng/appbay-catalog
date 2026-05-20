@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [automation, self-hosted]
+tags:
+  tier: app
+  role: chatbot-builder
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - botpress
+
+traits:
+  - type: ingress
+    host: "botpress.${{project.DOMAIN}}"
+    port: 3000
+    service: botpress
+    exposure: external
+    tls:
+      staging: false

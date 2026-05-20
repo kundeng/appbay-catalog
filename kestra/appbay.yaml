@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [automation, self-hosted]
+tags:
+  tier: app
+  role: workflow-orchestration
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - kestra
+
+traits:
+  - type: ingress
+    host: "kestra.${{project.DOMAIN}}"
+    port: 8080
+    service: kestra
+    exposure: external
+    tls:
+      staging: false

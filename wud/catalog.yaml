@@ -1,0 +1,13 @@
+name: wud
+description: "What's Up Docker — monitor Docker images for available updates with web UI"
+version: latest
+category: monitoring
+tags: [docker, updates, monitoring, notifications]
+source:
+  type: git
+  url: https://github.com/fmartinou/whats-up-docker
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

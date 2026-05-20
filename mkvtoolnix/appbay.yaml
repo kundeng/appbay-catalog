@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: video-remuxer
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mkvtoolnix
+
+traits:
+  - type: ingress
+    host: "mkvtoolnix.${{project.DOMAIN}}"
+    port: 5800
+    service: mkvtoolnix
+    exposure: internal

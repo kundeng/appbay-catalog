@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: embedding-explorer
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - latentscope
+
+traits:
+  - type: ingress
+    host: "latentscope.${{project.DOMAIN}}"
+    port: 5001
+    service: latentscope
+    exposure: external
+    tls:
+      staging: false

@@ -1,0 +1,19 @@
+services:
+  lmeval:
+    image: ghcr.io/eleutherai/lm-evaluation-harness:latest
+    container_name: lmeval
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+      - LM_HARNESS_CACHE_PATH=/app/cache
+    volumes:
+      - lmeval_hf_cache:/root/.cache/huggingface
+      - lmeval_cache:/app/cache
+      - lmeval_results:/app/results
+    entrypoint: >
+      lm_eval
+      --output_path /app/results/
+
+volumes:
+  lmeval_hf_cache:
+  lmeval_cache:
+  lmeval_results:

@@ -1,0 +1,13 @@
+name: promptfoo
+description: LLM evaluation and testing framework with web UI for comparing model outputs
+version: latest
+category: ai
+tags: [llm, tools, monitoring]
+source:
+  type: git
+  url: https://github.com/promptfoo/promptfoo
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,16 @@
+name: notifiarr
+description: Notification relay for Sonarr, Radarr, Plex, and other media services via Notifiarr.com
+version: latest
+category: media
+tags: [media, notifications, arr, monitoring, discord]
+source:
+  type: git
+  url: https://github.com/Notifiarr/notifiarr
+readiness: augmented
+required_inputs:
+  - name: NOTIFIARR_API_KEY
+    description: API key from notifiarr.com
+    type: secret
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

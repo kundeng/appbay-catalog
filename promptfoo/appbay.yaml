@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: app
+  role: llm-evaluation
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - promptfoo
+
+traits:
+  - type: ingress
+    host: "promptfoo.${{project.DOMAIN}}"
+    port: 3000
+    service: promptfoo
+    exposure: external

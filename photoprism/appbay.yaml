@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: photo-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - photoprism
+
+traits:
+  - type: ingress
+    host: "photos.${{project.DOMAIN}}"
+    port: 2342
+    service: photoprism
+    exposure: external

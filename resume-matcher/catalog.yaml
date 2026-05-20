@@ -1,0 +1,25 @@
+name: resume-matcher
+description: AI-powered resume analysis and job matching tool with web frontend
+version: latest
+category: ai
+tags: [llm, tools, rag]
+source:
+  type: git
+  url: https://github.com/srbhr/resume-matcher
+readiness: raw
+required_inputs:
+  - name: RESUME_MATCHER_SESSION_SECRET
+    description: Session secret key
+    type: secret
+    auto_generate: true
+  - name: RESUME_MATCHER_LLM_PROVIDER
+    description: LLM provider name
+    type: string
+    default: openai
+  - name: RESUME_MATCHER_LLM_MODEL
+    description: LLM model name
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

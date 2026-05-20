@@ -1,0 +1,7 @@
+services:
+  litlytics:
+    image: ghcr.io/yamalight/litlytics:latest
+    container_name: litlytics
+    restart: unless-stopped
+    ports:
+      - "${LITLYTICS_PORT:-3000}:3000"

@@ -1,0 +1,4 @@
+services:
+  qrgen:
+    image: ghcr.io/av/harbor-qrgen:latest
+    container_name: qrgen

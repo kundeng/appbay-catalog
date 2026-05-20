@@ -1,0 +1,26 @@
+name: sim
+description: Visual AI agent builder with drag-and-drop workflow editor and real-time collaboration
+version: latest
+category: ai
+tags: [agents, workflow, llm]
+source:
+  type: git
+  url: https://github.com/simstudio/sim
+readiness: raw
+required_inputs:
+  - name: SIM_AUTH_SECRET
+    description: Authentication secret
+    type: secret
+    auto_generate: true
+  - name: SIM_ENCRYPTION_KEY
+    description: Encryption key for stored credentials
+    type: secret
+    auto_generate: true
+  - name: SIM_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+  - "secrets: 3 auto-generated (auth, encryption, DB password)"
+maintainer: appbay

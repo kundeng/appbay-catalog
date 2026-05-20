@@ -1,0 +1,16 @@
+name: firefly
+description: Self-hosted personal finance manager for budgeting and expense tracking
+version: latest
+category: utilities
+tags: [finance, budgeting, personal-finance, self-hosted]
+source:
+  type: git
+  url: https://github.com/firefly-iii/firefly-iii
+readiness: augmented
+required_inputs:
+  - name: FIREFLY_ENV_FILE
+    description: Path to firefly.env configuration file
+    type: string
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

@@ -1,0 +1,87 @@
+services:
+  langfuse:
+    image: langfuse/langfuse:3
+    container_name: langfuse
+    restart: unless-stopped
+    depends_on: &langfuse-depends-on
+      langfuse-db:
+        condition: service_healthy
+      langfuse-minio:
+        condition: service_healthy
+      langfuse-redis:
+        condition: service_healthy
+      langfuse-clickhouse:
+        condition: service_healthy
+    ports:
+      - "${LANGFUSE_PORT:-3000}:3000"
+
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3
+    container_name: langfuse-worker
+    restart: unless-stopped
+    depends_on: *langfuse-depends-on
+
+  langfuse-db:
+    image: postgres:16
+    container_name: langfuse-db
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: langfuse
+    volumes:
+      - langfuse_db:/var/lib/postgresql/data
+
+  langfuse-clickhouse:
+    image: clickhouse/clickhouse-server
+    container_name: langfuse-clickhouse
+    restart: always
+    user: "101:101"
+    hostname: langfuse-clickhouse
+    volumes:
+      - langfuse_clickhouse_data:/var/lib/clickhouse
+      - langfuse_clickhouse_logs:/var/log/clickhouse-server
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 1s
+
+  langfuse-minio:
+    image: minio/minio
+    container_name: langfuse-minio
+    restart: always
+    entrypoint: sh
+    command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
+    volumes:
+      - langfuse_minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+      start_period: 1s
+
+  langfuse-redis:
+    image: redis:7
+    container_name: langfuse-redis
+    restart: always
+    command: >
+      --requirepass ${REDIS_AUTH:-myredissecret}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  langfuse_db:
+  langfuse_clickhouse_data:
+  langfuse_clickhouse_logs:
+  langfuse_minio:

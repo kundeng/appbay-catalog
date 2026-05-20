@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: media-maintenance
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - maintainerr
+
+traits:
+  - type: ingress
+    host: "maintainerr.${{project.DOMAIN}}"
+    port: 6246
+    service: maintainerr
+    exposure: internal

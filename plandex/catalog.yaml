@@ -1,0 +1,16 @@
+name: plandex
+description: AI-powered coding agent with server backend for multi-file code generation and planning
+version: latest
+category: ai
+tags: [llm, coding, agents]
+source:
+  type: git
+  url: https://github.com/plandex-ai/plandex
+readiness: raw
+required_inputs:
+  - name: OPENAI_API_KEY
+    description: OpenAI API key for code generation
+    type: secret
+traits_summary:
+  - "ingress: external HTTPS (server API)"
+maintainer: appbay

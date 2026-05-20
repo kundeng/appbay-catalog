@@ -1,0 +1,15 @@
+services:
+  firefly:
+    image: fireflyiii/core:latest
+    container_name: firefly
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${FIREFLY_PORT:-8080}:8080"
+    volumes:
+      - firefly-upload:/var/www/html/storage/upload
+    env_file: ${FIREFLY_ENV_FILE:-./firefly.env}
+
+volumes:
+  firefly-upload:

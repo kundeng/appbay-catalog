@@ -1,0 +1,24 @@
+name: raglite
+description: Lightweight RAG pipeline with Chainlit UI supporting multiple LLM and embedding providers
+version: latest
+category: ai
+tags: [llm, rag, chat]
+source:
+  type: git
+  url: https://github.com/superlinear-ai/raglite
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for model access
+    type: secret
+  - name: RAGLITE_MODEL
+    description: LLM model to use
+    type: string
+    default: ""
+  - name: RAGLITE_EMBEDDER
+    description: Embedding model to use
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

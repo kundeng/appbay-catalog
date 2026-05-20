@@ -1,0 +1,12 @@
+name: docker-gc
+description: Automatic Docker garbage collection for unused images, containers, and volumes
+version: latest
+category: automation
+tags: [docker, cleanup, garbage-collection, cron]
+source:
+  type: git
+  url: https://github.com/clockworksoul/docker-gc-cron
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

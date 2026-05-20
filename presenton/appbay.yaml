@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: app
+  role: presentation-generator
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - presenton
+
+traits:
+  - type: ingress
+    host: "presenton.${{project.DOMAIN}}"
+    port: 80
+    service: presenton
+    exposure: external

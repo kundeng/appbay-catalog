@@ -1,0 +1,16 @@
+name: firefly-importer
+description: Data importer companion for Firefly III (bank CSV, Spectre, GoCardless)
+version: latest
+category: utilities
+tags: [finance, import, firefly, data]
+source:
+  type: git
+  url: https://github.com/firefly-iii/data-importer
+readiness: augmented
+required_inputs:
+  - name: IMPORTER_ENV_FILE
+    description: Path to importer.env configuration file
+    type: string
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

@@ -1,0 +1,25 @@
+name: litellm
+description: LLM proxy server providing a unified OpenAI-compatible API across 100+ LLM providers
+version: latest
+category: ai
+tags: [llm, inference, tools]
+source:
+  type: git
+  url: https://github.com/BerriAI/litellm
+readiness: raw
+required_inputs:
+  - name: LITELLM_MASTER_KEY
+    description: Master API key for LiteLLM proxy
+    type: string
+    default: ""
+  - name: UI_USERNAME
+    description: Username for LiteLLM dashboard
+    type: string
+    default: "admin"
+  - name: UI_PASSWORD
+    description: Password for LiteLLM dashboard
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

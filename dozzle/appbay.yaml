@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [monitoring]
+tags:
+  tier: infra
+  role: log-viewer
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - dozzle
+
+traits:
+  - type: ingress
+    host: "dozzle.${{project.DOMAIN}}"
+    port: 8080
+    service: dozzle
+    exposure: internal

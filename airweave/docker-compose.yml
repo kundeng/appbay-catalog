@@ -1,0 +1,96 @@
+services:
+  airweave:
+    image: airweave/airweave-frontend:latest
+    container_name: airweave
+    ports:
+      - ${AIRWEAVE_PORT:-8080}:8080
+    environment:
+      - API_URL=http://airweave-backend:8001
+      - ENABLE_AUTH=false
+    depends_on:
+      airweave-backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+
+  airweave-backend:
+    image: airweave/airweave-backend:latest
+    container_name: airweave-backend
+    ports:
+      - ${AIRWEAVE_BACKEND_PORT:-8001}:8001
+    environment:
+      - POSTGRES_HOST=airweave-postgres
+      - REDIS_HOST=airweave-redis
+      - QDRANT_HOST=airweave-qdrant
+      - QDRANT_PORT=6333
+      - TEXT2VEC_INFERENCE_URL=http://airweave-embeddings:8080
+      - LOCAL_DEVELOPMENT=false
+    depends_on:
+      airweave-postgres:
+        condition: service_healthy
+      airweave-redis:
+        condition: service_healthy
+      airweave-qdrant:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+
+  airweave-postgres:
+    image: postgres:16
+    container_name: airweave-postgres
+    environment:
+      - POSTGRES_DB=airweave
+      - POSTGRES_USER=airweave
+      - POSTGRES_PASSWORD=${AIRWEAVE_PG_PASSWORD:-airweave1234}
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airweave"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - airweave_pg:/var/lib/postgresql/data
+
+  airweave-redis:
+    image: redis:7-alpine
+    container_name: airweave-redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - airweave_redis:/data
+
+  airweave-embeddings:
+    image: semitechnologies/transformers-inference:sentence-transformers-all-MiniLM-L6-v2
+    container_name: airweave-embeddings
+    environment:
+      ENABLE_CUDA: 0
+      WORKERS_PER_NODE: 1
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/health"]
+      interval: 1s
+      timeout: 10s
+      retries: 20
+
+  airweave-qdrant:
+    image: qdrant/qdrant:latest
+    container_name: airweave-qdrant
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/collections"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - airweave_qdrant:/qdrant/storage
+
+volumes:
+  airweave_pg:
+  airweave_redis:
+  airweave_qdrant:

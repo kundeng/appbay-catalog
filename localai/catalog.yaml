@@ -1,0 +1,17 @@
+name: localai
+description: Drop-in OpenAI-compatible API server supporting LLMs, image generation, audio, and embeddings
+version: latest
+category: ai
+tags: [inference, llm, gpu, image-gen, tts, stt]
+source:
+  type: git
+  url: https://github.com/mudler/LocalAI
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace API token for model downloads
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

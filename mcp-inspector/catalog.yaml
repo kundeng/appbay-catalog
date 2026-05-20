@@ -1,0 +1,13 @@
+name: mcp-inspector
+description: Visual debugging and testing tool for Model Context Protocol (MCP) servers
+version: latest
+category: ai
+tags: [mcp, tools]
+source:
+  type: git
+  url: https://github.com/modelcontextprotocol/inspector
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

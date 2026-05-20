@@ -1,0 +1,11 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: torrent-client
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - qbittorrent-vpn

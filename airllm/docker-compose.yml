@@ -1,0 +1,23 @@
+services:
+  airllm:
+    image: lyogavin/airllm:latest
+    container_name: airllm
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+      - MODEL=${AIRLLM_MODEL:-}
+      - MAX_LENGTH=${AIRLLM_CTX_LEN:-512}
+      - COMPRESSION=${AIRLLM_COMPRESSION:-4bit}
+    ports:
+      - ${AIRLLM_PORT:-5000}:5000
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  hf_cache:

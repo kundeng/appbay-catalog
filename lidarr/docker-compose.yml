@@ -1,0 +1,20 @@
+services:
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${LIDARR_PORT:-8686}:8686"
+    volumes:
+      - lidarr-config:/config
+      - ${DATA_DIR:-/data}:/data
+      - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+
+volumes:
+  lidarr-config:

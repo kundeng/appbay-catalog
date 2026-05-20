@@ -1,0 +1,17 @@
+name: activepieces
+description: Open-source no-code business automation platform with 200+ integrations
+version: latest
+category: ai
+tags:
+  - workflow
+  - tools
+source:
+  type: git
+  url: https://github.com/activepieces/activepieces
+readiness: augmented
+required_inputs:
+  - AP_ENCRYPTION_KEY
+  - AP_JWT_SECRET
+traits_summary:
+  - ingress (web UI on port 80)
+maintainer: appbay

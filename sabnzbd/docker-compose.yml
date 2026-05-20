@@ -1,0 +1,20 @@
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${SABNZBD_PORT:-8080}:8080"
+    volumes:
+      - sabnzbd-config:/config
+      - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-Etc/UTC}
+      UMASK_SET: "002"
+
+volumes:
+  sabnzbd-config:

@@ -1,0 +1,21 @@
+name: kestra
+description: Event-driven workflow orchestration platform with declarative YAML pipelines
+version: latest
+category: automation
+tags: [orchestration, workflow, data-pipeline, etl]
+source:
+  type: local
+readiness: augmented
+required_inputs:
+  - name: KESTRA_DB_PASSWORD
+    description: PostgreSQL password for Kestra database
+    type: secret
+    auto_generate: true
+  - name: KESTRA_BASIC_AUTH_PASSWORD
+    description: Password for Kestra web UI basic auth
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+  - "secrets: 2 auto-generated (DB password, basic auth password)"
+maintainer: appbay

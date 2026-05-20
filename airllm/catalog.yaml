@@ -1,0 +1,16 @@
+name: airllm
+description: Run large language models on limited GPU memory using layer-by-layer inference
+version: latest
+category: ai
+tags:
+  - inference
+  - llm
+source:
+  type: git
+  url: https://github.com/lyogavin/airllm
+readiness: augmented
+required_inputs:
+  - HF_TOKEN
+traits_summary:
+  - ingress (API on port 5000)
+maintainer: appbay

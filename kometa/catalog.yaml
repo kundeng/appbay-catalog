@@ -1,0 +1,12 @@
+name: kometa
+description: Automatic metadata manager for Plex (formerly Plex Meta Manager) — collections, overlays, playlists
+version: latest
+category: media
+tags: [media, plex, metadata, collections, automation]
+source:
+  type: git
+  url: https://github.com/Kometa-Team/Kometa
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

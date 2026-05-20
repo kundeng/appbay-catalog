@@ -1,0 +1,25 @@
+name: librechat
+description: Enhanced ChatGPT clone with multi-provider support, RAG, plugins, and conversation search
+version: latest
+category: ai
+tags: [chat, llm, rag, agents]
+source:
+  type: git
+  url: https://github.com/danny-avila/LibreChat
+readiness: raw
+required_inputs:
+  - name: OPENAI_API_KEY
+    description: OpenAI API key
+    type: string
+    default: ""
+  - name: ANTHROPIC_API_KEY
+    description: Anthropic API key
+    type: string
+    default: ""
+  - name: GOOGLE_KEY
+    description: Google AI API key
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: tv-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - sonarr
+
+traits:
+  - type: ingress
+    host: "sonarr.${{project.DOMAIN}}"
+    port: 8989
+    service: sonarr
+    exposure: internal

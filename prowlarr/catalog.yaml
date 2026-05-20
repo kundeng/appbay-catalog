@@ -1,0 +1,13 @@
+name: prowlarr
+description: Indexer manager and proxy for the Arr media stack (Sonarr, Radarr, Lidarr)
+version: develop
+category: media
+tags: [media, indexer, arr, usenet, torrent]
+source:
+  type: git
+  url: https://github.com/Prowlarr/Prowlarr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

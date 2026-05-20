@@ -1,0 +1,21 @@
+services:
+  kometa:
+    image: lscr.io/linuxserver/kometa:latest
+    container_name: kometa
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    volumes:
+      - kometa-config:/config
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      KOMETA_CONFIG: /config/config.yml
+      KOMETA_TIME: "03:00"
+      KOMETA_RUN: "True"
+      KOMETA_TEST: "False"
+      KOMETA_NO_MISSING: "False"
+
+volumes:
+  kometa-config:

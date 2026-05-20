@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: subtitles
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - bazarr
+
+traits:
+  - type: ingress
+    host: "bazarr.${{project.DOMAIN}}"
+    port: 6767
+    service: bazarr
+    exposure: internal

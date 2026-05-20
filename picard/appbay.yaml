@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: music-tagger
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - picard
+
+traits:
+  - type: ingress
+    host: "picard.${{project.DOMAIN}}"
+    port: 5800
+    service: picard
+    exposure: internal

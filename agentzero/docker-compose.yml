@@ -1,0 +1,17 @@
+services:
+  agentzero:
+    image: frdel/agent-zero:latest
+    container_name: agentzero
+    ports:
+      - ${AGENTZERO_PORT:-8080}:80
+    volumes:
+      - agentzero_data:/a0
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - MISTRALAI_API_KEY=${MISTRAL_API_KEY:-}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+
+volumes:
+  agentzero_data:

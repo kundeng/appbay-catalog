@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [utilities]
+tags:
+  tier: app
+  role: file-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - cloud-commander
+
+traits:
+  - type: ingress
+    host: "files.${{project.DOMAIN}}"
+    port: 8000
+    service: cloud-commander
+    exposure: internal

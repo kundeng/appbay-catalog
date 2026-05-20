@@ -1,0 +1,16 @@
+name: lmeval
+description: EleutherAI's Language Model Evaluation Harness for benchmarking LLMs across standard tasks
+version: latest
+category: ai
+tags: [llm, tools]
+source:
+  type: git
+  url: https://github.com/EleutherAI/lm-evaluation-harness
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for model access
+    type: string
+    default: ""
+traits_summary: []
+maintainer: appbay

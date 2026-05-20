@@ -1,0 +1,19 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${BAZARR_PORT:-6767}:6767"
+    volumes:
+      - bazarr-config:/config
+      - ${MEDIA_DIR:-/data/media}:/data/media
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+
+volumes:
+  bazarr-config:

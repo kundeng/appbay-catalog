@@ -1,0 +1,13 @@
+name: picard
+description: MusicBrainz Picard — music library tagging and metadata management with web-based VNC UI
+version: latest
+category: media
+tags: [media, music, tagging, metadata, musicbrainz, vnc]
+source:
+  type: git
+  url: https://github.com/metabrainz/picard
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

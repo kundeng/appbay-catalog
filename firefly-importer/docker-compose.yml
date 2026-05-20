@@ -1,0 +1,15 @@
+services:
+  firefly-importer:
+    image: fireflyiii/data-importer:latest
+    container_name: firefly-importer
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${FIREFLY_IMPORTER_PORT:-8081}:8080"
+    volumes:
+      - firefly-importer-upload:/var/www/html/storage/upload
+    env_file: ${IMPORTER_ENV_FILE:-./importer.env}
+
+volumes:
+  firefly-importer-upload:

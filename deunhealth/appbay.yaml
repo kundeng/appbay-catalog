@@ -1,0 +1,11 @@
+project: default
+environment: default
+collection: [automation]
+tags:
+  tier: infra
+  role: health-monitor
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - deunhealth

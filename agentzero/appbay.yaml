@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: agentzero
+    port: 80

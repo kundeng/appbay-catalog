@@ -1,0 +1,13 @@
+name: searxng
+description: Privacy-respecting metasearch engine aggregating results from 70+ search services
+version: latest
+category: ai
+tags: [search, tools]
+source:
+  type: git
+  url: https://github.com/searxng/searxng
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,13 @@
+name: makemkv
+description: Disc ripping tool for converting DVD and Blu-ray to MKV with web-based VNC UI
+version: latest
+category: media
+tags: [media, ripping, dvd, bluray, mkv, vnc]
+source:
+  type: git
+  url: https://github.com/jlesage/docker-makemkv
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

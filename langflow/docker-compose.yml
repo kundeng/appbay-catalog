@@ -1,0 +1,12 @@
+services:
+  langflow:
+    image: langflowai/langflow:latest
+    container_name: langflow
+    restart: unless-stopped
+    ports:
+      - "${LANGFLOW_PORT:-7860}:7860"
+    volumes:
+      - langflow_data:/var/lib/langflow
+
+volumes:
+  langflow_data:

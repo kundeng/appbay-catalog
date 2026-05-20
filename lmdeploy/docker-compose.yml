@@ -1,0 +1,14 @@
+services:
+  lmdeploy:
+    image: openmmlab/lmdeploy:latest
+    container_name: lmdeploy
+    restart: unless-stopped
+    ports:
+      - "${LMDEPLOY_PORT:-23333}:23333"
+    volumes:
+      - lmdeploy_hf_cache:/root/.cache/huggingface
+    ipc: host
+    command: lmdeploy serve api_server ${LMDEPLOY_MODEL:-}
+
+volumes:
+  lmdeploy_hf_cache:

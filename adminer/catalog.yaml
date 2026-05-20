@@ -1,0 +1,13 @@
+name: adminer
+description: Lightweight database management UI for MySQL, PostgreSQL, SQLite, and more
+version: latest
+category: admin
+tags: [database, management, sql, admin]
+source:
+  type: git
+  url: https://github.com/vrana/adminer
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

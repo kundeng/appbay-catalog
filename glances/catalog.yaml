@@ -1,0 +1,13 @@
+name: glances
+description: Cross-platform system monitoring tool with web UI (CPU, memory, disk, network, Docker)
+version: latest-full
+category: monitoring
+tags: [monitoring, system, metrics, docker, resources]
+source:
+  type: git
+  url: https://github.com/nicolargo/glances
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

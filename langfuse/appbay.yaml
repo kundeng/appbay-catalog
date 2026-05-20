@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: llm-observability
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - langfuse
+
+traits:
+  - type: ingress
+    host: "langfuse.${{project.DOMAIN}}"
+    port: 3000
+    service: langfuse
+    exposure: external
+    tls:
+      staging: false

@@ -1,0 +1,14 @@
+services:
+  parler:
+    image: fedirz/parler-tts-server:latest
+    container_name: parler
+    ports:
+      - "${PARLER_PORT:-8000}:8000"
+    volumes:
+      - parler-hf-cache:/root/.cache/huggingface
+    environment:
+      MODEL: ${PARLER_MODEL:-parler-tts/parler-tts-mini-v1}
+      VOICE: ${PARLER_VOICE:-}
+
+volumes:
+  parler-hf-cache:

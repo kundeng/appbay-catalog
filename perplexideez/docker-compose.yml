@@ -1,0 +1,41 @@
+services:
+  perplexideez:
+    image: nginx:alpine
+    container_name: perplexideez
+    ports:
+      - "${PERPLEXIDEEZ_PORT:-8080}:80"
+    depends_on:
+      perplexideez-service:
+        condition: service_healthy
+
+  perplexideez-service:
+    image: ghcr.io/brunostjohn/perplexideez:latest
+    container_name: perplexideez-service
+    healthcheck:
+      test: ["CMD", "true"]
+      interval: 2s
+      timeout: 60s
+      retries: 5
+      start_period: 10s
+    depends_on:
+      perplexideez-db:
+        condition: service_healthy
+
+  perplexideez-db:
+    image: postgres:16-alpine
+    container_name: perplexideez-db
+    restart: unless-stopped
+    volumes:
+      - perplexideez-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: "pg_isready -d postgres -U postgres -h localhost"
+      interval: 2s
+      timeout: 60s
+      retries: 5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PERPLEXIDEEZ_DB_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+
+volumes:
+  perplexideez-pgdata:

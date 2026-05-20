@@ -1,0 +1,13 @@
+name: litlytics
+description: Lightweight LLM-powered analytics and data analysis dashboard
+version: latest
+category: ai
+tags: [tools, llm]
+source:
+  type: git
+  url: https://github.com/yamalight/litlytics
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

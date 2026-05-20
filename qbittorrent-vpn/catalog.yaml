@@ -1,0 +1,12 @@
+name: qbittorrent-vpn
+description: qBittorrent torrent client routed through Gluetun VPN container for privacy
+version: latest
+category: media
+tags: [media, torrent, downloads, vpn, privacy]
+source:
+  type: git
+  url: https://github.com/linuxserver/docker-qbittorrent
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

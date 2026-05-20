@@ -1,0 +1,17 @@
+services:
+  anythingllm:
+    image: mintplexlabs/anythingllm:latest
+    container_name: anythingllm
+    ports:
+      - ${ANYTHINGLLM_PORT:-3001}:3001
+    volumes:
+      - anythingllm_storage:/app/server/storage
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - STORAGE_DIR=/app/server/storage
+      - VECTOR_DB=lancedb
+      - PASSWORDMINCHAT=8
+
+volumes:
+  anythingllm_storage:

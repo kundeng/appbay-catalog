@@ -1,0 +1,16 @@
+name: autogpt
+description: Autonomous AI agent that chains LLM calls to achieve complex goals independently
+version: latest
+category: ai
+tags:
+  - agents
+  - llm
+source:
+  type: git
+  url: https://github.com/Significant-Gravitas/AutoGPT
+readiness: augmented
+required_inputs:
+  - OPENAI_API_KEY
+traits_summary:
+  - ingress (web UI on port 8000)
+maintainer: appbay

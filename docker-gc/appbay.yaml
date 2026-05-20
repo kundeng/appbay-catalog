@@ -1,0 +1,11 @@
+project: default
+environment: default
+collection: [automation]
+tags:
+  tier: infra
+  role: garbage-collection
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - docker-gc

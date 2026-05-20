@@ -1,0 +1,13 @@
+name: mkvtoolnix
+description: MKV remuxing and editing tool with web-based VNC UI (change containers without re-encoding)
+version: latest
+category: media
+tags: [media, mkv, remux, video, vnc]
+source:
+  type: git
+  url: https://github.com/jlesage/docker-mkvtoolnix
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

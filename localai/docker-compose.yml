@@ -1,0 +1,22 @@
+services:
+  localai:
+    image: localai/localai:latest-cpu
+    container_name: localai
+    restart: unless-stopped
+    ports:
+      - "${LOCALAI_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+      start_period: 2s
+    environment:
+      - HUGGINGFACEHUB_API_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - localai_models:/build/models
+      - localai_hf_cache:/root/.cache/huggingface
+
+volumes:
+  localai_models:
+  localai_hf_cache:

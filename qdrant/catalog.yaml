@@ -1,0 +1,16 @@
+name: qdrant
+description: High-performance vector similarity search engine with REST and gRPC APIs
+version: latest
+category: ai
+tags: [vector-db, rag, inference]
+source:
+  type: git
+  url: https://github.com/qdrant/qdrant
+readiness: raw
+required_inputs:
+  - name: QDRANT_API_KEY
+    description: API key for Qdrant access
+    type: secret
+    auto_generate: true
+traits_summary: []
+maintainer: appbay

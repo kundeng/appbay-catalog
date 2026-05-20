@@ -1,0 +1,13 @@
+name: stirling-pdf
+description: Self-hosted PDF manipulation tool — merge, split, convert, OCR, compress, and more
+version: latest
+category: utilities
+tags: [pdf, documents, conversion, ocr, tools]
+source:
+  type: git
+  url: https://github.com/Stirling-Tools/Stirling-PDF
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

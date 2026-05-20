@@ -1,0 +1,21 @@
+name: ldr
+description: Local Deep Research - AI-powered deep research agent with web search and synthesis
+version: latest
+category: ai
+tags: [agents, rag, tools]
+source:
+  type: git
+  url: https://github.com/LearningCircuit/local-deep-research
+readiness: raw
+required_inputs:
+  - name: OPENAI_API_KEY
+    description: OpenAI API key for LLM access
+    type: string
+    default: ""
+  - name: ANTHROPIC_API_KEY
+    description: Anthropic API key for Claude access
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

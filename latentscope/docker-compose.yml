@@ -1,0 +1,16 @@
+services:
+  latentscope:
+    image: enjalot/latentscope:latest
+    container_name: latentscope
+    restart: unless-stopped
+    environment:
+      - LATENT_SCOPE_DATA=/root/latentscope-data
+    ports:
+      - "${LATENTSCOPE_PORT:-5001}:5001"
+    volumes:
+      - latentscope_hf_cache:/root/.cache/huggingface
+      - latentscope_data:/root/latentscope-data
+
+volumes:
+  latentscope_hf_cache:
+  latentscope_data:

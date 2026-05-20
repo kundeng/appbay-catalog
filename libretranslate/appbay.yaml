@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: translation-api
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - libretranslate
+
+traits:
+  - type: ingress
+    host: "libretranslate.${{project.DOMAIN}}"
+    port: 5000
+    service: libretranslate
+    exposure: external
+    tls:
+      staging: false

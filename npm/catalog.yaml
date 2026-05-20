@@ -1,0 +1,21 @@
+name: npm
+description: Nginx Proxy Manager with web UI for managing reverse proxy hosts, SSL certificates, and access lists
+version: latest
+category: admin
+tags: [reverse-proxy, nginx, ssl, networking]
+source:
+  type: local
+readiness: augmented
+required_inputs:
+  - name: NPM_MYSQL_ROOT_PASSWORD
+    description: MariaDB root password
+    type: secret
+    auto_generate: true
+  - name: NPM_MYSQL_PASSWORD
+    description: MariaDB password for the npm user
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS (admin UI on port 81)"
+  - "secrets: 2 auto-generated (MariaDB root password, MariaDB user password)"
+maintainer: appbay

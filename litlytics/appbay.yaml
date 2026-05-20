@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: analytics
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - litlytics
+
+traits:
+  - type: ingress
+    host: "litlytics.${{project.DOMAIN}}"
+    port: 3000
+    service: litlytics
+    exposure: external
+    tls:
+      staging: false

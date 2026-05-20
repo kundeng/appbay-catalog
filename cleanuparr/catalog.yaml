@@ -1,0 +1,13 @@
+name: cleanuparr
+description: Automated cleanup tool for the Arr media stack (Sonarr, Radarr, etc.)
+version: latest
+category: media
+tags: [media, arr, cleanup, automation]
+source:
+  type: git
+  url: https://github.com/cleanuparr/cleanuparr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

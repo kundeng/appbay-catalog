@@ -1,0 +1,13 @@
+name: lobechat
+description: Modern ChatGPT-style UI with multi-model support, plugins, and knowledge base features
+version: latest
+category: ai
+tags: [chat, llm]
+source:
+  type: git
+  url: https://github.com/lobehub/lobe-chat
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

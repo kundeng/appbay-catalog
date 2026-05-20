@@ -1,0 +1,19 @@
+services:
+  prowlarr:
+    image: ghcr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${PROWLARR_PORT:-9696}:9696"
+    volumes:
+      - prowlarr-config:/config
+      - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+
+volumes:
+  prowlarr-config:

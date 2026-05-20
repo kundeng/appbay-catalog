@@ -1,0 +1,20 @@
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${RADARR_PORT:-7878}:7878"
+    volumes:
+      - radarr-config:/config
+      - ${MEDIA_DIR:-/data/media}:/data/media
+      - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+
+volumes:
+  radarr-config:

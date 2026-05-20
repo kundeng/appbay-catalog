@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: infra
+  role: model-proxy
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - llamaswap
+
+traits:
+  - type: ingress
+    host: "llamaswap.${{project.DOMAIN}}"
+    port: 8080
+    service: llamaswap
+    exposure: external
+    tls:
+      staging: false

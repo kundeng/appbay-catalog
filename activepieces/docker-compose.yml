@@ -1,0 +1,43 @@
+services:
+  activepieces:
+    image: activepieces/activepieces:latest
+    container_name: activepieces
+    ports:
+      - ${ACTIVEPIECES_PORT:-8080}:80
+    volumes:
+      - activepieces_data:/root/.activepieces
+    depends_on:
+      activepieces-db:
+        condition: service_healthy
+    environment:
+      - AP_DB_TYPE=POSTGRES
+      - AP_POSTGRES_HOST=activepieces-db
+      - AP_POSTGRES_PORT=5432
+      - AP_POSTGRES_DATABASE=${ACTIVEPIECES_PG_DB:-activepieces}
+      - AP_POSTGRES_USERNAME=${ACTIVEPIECES_PG_USER:-activepieces}
+      - AP_POSTGRES_PASSWORD=${ACTIVEPIECES_PG_PASSWORD:-activepieces}
+      - AP_REDIS_TYPE=MEMORY
+      - AP_ENCRYPTION_KEY=${AP_ENCRYPTION_KEY:-}
+      - AP_JWT_SECRET=${AP_JWT_SECRET:-}
+      - AP_FRONTEND_URL=http://localhost:${ACTIVEPIECES_PORT:-8080}
+      - AP_EXECUTION_MODE=${ACTIVEPIECES_EXECUTION_MODE:-UNSANDBOXED}
+      - AP_TRIGGER_DEFAULT_POLL_INTERVAL=${ACTIVEPIECES_TRIGGER_POLL_INTERVAL:-5}
+
+  activepieces-db:
+    image: postgres:16-alpine
+    container_name: activepieces-db
+    environment:
+      - POSTGRES_USER=${ACTIVEPIECES_PG_USER:-activepieces}
+      - POSTGRES_PASSWORD=${ACTIVEPIECES_PG_PASSWORD:-activepieces}
+      - POSTGRES_DB=${ACTIVEPIECES_PG_DB:-activepieces}
+    volumes:
+      - activepieces_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${ACTIVEPIECES_PG_USER:-activepieces} -d ${ACTIVEPIECES_PG_DB:-activepieces}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  activepieces_data:
+  activepieces_db:

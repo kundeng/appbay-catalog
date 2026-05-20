@@ -1,0 +1,11 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: metadata-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - kometa

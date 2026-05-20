@@ -1,0 +1,13 @@
+name: maintainerr
+description: Automated Plex media maintenance — clean up watched content based on rules
+version: latest
+category: media
+tags: [media, plex, cleanup, automation, maintenance]
+source:
+  type: git
+  url: https://github.com/jorenn92/Maintainerr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

@@ -1,0 +1,20 @@
+name: parler
+description: Text-to-speech server using Parler TTS models from HuggingFace
+version: latest
+category: ai
+tags: [tts, inference]
+source:
+  type: git
+  url: https://github.com/fedirz/parler-tts-server
+readiness: raw
+required_inputs:
+  - name: PARLER_MODEL
+    description: Parler TTS model name
+    type: string
+    default: "parler-tts/parler-tts-mini-v1"
+  - name: PARLER_VOICE
+    description: Voice description for synthesis
+    type: string
+    default: ""
+traits_summary: []
+maintainer: appbay

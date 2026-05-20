@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: research-agent
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - ldr
+
+traits:
+  - type: ingress
+    host: "ldr.${{project.DOMAIN}}"
+    port: 5000
+    service: ldr
+    exposure: external
+    tls:
+      staging: false

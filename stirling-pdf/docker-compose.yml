@@ -1,0 +1,20 @@
+services:
+  stirling-pdf:
+    image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    ports:
+      - "${STIRLING_PDF_PORT:-8080}:8080"
+    volumes:
+      - stirling-pdf-training:/usr/share/tessdata
+      - stirling-pdf-configs:/configs
+    environment:
+      DOCKER_ENABLE_SECURITY: "false"
+      INSTALL_BOOK_AND_ADVANCED_HTML_OPS: "false"
+      LANGS: en_US
+
+volumes:
+  stirling-pdf-training:
+  stirling-pdf-configs:

@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: workflow-builder
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - langflow
+
+traits:
+  - type: ingress
+    host: "langflow.${{project.DOMAIN}}"
+    port: 7860
+    service: langflow
+    exposure: external
+    tls:
+      staging: false

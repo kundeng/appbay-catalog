@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+  role: search-engine
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - searxng
+
+traits:
+  - type: ingress
+    host: "search.${{project.DOMAIN}}"
+    port: 8080
+    service: searxng
+    exposure: external

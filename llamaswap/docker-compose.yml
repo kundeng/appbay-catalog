@@ -1,0 +1,18 @@
+services:
+  llamaswap:
+    image: mostlygeek/llamaswap:cpu
+    container_name: llamaswap
+    restart: unless-stopped
+    ports:
+      - "${LLAMASWAP_PORT:-8080}:8080"
+    volumes:
+      - llamaswap_ollama:/app/.ollama
+      - llamaswap_hf_cache:/app/.cache/huggingface
+      - llamaswap_llamacpp_cache:/app/.cache/llama.cpp
+      - llamaswap_vllm_cache:/app/.cache/vllm
+
+volumes:
+  llamaswap_ollama:
+  llamaswap_hf_cache:
+  llamaswap_llamacpp_cache:
+  llamaswap_vllm_cache:

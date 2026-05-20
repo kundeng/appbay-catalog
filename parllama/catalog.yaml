@@ -1,0 +1,12 @@
+name: parllama
+description: Terminal UI for managing and chatting with Ollama models
+version: latest
+category: ai
+tags: [llm, chat, tools]
+source:
+  type: git
+  url: https://github.com/paulpierre/parllama
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

@@ -1,0 +1,9 @@
+services:
+  oterm:
+    image: ghcr.io/ggozad/oterm:latest
+    container_name: oterm
+    volumes:
+      - oterm-data:/root/.local/share/oterm
+
+volumes:
+  oterm-data:

@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: arr-cleanup
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - cleanuparr
+
+traits:
+  - type: ingress
+    host: "cleanuparr.${{project.DOMAIN}}"
+    port: 11011
+    service: cleanuparr
+    exposure: internal

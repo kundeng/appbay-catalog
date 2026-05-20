@@ -1,0 +1,19 @@
+name: sglang
+description: Fast serving framework for large language models with RadixAttention
+version: latest
+category: ai
+tags: [llm, inference, gpu]
+source:
+  type: git
+  url: https://github.com/sgl-project/sglang
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for gated model access
+    type: secret
+  - name: SGLANG_MODEL
+    description: Model path (HuggingFace model ID)
+    type: string
+    default: ""
+traits_summary: []
+maintainer: appbay

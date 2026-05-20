@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: disc-ripper
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - makemkv
+
+traits:
+  - type: ingress
+    host: "makemkv.${{project.DOMAIN}}"
+    port: 5800
+    service: makemkv
+    exposure: internal

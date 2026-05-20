@@ -1,0 +1,17 @@
+name: perplexideez
+description: Self-hosted AI search engine with Postgres backend and nginx proxy
+version: latest
+category: ai
+tags: [llm, search, rag]
+source:
+  type: git
+  url: https://github.com/brunostjohn/perplexideez
+readiness: raw
+required_inputs:
+  - name: PERPLEXIDEEZ_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

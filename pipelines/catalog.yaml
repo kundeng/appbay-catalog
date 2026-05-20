@@ -1,0 +1,16 @@
+name: pipelines
+description: Open WebUI Pipelines server for extending LLM functionality with custom processing pipelines
+version: latest
+category: ai
+tags: [llm, tools, inference]
+source:
+  type: git
+  url: https://github.com/open-webui/pipelines
+readiness: raw
+required_inputs:
+  - name: PIPELINES_API_KEY
+    description: API key for the pipelines server
+    type: secret
+    auto_generate: true
+traits_summary: []
+maintainer: appbay

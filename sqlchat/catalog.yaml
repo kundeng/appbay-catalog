@@ -1,0 +1,13 @@
+name: sqlchat
+description: Chat-based SQL client that lets you query databases using natural language
+version: latest
+category: ai
+tags: [llm, chat, tools]
+source:
+  type: git
+  url: https://github.com/sqlchat/sqlchat
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

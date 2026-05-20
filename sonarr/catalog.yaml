@@ -1,0 +1,13 @@
+name: sonarr
+description: TV show collection manager and downloader for Usenet and BitTorrent
+version: develop
+category: media
+tags: [media, tv-shows, arr, downloads, automation]
+source:
+  type: git
+  url: https://github.com/Sonarr/Sonarr
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - "ingress: internal HTTPS"
+maintainer: appbay

@@ -1,0 +1,16 @@
+name: astrbot
+description: Multi-platform chatbot framework supporting QQ, WeChat, Telegram with LLM integration
+version: latest
+category: ai
+tags:
+  - chat
+  - llm
+  - agents
+source:
+  type: git
+  url: https://github.com/Soulter/AstrBot
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 6185)
+maintainer: appbay

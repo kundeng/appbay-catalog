@@ -1,0 +1,28 @@
+services:
+  mcpforge:
+    image: mcpgateway/mcpgateway:latest
+    container_name: mcpforge
+    restart: unless-stopped
+    ports:
+      - "${MCPFORGE_PORT:-4444}:4444"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4444
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///app/data/mcpforge.db}
+      - MCPGATEWAY_UI_ENABLED=true
+      - MCPGATEWAY_ADMIN_API_ENABLED=true
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-}
+      - JWT_AUDIENCE=${JWT_AUDIENCE:-mcpforge}
+      - JWT_ISSUER=${JWT_ISSUER:-mcpforge}
+      - BASIC_AUTH_USER=${BASIC_AUTH_USER:-admin}
+      - BASIC_AUTH_PASSWORD=${BASIC_AUTH_PASSWORD:-}
+      - AUTH_REQUIRED=${AUTH_REQUIRED:-true}
+      - PLATFORM_ADMIN_EMAIL=${PLATFORM_ADMIN_EMAIL:-}
+      - PLATFORM_ADMIN_PASSWORD=${PLATFORM_ADMIN_PASSWORD:-}
+      - PLATFORM_ADMIN_FULL_NAME=${PLATFORM_ADMIN_FULL_NAME:-Admin}
+      - SECURE_COOKIES=false
+    volumes:
+      - mcpforge_data:/app/data
+
+volumes:
+  mcpforge_data:

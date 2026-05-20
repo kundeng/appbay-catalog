@@ -1,0 +1,26 @@
+services:
+  qbittorrent-vpn:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent-vpn
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    volumes:
+      - qbittorrent-config:/config
+      - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      UMASK_SET: "002"
+    healthcheck:
+      test: "curl -sf https://example.com || exit 1"
+      interval: 1m
+      timeout: 10s
+      retries: 1
+    labels:
+      - "deunhealth.restart.on.unhealthy=true"
+
+volumes:
+  qbittorrent-config:

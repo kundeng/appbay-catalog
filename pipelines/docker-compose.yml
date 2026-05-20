@@ -1,0 +1,21 @@
+services:
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:latest
+    container_name: pipelines
+    ports:
+      - "${PIPELINES_PORT:-9099}:9099"
+    volumes:
+      - pipelines-data:/app/pipelines
+    environment:
+      PIPELINES_API_KEY: ${PIPELINES_API_KEY:-}
+      PIPELINES_URLS: ${PIPELINES_URLS:-}
+      PIPELINES_DIR: /app/pipelines
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9099"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  pipelines-data:

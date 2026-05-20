@@ -1,0 +1,26 @@
+services:
+  promptfoo:
+    image: ghcr.io/promptfoo/promptfoo:latest
+    container_name: promptfoo
+    ports:
+      - "${PROMPTFOO_PORT:-3000}:3000"
+    volumes:
+      - promptfoo-data:/home/promptfoo/.promptfoo
+    environment:
+      PROMPTFOO_DISABLE_TELEMETRY: "1"
+      PROMPTFOO_DISABLE_UPDATE: "1"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY:-}
+    command: ["ash", "-c", "node /app/dist/src/server/index.js"]
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 2s
+      timeout: 1s
+      start_period: 1s
+      retries: 5
+
+volumes:
+  promptfoo-data:

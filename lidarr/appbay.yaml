@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [media]
+tags:
+  tier: app
+  role: music-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - lidarr
+
+traits:
+  - type: ingress
+    host: "lidarr.${{project.DOMAIN}}"
+    port: 8686
+    service: lidarr
+    exposure: internal
