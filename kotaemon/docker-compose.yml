@@ -1,6 +1,6 @@
 services:
   kotaemon:
-    image: ghcr.io/cinnamon/kotaemon:main-full
+    image: ghcr.io/cinnamon/kotaemon:latest
     container_name: kotaemon
     entrypoint: ["python", "app.py"]
     environment:
