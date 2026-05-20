@@ -1,0 +1,13 @@
+services:
+  webtop:
+    image: lscr.io/linuxserver/webtop:latest
+    container_name: webtop
+    ports:
+      - "${WEBTOP_PORT:-3000}:3000"
+    volumes:
+      - webtop-config:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    shm_size: "1gb"
+
+volumes:
+  webtop-config:

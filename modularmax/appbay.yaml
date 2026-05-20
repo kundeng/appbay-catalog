@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: infra
+  role: inference-server
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - modularmax
+
+traits:
+  - type: ingress
+    host: "modularmax.${{project.DOMAIN}}"
+    port: 8000
+    service: modularmax
+    exposure: external
+    tls:
+      staging: false

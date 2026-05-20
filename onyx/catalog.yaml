@@ -1,0 +1,22 @@
+name: onyx
+description: Enterprise knowledge management platform with document indexing, search, and AI chat
+version: latest
+category: ai
+tags: [knowledge, search, rag]
+source:
+  type: git
+  url: https://github.com/onyx-dot-app/onyx
+readiness: raw
+required_inputs:
+  - name: ONYX_DB_PASSWORD
+    description: PostgreSQL password for Onyx database
+    type: secret
+    auto_generate: true
+  - name: ONYX_MINIO_PASSWORD
+    description: MinIO root password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+  - "secrets: 2 auto-generated (DB, MinIO passwords)"
+maintainer: appbay

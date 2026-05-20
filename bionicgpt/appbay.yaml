@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: bionicgpt
+    port: 7700

@@ -1,0 +1,23 @@
+services:
+  unsloth:
+    image: unslothai/unsloth:latest
+    container_name: unsloth
+    ports:
+      - "${UNSLOTH_PORT:-8888}:8888"
+    environment:
+      JUPYTER_PASSWORD: ${UNSLOTH_JUPYTER_PASSWORD:-}
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes:
+      - unsloth-workspace:/workspace/work
+      - unsloth-hf-cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  unsloth-workspace:
+  unsloth-hf-cache:

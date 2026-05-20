@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: chatnio
+    port: 8094

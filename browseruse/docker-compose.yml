@@ -1,0 +1,28 @@
+services:
+  browseruse:
+    image: ghcr.io/browser-use/web-ui:latest
+    container_name: browseruse
+    ports:
+      - ${BROWSERUSE_PORT:-7788}:7788
+      - ${BROWSERUSE_VNC_PORT:-6080}:6080
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - ANONYMIZED_TELEMETRY=false
+      - BROWSER_USE_LOGGING_LEVEL=info
+      - KEEP_BROWSER_OPEN=true
+      - DISPLAY=:99
+      - RESOLUTION=1920x1080x24
+      - VNC_PASSWORD=${BROWSERUSE_VNC_PASSWORD:-youvncpassword}
+    volumes:
+      - browseruse_data:/app/data/chrome_data
+    restart: unless-stopped
+    shm_size: "2gb"
+    cap_add:
+      - SYS_ADMIN
+    tmpfs:
+      - /tmp
+
+volumes:
+  browseruse_data:

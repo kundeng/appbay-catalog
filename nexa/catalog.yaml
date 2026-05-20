@@ -1,0 +1,15 @@
+name: nexa
+description: On-device AI runtime with OpenAI-compatible API for local model inference
+version: latest
+category: ai
+tags: [llm, inference, local]
+source:
+  type: git
+  url: https://github.com/NexaAI/nexa-sdk
+readiness: raw
+required_inputs:
+  - name: NEXA_MODEL
+    description: Model identifier to load at startup
+    type: string
+traits_summary: []
+maintainer: appbay

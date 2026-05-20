@@ -1,0 +1,20 @@
+services:
+  textgrad:
+    image: ghcr.io/zou-group/textgrad:latest
+    container_name: textgrad
+    ports:
+      - "${TEXTGRAD_PORT:-8888}:8888"
+    command: [
+      "jupyter", "lab",
+      "--port=8888", "--ip=0.0.0.0",
+      "--allow-root", "--browser=false", "--no-browser",
+      "--IdentityProvider.token=''",
+      "--ServerApp.password=''",
+      "--allow_remote_access=true",
+      "--NotebookApp.disable_check_xsrf=True",
+    ]
+    volumes:
+      - textgrad-workspace:/app/workspace
+
+volumes:
+  textgrad-workspace:

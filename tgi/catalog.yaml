@@ -1,0 +1,15 @@
+name: tgi
+description: HuggingFace Text Generation Inference server for high-throughput LLM serving
+version: latest
+category: ai
+tags: [llm, inference, gpu]
+source:
+  type: git
+  url: https://github.com/huggingface/text-generation-inference
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for gated model access
+    type: secret
+traits_summary: []
+maintainer: appbay

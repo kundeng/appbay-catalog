@@ -1,0 +1,6 @@
+services:
+  fabric:
+    image: danielmiessler/fabric:latest
+    container_name: fabric
+    volumes:
+      - fabric_config:/root/.config/fabric

@@ -1,0 +1,16 @@
+name: boost
+description: Multi-backend LLM inference proxy supporting Ollama, HuggingFace, llama.cpp, and vLLM models
+version: latest
+category: ai
+tags:
+  - inference
+  - llm
+  - proxy
+source:
+  type: git
+  url: https://github.com/av/harbor
+readiness: raw
+required_inputs: []
+traits_summary:
+  - ingress (API on port 8000)
+maintainer: appbay

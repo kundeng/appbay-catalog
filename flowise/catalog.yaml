@@ -1,0 +1,17 @@
+name: flowise
+description: Drag-and-drop UI for building LLM flows and AI agents with LangChain integration
+version: latest
+category: ai
+tags:
+  - workflow
+  - agents
+  - llm
+  - rag
+source:
+  type: git
+  url: https://github.com/FlowiseAI/Flowise
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 3000)
+maintainer: appbay

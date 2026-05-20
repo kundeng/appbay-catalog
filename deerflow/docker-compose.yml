@@ -1,0 +1,30 @@
+services:
+  deerflow-backend:
+    image: bytedance/deer-flow-backend:latest
+    container_name: deerflow-backend
+    ports:
+      - ${DEERFLOW_BACKEND_PORT:-8000}:8000
+    environment:
+      - ALLOWED_ORIGINS=http://localhost:${DEERFLOW_PORT:-3000}
+    volumes:
+      - deerflow_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  deerflow:
+    image: bytedance/deer-flow-frontend:latest
+    container_name: deerflow
+    ports:
+      - ${DEERFLOW_PORT:-3000}:3000
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:${DEERFLOW_BACKEND_PORT:-8000}/api
+    depends_on:
+      deerflow-backend:
+        condition: service_healthy
+
+volumes:
+  deerflow_data:

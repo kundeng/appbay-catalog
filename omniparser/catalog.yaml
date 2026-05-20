@@ -1,0 +1,12 @@
+name: omniparser
+description: Screen parsing API that converts UI screenshots into structured elements for AI agents
+version: latest
+category: ai
+tags: [vision, agents, tools]
+source:
+  type: git
+  url: https://github.com/microsoft/OmniParser
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

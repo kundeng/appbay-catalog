@@ -1,0 +1,6 @@
+services:
+  cfd:
+    image: cloudflare/cloudflared:latest
+    container_name: cfd
+    environment:
+      - NO_AUTOUPDATE=1

@@ -1,0 +1,6 @@
+services:
+  sqlchat:
+    image: sqlchat/sqlchat:latest
+    container_name: sqlchat
+    ports:
+      - "${SQLCHAT_PORT:-3000}:3000"

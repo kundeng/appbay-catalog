@@ -1,0 +1,11 @@
+name: mock-openai
+description: Mock OpenAI API server for testing and development without real API calls
+version: latest
+category: ai
+tags: [tools, inference]
+source:
+  type: local
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

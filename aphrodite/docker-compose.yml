@@ -1,0 +1,19 @@
+services:
+  aphrodite:
+    image: alpindale/aphrodite-openai:latest
+    container_name: aphrodite
+    ipc: host
+    ports:
+      - ${APHRODITE_PORT:-2242}:2242
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+    user: root
+    command: >
+      --model ${APHRODITE_MODEL:-}
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - HF_TOKEN=${HF_TOKEN:-}
+      - MODEL_NAME=${APHRODITE_MODEL:-}
+
+volumes:
+  hf_cache:

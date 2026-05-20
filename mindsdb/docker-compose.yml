@@ -1,0 +1,24 @@
+services:
+  mindsdb:
+    image: mindsdb/mindsdb:latest
+    container_name: mindsdb
+    restart: unless-stopped
+    ports:
+      - "${MINDSDB_PORT:-47334}:47334"
+      - "${MINDSDB_MYSQL_PORT:-47335}:47335"
+    environment:
+      - MINDSDB_APIS=${MINDSDB_APIS:-http,mysql}
+      - MINDSDB_USERNAME=${MINDSDB_USERNAME:-admin}
+      - MINDSDB_PASSWORD=${MINDSDB_PASSWORD:-}
+      - MKL_SERVICE_FORCE_INTEL=1
+    volumes:
+      - mindsdb_data:/root/mdb_storage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:47334/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  mindsdb_data:

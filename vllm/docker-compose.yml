@@ -1,0 +1,23 @@
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: vllm
+    ports:
+      - "${VLLM_PORT:-8000}:8000"
+    ipc: host
+    volumes:
+      - vllm-hf-cache:/root/.cache/huggingface
+      - vllm-cache:/root/.cache/vllm
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  vllm-hf-cache:
+  vllm-cache:

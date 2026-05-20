@@ -1,0 +1,12 @@
+name: tts
+description: OpenAI-compatible text-to-speech server with multiple voice and model backends
+version: latest
+category: ai
+tags: [tts, inference]
+source:
+  type: git
+  url: https://github.com/matatonic/openedai-speech
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

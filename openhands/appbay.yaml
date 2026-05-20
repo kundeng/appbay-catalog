@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: coding-agent
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - openhands
+
+traits:
+  - type: ingress
+    host: "openhands.${{project.DOMAIN}}"
+    port: 3000
+    service: openhands
+    exposure: external
+    tls:
+      staging: false

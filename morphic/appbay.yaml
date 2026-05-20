@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: ai-search
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - morphic
+
+traits:
+  - type: ingress
+    host: "morphic.${{project.DOMAIN}}"
+    port: 3000
+    service: morphic
+    exposure: external
+    tls:
+      staging: false

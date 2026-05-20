@@ -1,0 +1,18 @@
+services:
+  morphic:
+    image: miurla/morphic:latest
+    container_name: morphic
+    restart: unless-stopped
+    ports:
+      - "${MORPHIC_PORT:-3000}:3000"
+
+  morphic-redis:
+    image: redis:alpine
+    container_name: morphic-redis
+    restart: unless-stopped
+    volumes:
+      - morphic_redis:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  morphic_redis:

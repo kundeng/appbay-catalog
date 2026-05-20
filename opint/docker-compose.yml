@@ -1,0 +1,13 @@
+services:
+  opint:
+    image: openinterpreter/open-interpreter:latest
+    container_name: opint
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_API_BASE=${OPENAI_API_BASE:-}
+    volumes:
+      - opint_config:/root/.config/open-interpreter
+
+volumes:
+  opint_config:

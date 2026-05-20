@@ -1,0 +1,11 @@
+services:
+  bench:
+    image: av/harbor-bench:latest
+    container_name: bench
+    volumes:
+      - bench_results:/app/results
+      - bench_tasks:/app/tasks.yml
+
+volumes:
+  bench_results:
+  bench_tasks:

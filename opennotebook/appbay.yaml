@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: knowledge-notebook
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - opennotebook
+
+traits:
+  - type: ingress
+    host: "opennotebook.${{project.DOMAIN}}"
+    port: 8502
+    service: opennotebook
+    exposure: external
+    tls:
+      staging: false

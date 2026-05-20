@@ -1,0 +1,17 @@
+name: chatui
+description: HuggingFace Chat UI for interacting with LLMs through a polished web interface
+version: latest
+category: ai
+tags:
+  - chat
+  - llm
+  - huggingface
+source:
+  type: git
+  url: https://github.com/huggingface/chat-ui
+readiness: augmented
+required_inputs:
+  - HF_TOKEN
+traits_summary:
+  - ingress (web UI on port 3000)
+maintainer: appbay

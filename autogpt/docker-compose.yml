@@ -1,0 +1,15 @@
+services:
+  autogpt:
+    image: significantgravitas/auto-gpt:latest
+    container_name: autogpt
+    ports:
+      - ${AUTOGPT_PORT:-8000}:8000
+    volumes:
+      - autogpt_workspace:/app/auto_gpt_workspace
+      - autogpt_data:/app/data
+      - autogpt_logs:/app/logs
+
+volumes:
+  autogpt_workspace:
+  autogpt_data:
+  autogpt_logs:

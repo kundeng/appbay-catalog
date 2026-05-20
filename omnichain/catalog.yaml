@@ -1,0 +1,13 @@
+name: omnichain
+description: Visual node-based LLM workflow editor with OpenAI-compatible API endpoint
+version: latest
+category: ai
+tags: [llm, workflow, agents]
+source:
+  type: git
+  url: https://github.com/av/harbor
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

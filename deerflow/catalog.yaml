@@ -1,0 +1,16 @@
+name: deerflow
+description: ByteDance deep research agent with web frontend and Python backend for multi-step reasoning
+version: latest
+category: ai
+tags:
+  - agents
+  - research
+  - llm
+source:
+  type: git
+  url: https://github.com/bytedance/deer-flow
+readiness: raw
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 3000)
+maintainer: appbay

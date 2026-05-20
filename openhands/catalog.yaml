@@ -1,0 +1,13 @@
+name: openhands
+description: AI-powered software development agent with sandboxed code execution, web browsing, and tool use
+version: latest
+category: ai
+tags: [coding, agents]
+source:
+  type: git
+  url: https://github.com/All-Hands-AI/OpenHands
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,17 @@
+name: bionicgpt
+description: Enterprise-grade AI platform with team management, document RAG, and local LLM inference
+version: "1.7.41"
+category: ai
+tags:
+  - chat
+  - rag
+  - llm
+  - inference
+source:
+  type: git
+  url: https://github.com/bionic-gpt/bionic-gpt
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 7700)
+maintainer: appbay

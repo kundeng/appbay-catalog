@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+  role: reasoning-ui
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - ol1
+
+traits:
+  - type: ingress
+    host: "ol1.${{project.DOMAIN}}"
+    port: 8501
+    service: ol1
+    exposure: external

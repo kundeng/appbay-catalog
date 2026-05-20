@@ -1,0 +1,19 @@
+name: opencode
+description: Web-based AI coding assistant with terminal access and OpenAI-compatible API backend
+version: latest
+category: ai
+tags: [agents, coding, tools]
+source:
+  type: git
+  url: https://opencode.ai
+readiness: raw
+required_inputs:
+  - name: OPENCODE_USERNAME
+    description: Username for the OpenCode web server
+    type: string
+  - name: OPENCODE_PASSWORD
+    description: Password for the OpenCode web server
+    type: secret
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

@@ -1,0 +1,17 @@
+services:
+  comfyui:
+    image: ghcr.io/ai-dock/comfyui:latest-cuda
+    container_name: comfyui
+    ports:
+      - ${COMFYUI_PORT:-8188}:8188
+    environment:
+      - CF_QUICK_TUNNELS=false
+      - WORKSPACE=/workspace
+      - COMFYUI_PORT_HOST=${COMFYUI_PORT:-8188}
+      - HF_TOKEN=${HF_TOKEN:-}
+      - COMFYUI_ARGS=${COMFYUI_ARGS:-}
+    volumes:
+      - comfyui_workspace:/workspace
+
+volumes:
+  comfyui_workspace:

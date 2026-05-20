@@ -1,0 +1,9 @@
+services:
+  bolt:
+    image: ghcr.io/stackblitz-labs/bolt.diy:latest
+    container_name: bolt
+    ports:
+      - ${BOLT_PORT:-5173}:5173
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}

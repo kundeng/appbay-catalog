@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: app
+  role: rag-search
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - txtairag
+
+traits:
+  - type: ingress
+    host: "txtairag.${{project.DOMAIN}}"
+    port: 8501
+    service: txtairag
+    exposure: external

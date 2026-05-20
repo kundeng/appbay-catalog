@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: agent-gateway
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - nanobot
+
+traits:
+  - type: ingress
+    host: "nanobot.${{project.DOMAIN}}"
+    port: 18790
+    service: nanobot
+    exposure: external
+    tls:
+      staging: false

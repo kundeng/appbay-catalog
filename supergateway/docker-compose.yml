@@ -1,0 +1,5 @@
+services:
+  supergateway:
+    image: ghcr.io/av/tools:latest
+    container_name: supergateway
+    entrypoint: npx supergateway

@@ -1,0 +1,25 @@
+services:
+  opencode:
+    image: opencode:latest
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM ghcr.io/av/tools:latest
+        RUN curl -fsSL https://opencode.ai/install | bash && \
+            ln -s /root/.opencode/bin/opencode /usr/local/bin/opencode
+    container_name: opencode
+    command: ["opencode", "serve", "--hostname=0.0.0.0", "--port=4096"]
+    environment:
+      OPENCODE_CONFIG_DIR: /root/.config/opencode
+      OPENCODE_SERVER_USERNAME: ${OPENCODE_USERNAME:-}
+      OPENCODE_SERVER_PASSWORD: ${OPENCODE_PASSWORD:-}
+    ports:
+      - "${OPENCODE_PORT:-4096}:4096"
+    volumes:
+      - opencode-data:/root/.local/share/opencode
+      - opencode-config:/root/.config/opencode
+    working_dir: /root
+
+volumes:
+  opencode-data:
+  opencode-config:

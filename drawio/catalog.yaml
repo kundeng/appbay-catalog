@@ -1,0 +1,17 @@
+name: drawio
+description: AI-enhanced diagramming tool with multi-provider LLM support for generating and editing diagrams
+version: latest
+category: ai
+tags:
+  - tools
+  - llm
+source:
+  type: git
+  url: https://github.com/jgraph/drawio
+readiness: augmented
+required_inputs:
+  - OPENAI_API_KEY
+  - ANTHROPIC_API_KEY
+traits_summary:
+  - ingress (web UI on port 3000)
+maintainer: appbay

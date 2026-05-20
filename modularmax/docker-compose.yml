@@ -1,0 +1,14 @@
+services:
+  modularmax:
+    image: modular/max-engine:latest
+    container_name: modularmax
+    restart: unless-stopped
+    ports:
+      - "${MODULARMAX_PORT:-8000}:8000"
+    volumes:
+      - modularmax_hf_cache:/root/.cache/huggingface
+    command: >
+      --model-path ${MODULARMAX_MODEL:-}
+
+volumes:
+  modularmax_hf_cache:

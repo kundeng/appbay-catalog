@@ -1,0 +1,6 @@
+services:
+  cmdh:
+    image: ghcr.io/pgibler/cmdh:latest
+    container_name: cmdh
+    environment:
+      - LLM_HOST=${CMDH_LLM_HOST:-ollama}

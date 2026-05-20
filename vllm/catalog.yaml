@@ -1,0 +1,15 @@
+name: vllm
+description: High-throughput LLM serving engine with PagedAttention and OpenAI-compatible API
+version: latest
+category: ai
+tags: [llm, inference, gpu]
+source:
+  type: git
+  url: https://github.com/vllm-project/vllm
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for gated model access
+    type: secret
+traits_summary: []
+maintainer: appbay

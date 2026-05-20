@@ -1,0 +1,20 @@
+name: unsloth
+description: GPU-accelerated LLM fine-tuning environment with Jupyter Lab interface
+version: latest
+category: ai
+tags: [llm, inference, gpu, tools]
+source:
+  type: git
+  url: https://github.com/unslothai/unsloth
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for model access
+    type: secret
+  - name: UNSLOTH_JUPYTER_PASSWORD
+    description: Jupyter Lab password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS (Jupyter Lab)"
+maintainer: appbay

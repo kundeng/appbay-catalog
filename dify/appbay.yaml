@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: dify
+    port: 80

@@ -1,0 +1,26 @@
+services:
+  chatui:
+    image: ghcr.io/huggingface/chat-ui:latest
+    container_name: chatui
+    ports:
+      - ${CHATUI_PORT:-3000}:3000
+    environment:
+      - HF_TOKEN=${HF_TOKEN:-}
+    depends_on:
+      chatui-db:
+        condition: service_healthy
+
+  chatui-db:
+    image: mongo:latest
+    container_name: chatui-db
+    volumes:
+      - chatui_db:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 1s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  chatui_db:

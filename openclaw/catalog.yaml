@@ -1,0 +1,15 @@
+name: openclaw
+description: AI coding agent with Claude integration, gateway server, and terminal bridge
+version: latest
+category: ai
+tags: [agents, coding, cli]
+source:
+  type: git
+  url: https://github.com/av/harbor
+readiness: raw
+required_inputs:
+  - name: OPENCLAW_GATEWAY_TOKEN
+    description: Token for the OpenClaw gateway
+    type: secret
+traits_summary: []
+maintainer: appbay

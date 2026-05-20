@@ -1,0 +1,18 @@
+name: cognee
+description: Knowledge graph memory engine for LLMs with RAG, embedding, and graph database support
+version: latest
+category: ai
+tags:
+  - rag
+  - knowledge-graph
+  - memory
+  - llm
+source:
+  type: git
+  url: https://github.com/topoteretes/cognee
+readiness: augmented
+required_inputs:
+  - OPENAI_API_KEY
+traits_summary:
+  - ingress (API on port 8000)
+maintainer: appbay

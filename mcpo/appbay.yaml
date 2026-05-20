@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: infra
+  role: mcp-bridge
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mcpo
+
+traits:
+  - type: ingress
+    host: "mcpo.${{project.DOMAIN}}"
+    port: 8000
+    service: mcpo
+    exposure: external
+    tls:
+      staging: false

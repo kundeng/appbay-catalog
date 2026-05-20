@@ -1,0 +1,16 @@
+name: comfyui
+description: Node-based image generation workflow editor for Stable Diffusion models
+version: latest
+category: ai
+tags:
+  - image-generation
+  - stable-diffusion
+  - workflow
+source:
+  type: git
+  url: https://github.com/comfyanonymous/ComfyUI
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 8188)
+maintainer: appbay

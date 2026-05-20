@@ -1,0 +1,22 @@
+services:
+  mistralrs:
+    image: ghcr.io/ericlbuehler/mistral.rs:cpu-latest
+    container_name: mistralrs
+    restart: unless-stopped
+    ports:
+      - "${MISTRALRS_PORT:-8021}:8021"
+    environment:
+      - RUST_BACKTRACE=full
+      - HF_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - mistralrs_hf_cache:/root/.cache/huggingface
+      - mistralrs_gguf:/gguf
+    entrypoint: mistralrs-server
+    command: >
+      --port 8021
+      --serve-ip 0.0.0.0
+      --token-source env:HF_TOKEN
+
+volumes:
+  mistralrs_hf_cache:
+  mistralrs_gguf:

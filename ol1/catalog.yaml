@@ -1,0 +1,19 @@
+name: ol1
+description: Streamlit-based reasoning interface for Ollama models with chain-of-thought prompting
+version: latest
+category: ai
+tags: [llm, reasoning, ui]
+source:
+  type: git
+  url: https://github.com/av/harbor
+readiness: raw
+required_inputs:
+  - name: OLLAMA_URL
+    description: URL of the Ollama instance to connect to
+    type: string
+  - name: OL1_MODEL
+    description: Ollama model to use for reasoning
+    type: string
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

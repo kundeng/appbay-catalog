@@ -1,0 +1,12 @@
+services:
+  optillm:
+    image: codelion/optillm:latest
+    container_name: optillm
+    restart: unless-stopped
+    ports:
+      - "${OPTILLM_PORT:-8000}:8000"
+    volumes:
+      - optillm_config:/root/.config/optillm
+
+volumes:
+  optillm_config:

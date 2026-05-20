@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: mcp-manager
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - metamcp
+
+traits:
+  - type: ingress
+    host: "metamcp.${{project.DOMAIN}}"
+    port: 3000
+    service: metamcp
+    exposure: external
+    tls:
+      staging: false

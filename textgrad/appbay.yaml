@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: app
+  role: llm-optimization
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - textgrad
+
+traits:
+  - type: ingress
+    host: "textgrad.${{project.DOMAIN}}"
+    port: 8888
+    service: textgrad
+    exposure: external

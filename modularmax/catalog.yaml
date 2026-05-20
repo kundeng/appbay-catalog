@@ -1,0 +1,17 @@
+name: modularmax
+description: Modular MAX inference engine for serving LLMs with high-performance compiled model execution
+version: latest
+category: ai
+tags: [inference, llm, gpu]
+source:
+  type: git
+  url: https://github.com/modularml/max
+readiness: raw
+required_inputs:
+  - name: MODULARMAX_MODEL
+    description: Model path to serve
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

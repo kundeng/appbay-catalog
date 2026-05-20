@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: infra
+  role: monitoring
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - netdata
+
+traits:
+  - type: ingress
+    host: "netdata.${{project.DOMAIN}}"
+    port: 19999
+    service: netdata
+    exposure: external
+    tls:
+      staging: false

@@ -1,0 +1,23 @@
+services:
+  omnichain:
+    image: omnichain:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: omnichain
+    ports:
+      - "${OMNICHAIN_PORT:-3333}:3333"
+      - "${OMNICHAIN_API_PORT:-3334}:3334"
+    command: >
+      npm run serve --
+      --port 3333
+      --port_openai 3334
+    volumes:
+      - omnichain-custom-nodes:/app/omnichain/custom_nodes
+      - omnichain-data:/app/omnichain/data
+      - omnichain-files:/app/omnichain/files
+
+volumes:
+  omnichain-custom-nodes:
+  omnichain-data:
+  omnichain-files:

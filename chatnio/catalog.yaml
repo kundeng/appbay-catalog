@@ -1,0 +1,16 @@
+name: chatnio
+description: Multi-model AI chat platform with subscription management and admin dashboard
+version: latest
+category: ai
+tags:
+  - chat
+  - llm
+  - multi-model
+source:
+  type: git
+  url: https://github.com/Deeptrain-Community/chatnio
+readiness: augmented
+required_inputs: []
+traits_summary:
+  - ingress (web UI on port 8094)
+maintainer: appbay

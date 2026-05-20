@@ -1,0 +1,15 @@
+name: cfd
+description: Cloudflare Tunnel daemon for exposing local services through Cloudflare's network
+version: latest
+category: ai
+tags:
+  - tunnel
+  - networking
+  - cloudflare
+source:
+  type: docker
+  url: https://hub.docker.com/r/cloudflare/cloudflared
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

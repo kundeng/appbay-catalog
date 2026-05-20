@@ -1,0 +1,18 @@
+name: aphrodite
+description: OpenAI-compatible LLM inference engine optimized for throughput and low latency
+version: latest
+category: ai
+tags:
+  - inference
+  - llm
+  - openai-compatible
+source:
+  type: git
+  url: https://github.com/PygmalionAI/aphrodite-engine
+readiness: augmented
+required_inputs:
+  - HF_TOKEN
+  - APHRODITE_MODEL
+traits_summary:
+  - ingress (API on port 2242)
+maintainer: appbay

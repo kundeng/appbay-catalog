@@ -1,0 +1,4 @@
+traits:
+  - type: ingress
+    service: cognee
+    port: 8000

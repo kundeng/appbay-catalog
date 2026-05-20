@@ -1,0 +1,21 @@
+name: mindsdb
+description: AI-powered database platform for building and deploying AI/ML models using SQL queries
+version: latest
+category: ai
+tags: [llm, tools, inference]
+source:
+  type: git
+  url: https://github.com/mindsdb/mindsdb
+readiness: raw
+required_inputs:
+  - name: MINDSDB_USERNAME
+    description: MindsDB admin username
+    type: string
+    default: "admin"
+  - name: MINDSDB_PASSWORD
+    description: MindsDB admin password
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

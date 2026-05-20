@@ -1,0 +1,18 @@
+services:
+  txtairag:
+    image: neuml/rag:latest
+    container_name: txtairag
+    ports:
+      - "${TXTAIRAG_PORT:-8501}:8501"
+    volumes:
+      - txtairag-hf-cache:/root/.cache/huggingface
+      - txtairag-data:/root/.cache/txtai
+    environment:
+      DATA: /root/.cache/txtai/data
+      PERSIST: /root/.cache/txtai/embeddings
+      EMBEDDINGS: ${TXTAI_RAG_EMBEDDINGS:-}
+      HF_HOME: /root/.cache/huggingface
+
+volumes:
+  txtairag-hf-cache:
+  txtairag-data:

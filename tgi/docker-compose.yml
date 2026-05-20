@@ -1,0 +1,22 @@
+services:
+  tgi:
+    image: ghcr.io/huggingface/text-generation-inference:latest
+    container_name: tgi
+    ports:
+      - "${TGI_PORT:-8080}:80"
+    volumes:
+      - tgi-data:/data
+    environment:
+      PORT: "80"
+      HOSTNAME: 0.0.0.0
+      HF_TOKEN: ${HF_TOKEN:-}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  tgi-data:

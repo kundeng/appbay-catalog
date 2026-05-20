@@ -1,0 +1,13 @@
+name: netdata
+description: Real-time infrastructure monitoring and troubleshooting dashboard with per-second granularity
+version: latest
+category: ai
+tags: [monitoring]
+source:
+  type: git
+  url: https://github.com/netdata/netdata
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

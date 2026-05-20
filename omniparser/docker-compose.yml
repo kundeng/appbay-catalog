@@ -1,0 +1,9 @@
+services:
+  omniparser:
+    image: omniparser:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: omniparser
+    ports:
+      - "${OMNIPARSER_PORT:-7861}:7861"

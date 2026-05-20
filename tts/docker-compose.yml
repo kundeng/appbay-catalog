@@ -1,0 +1,17 @@
+services:
+  tts:
+    image: ghcr.io/matatonic/openedai-speech:latest
+    container_name: tts
+    ports:
+      - "${TTS_PORT:-8000}:8000"
+    volumes:
+      - tts-voices:/app/voices
+      - tts-config:/app/config
+      - tts-hf-cache:/root/.cache/huggingface
+    environment:
+      HF_HOME: /root/.cache/huggingface
+
+volumes:
+  tts-voices:
+  tts-config:
+  tts-hf-cache:

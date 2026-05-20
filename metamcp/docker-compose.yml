@@ -1,0 +1,46 @@
+services:
+  metamcp:
+    image: metamcp/metamcp:latest
+    container_name: metamcp
+    restart: unless-stopped
+    ports:
+      - "${METAMCP_PORT:-3000}:3000"
+    depends_on:
+      - metamcp-postgres
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  metamcp-postgres:
+    image: postgres:16.2-alpine3.18
+    container_name: metamcp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-metamcp}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-metamcp}
+      POSTGRES_DB: ${POSTGRES_DB:-metamcp}
+    volumes:
+      - metamcp_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  metamcp-sse:
+    image: metamcp/metamcp-sse:latest
+    container_name: metamcp-sse
+    restart: unless-stopped
+    ports:
+      - "${METAMCP_SSE_PORT:-12006}:12006"
+    depends_on:
+      metamcp-postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:12006"]
+      interval: 1s
+      timeout: 10s
+      retries: 10
+      start_period: 2s
+
+volumes:
+  metamcp_db:

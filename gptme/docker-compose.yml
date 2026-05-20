@@ -1,0 +1,9 @@
+services:
+  gptme:
+    image: erikbjare/gptme:latest
+    container_name: gptme
+    volumes:
+      - gptme_config:/root/.config/gptme
+
+volumes:
+  gptme_config:

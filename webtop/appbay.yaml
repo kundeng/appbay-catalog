@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+  role: desktop-environment
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - webtop
+
+traits:
+  - type: ingress
+    host: "desktop.${{project.DOMAIN}}"
+    port: 3000
+    service: webtop
+    exposure: external

@@ -1,0 +1,13 @@
+name: textgrad
+description: Jupyter Lab environment for TextGrad - automatic differentiation via text for LLM optimization
+version: latest
+category: ai
+tags: [llm, tools, inference]
+source:
+  type: git
+  url: https://github.com/zou-group/textgrad
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS (Jupyter Lab)"
+maintainer: appbay

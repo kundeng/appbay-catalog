@@ -1,0 +1,13 @@
+name: nanobot
+description: Lightweight AI agent framework with gateway mode for serving AI-powered tools and workflows
+version: latest
+category: ai
+tags: [agents, tools]
+source:
+  type: git
+  url: https://github.com/nanobot-ai/nanobot
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

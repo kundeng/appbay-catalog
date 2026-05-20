@@ -1,0 +1,14 @@
+name: fabric
+description: AI framework for augmenting humans with reusable prompt patterns for common tasks
+version: latest
+category: ai
+tags:
+  - llm
+  - tools
+source:
+  type: git
+  url: https://github.com/danielmiessler/fabric
+readiness: raw
+required_inputs: []
+traits_summary: []
+maintainer: appbay

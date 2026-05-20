@@ -1,0 +1,17 @@
+name: txtairag
+description: RAG application powered by txtai with Streamlit UI for document search and Q&A
+version: latest
+category: ai
+tags: [rag, llm, search]
+source:
+  type: git
+  url: https://github.com/neuml/rag
+readiness: raw
+required_inputs:
+  - name: TXTAI_RAG_EMBEDDINGS
+    description: Embeddings model to use
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS (Streamlit UI)"
+maintainer: appbay

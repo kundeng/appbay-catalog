@@ -1,0 +1,17 @@
+name: mistralrs
+description: High-performance Rust-based LLM inference server with quantization, paged attention, and OpenAI-compatible API
+version: latest
+category: ai
+tags: [inference, llm, gpu]
+source:
+  type: git
+  url: https://github.com/EricLBuehler/mistral.rs
+readiness: raw
+required_inputs:
+  - name: HF_TOKEN
+    description: HuggingFace token for model access
+    type: string
+    default: ""
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

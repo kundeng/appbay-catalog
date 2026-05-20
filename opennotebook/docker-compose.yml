@@ -1,0 +1,21 @@
+services:
+  opennotebook:
+    image: lfnovo/open-notebook:latest
+    container_name: opennotebook
+    restart: unless-stopped
+    ports:
+      - "${OPENNOTEBOOK_PORT:-8502}:8502"
+      - "${OPENNOTEBOOK_API_PORT:-5055}:5055"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - OPEN_NOTEBOOK_PASSWORD=${OPEN_NOTEBOOK_PASSWORD:-}
+    volumes:
+      - opennotebook_data:/app/data
+      - opennotebook_db:/mydata
+
+volumes:
+  opennotebook_data:
+  opennotebook_db:

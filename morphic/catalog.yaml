@@ -1,0 +1,13 @@
+name: morphic
+description: AI-powered search engine with generative UI that provides answers with cited sources
+version: latest
+category: ai
+tags: [rag, chat, agents]
+source:
+  type: git
+  url: https://github.com/miurla/morphic
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

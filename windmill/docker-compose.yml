@@ -1,0 +1,87 @@
+services:
+  windmill:
+    image: caddy:2-alpine
+    container_name: windmill
+    restart: unless-stopped
+    ports:
+      - "${WINDMILL_PORT:-8080}:80"
+    volumes:
+      - windmill-caddy-data:/data
+    depends_on:
+      windmill-server:
+        condition: service_started
+
+  windmill-db:
+    image: postgres:16-alpine
+    container_name: windmill-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${WINDMILL_DB_PASSWORD}
+      POSTGRES_USER: ${WINDMILL_DB_USER:-windmill}
+      POSTGRES_DB: ${WINDMILL_DB_NAME:-windmill}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${WINDMILL_DB_USER:-windmill}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - windmill-db:/var/lib/postgresql/data
+
+  windmill-server:
+    image: ghcr.io/windmill-labs/windmill:latest
+    container_name: windmill-server
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${WINDMILL_DB_USER:-windmill}:${WINDMILL_DB_PASSWORD}@windmill-db:5432/${WINDMILL_DB_NAME:-windmill}?sslmode=disable
+      MODE: server
+    depends_on:
+      windmill-db:
+        condition: service_healthy
+    volumes:
+      - windmill-logs:/tmp/windmill/logs
+
+  windmill-worker:
+    image: ghcr.io/windmill-labs/windmill:latest
+    container_name: windmill-worker
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${WINDMILL_DB_USER:-windmill}:${WINDMILL_DB_PASSWORD}@windmill-db:5432/${WINDMILL_DB_NAME:-windmill}?sslmode=disable
+      MODE: worker
+      WORKER_GROUP: default
+    depends_on:
+      windmill-db:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - windmill-cache:/tmp/windmill/cache
+      - windmill-logs:/tmp/windmill/logs
+
+  windmill-worker-native:
+    image: ghcr.io/windmill-labs/windmill:latest
+    container_name: windmill-worker-native
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${WINDMILL_DB_USER:-windmill}:${WINDMILL_DB_PASSWORD}@windmill-db:5432/${WINDMILL_DB_NAME:-windmill}?sslmode=disable
+      MODE: worker
+      WORKER_GROUP: native
+      NUM_WORKERS: "8"
+      SLEEP_QUEUE: "200"
+    depends_on:
+      windmill-db:
+        condition: service_healthy
+    volumes:
+      - windmill-logs:/tmp/windmill/logs
+
+  windmill-lsp:
+    image: ghcr.io/windmill-labs/windmill-lsp:latest
+    container_name: windmill-lsp
+    restart: unless-stopped
+    volumes:
+      - windmill-lsp-cache:/pyls/.cache
+
+volumes:
+  windmill-caddy-data:
+  windmill-db:
+  windmill-logs:
+  windmill-cache:
+  windmill-lsp-cache:

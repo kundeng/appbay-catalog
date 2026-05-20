@@ -1,0 +1,13 @@
+services:
+  ol1:
+    image: ol1:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ol1
+    ports:
+      - "${OL1_PORT:-8501}:8501"
+    environment:
+      OLLAMA_URL: ${OLLAMA_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OL1_MODEL:-llama3.2:3b}
+      OLLAMA_OPTIONS: ${OL1_ARGS:-}

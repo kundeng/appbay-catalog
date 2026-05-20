@@ -1,0 +1,89 @@
+services:
+  bionicgpt:
+    image: ghcr.io/bionic-gpt/bionicgpt-envoy:1.7.41
+    container_name: bionicgpt
+    ports:
+      - ${BIONICGPT_PORT:-7700}:7700
+    depends_on:
+      bionicgpt-app:
+        condition: service_started
+      bionicgpt-barricade:
+        condition: service_started
+
+  bionicgpt-app:
+    image: ghcr.io/bionic-gpt/bionicgpt:1.7.41
+    container_name: bionicgpt-app
+    environment:
+      SIGNOUT_URL: /auth/sign_out
+      ENABLE_BARRICADE: 1
+      APP_DATABASE_URL: postgresql://bionic_application:${BIONICGPT_DB_PASSWORD:-testpassword}@bionicgpt-postgres:5432/bionic-gpt?sslmode=disable
+    depends_on:
+      bionicgpt-postgres:
+        condition: service_healthy
+      bionicgpt-migrations:
+        condition: service_completed_successfully
+
+  bionicgpt-llmapi:
+    image: ghcr.io/bionic-gpt/llama-3-8b-chat:1.1.1
+    container_name: bionicgpt-llmapi
+
+  bionicgpt-embeddingsapi:
+    image: ghcr.io/bionic-gpt/bionicgpt-embeddings-api:cpu-0.6
+    container_name: bionicgpt-embeddingsapi
+
+  bionicgpt-chunkingengine:
+    image: downloads.unstructured.io/unstructured-io/unstructured-api:4ffd8bc
+    container_name: bionicgpt-chunkingengine
+
+  bionicgpt-postgres:
+    image: ankane/pgvector
+    container_name: bionicgpt-postgres
+    platform: linux/amd64
+    environment:
+      POSTGRES_PASSWORD: ${BIONICGPT_DB_PASSWORD:-testpassword}
+      POSTGRES_USER: postgres
+      POSTGRES_DB: keycloak
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - bionicgpt_db:/var/lib/postgresql/data
+
+  bionicgpt-barricade:
+    image: purtontech/barricade:1.2.10
+    container_name: bionicgpt-barricade
+    environment:
+      SECRET_KEY: ${BIONICGPT_SECRET_KEY:-190a5bf4b3cbb6c0991967ab1c48ab30790af876720f1835cbbf3820f4f5d949}
+      DATABASE_URL: postgresql://postgres:${BIONICGPT_DB_PASSWORD:-testpassword}@bionicgpt-postgres:5432/bionic-gpt?sslmode=disable
+      REDIRECT_URL: /app/post_registration
+      USER_TABLE_NAME: barricade_users
+    depends_on:
+      bionicgpt-postgres:
+        condition: service_healthy
+      bionicgpt-migrations:
+        condition: service_completed_successfully
+
+  bionicgpt-migrations:
+    image: ghcr.io/bionic-gpt/bionicgpt-db-migrations:1.7.41
+    container_name: bionicgpt-migrations
+    environment:
+      DATABASE_URL: postgresql://postgres:${BIONICGPT_DB_PASSWORD:-testpassword}@bionicgpt-postgres:5432/bionic-gpt?sslmode=disable
+    depends_on:
+      bionicgpt-postgres:
+        condition: service_healthy
+
+  bionicgpt-pipelinejob:
+    image: ghcr.io/bionic-gpt/bionicgpt-pipeline-job:1.7.41
+    container_name: bionicgpt-pipelinejob
+    environment:
+      APP_DATABASE_URL: postgresql://bionic_application:${BIONICGPT_DB_PASSWORD:-testpassword}@bionicgpt-postgres:5432/bionic-gpt?sslmode=disable
+    depends_on:
+      bionicgpt-postgres:
+        condition: service_healthy
+      bionicgpt-migrations:
+        condition: service_completed_successfully
+
+volumes:
+  bionicgpt_db:

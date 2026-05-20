@@ -1,0 +1,13 @@
+name: metamcp
+description: Meta MCP server manager with web UI for centrally managing MCP server configurations across clients
+version: latest
+category: ai
+tags: [mcp, tools]
+source:
+  type: git
+  url: https://github.com/AiCampMinds/metamcp
+readiness: raw
+required_inputs: []
+traits_summary:
+  - "ingress: external HTTPS"
+maintainer: appbay

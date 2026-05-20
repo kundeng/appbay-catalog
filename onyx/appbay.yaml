@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+  role: knowledge-management
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - onyx
+
+traits:
+  - type: ingress
+    host: "onyx.${{project.DOMAIN}}"
+    port: 80
+    service: onyx
+    exposure: external

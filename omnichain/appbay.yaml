@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+  role: workflow-editor
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - omnichain
+
+traits:
+  - type: ingress
+    host: "omnichain.${{project.DOMAIN}}"
+    port: 3333
+    service: omnichain
+    exposure: external

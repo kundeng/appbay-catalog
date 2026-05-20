@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: text-completion
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mikupad
+
+traits:
+  - type: ingress
+    host: "mikupad.${{project.DOMAIN}}"
+    port: 8080
+    service: mikupad
+    exposure: external
+    tls:
+      staging: false

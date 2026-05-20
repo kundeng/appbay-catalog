@@ -1,0 +1,20 @@
+project: default
+environment: default
+collection: [ai, self-hosted]
+tags:
+  tier: app
+  role: ai-database
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - mindsdb
+
+traits:
+  - type: ingress
+    host: "mindsdb.${{project.DOMAIN}}"
+    port: 47334
+    service: mindsdb
+    exposure: external
+    tls:
+      staging: false

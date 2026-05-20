@@ -1,0 +1,18 @@
+name: windmill
+description: Open-source workflow engine and developer platform for scripts, flows, and apps
+version: latest
+category: ai
+tags: [workflow, tools, agents]
+source:
+  type: git
+  url: https://github.com/windmill-labs/windmill
+readiness: raw
+required_inputs:
+  - name: WINDMILL_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+traits_summary:
+  - "ingress: external HTTPS"
+  - "secrets: 1 auto-generated (DB password)"
+maintainer: appbay

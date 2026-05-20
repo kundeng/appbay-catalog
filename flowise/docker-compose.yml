@@ -1,0 +1,11 @@
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    container_name: flowise
+    ports:
+      - ${FLOWISE_PORT:-3000}:3000
+    volumes:
+      - flowise_data:/root/.flowise
+
+volumes:
+  flowise_data:

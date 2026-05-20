@@ -1,0 +1,18 @@
+project: default
+environment: default
+collection: [automation, self-hosted]
+tags:
+  tier: app
+  role: workflow-engine
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - windmill
+
+traits:
+  - type: ingress
+    host: "windmill.${{project.DOMAIN}}"
+    port: 80
+    service: windmill
+    exposure: external
