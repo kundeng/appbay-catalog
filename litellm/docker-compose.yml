@@ -9,26 +9,26 @@ services:
     ports:
       - "${LITELLM_PORT:-4000}:4000"
     environment:
-      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-}
-      - DATABASE_URL=postgresql://postgres:postgres@litellm-db:5432/postgres
-      - UI_USERNAME=${UI_USERNAME:-admin}
-      - UI_PASSWORD=${UI_PASSWORD:-}
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      DATABASE_URL: postgresql://litellm:${LITELLM_DB_PASSWORD}@litellm-db:5432/litellm
+      UI_USERNAME: ${UI_USERNAME:-admin}
+      UI_PASSWORD: ${UI_PASSWORD}
 
   litellm-db:
-    image: postgres:18
+    image: postgres:16-alpine
     container_name: litellm-db
-    restart: always
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 3s
+      test: ["CMD-SHELL", "pg_isready -U litellm"]
+      interval: 5s
       timeout: 3s
       retries: 10
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      POSTGRES_USER: litellm
+      POSTGRES_PASSWORD: ${LITELLM_DB_PASSWORD}
+      POSTGRES_DB: litellm
     volumes:
-      - litellm_db:/var/lib/postgresql
+      - litellm_db:/var/lib/postgresql/data
 
 volumes:
   litellm_db:

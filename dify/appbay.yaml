@@ -1,4 +1,77 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+  role: llm-platform
+
+upstream:
+  source: ./docker-compose.yml
+  services:
+    exclude:
+      - nginx
+      - certbot
+      - db_mysql
+      - oceanbase
+      - seekdb
+      - qdrant
+      - couchbase-server
+      - pgvector
+      - vastbase
+      - pgvecto-rs
+      - chroma
+      - iris
+      - oracle
+      - etcd
+      - minio
+      - milvus-standalone
+      - opensearch
+      - opensearch-dashboards
+      - opengauss
+      - unstructured
+  expose:
+    - api
+    - web
+
 traits:
   - type: ingress
-    service: dify
-    port: 80
+    host: "dify.${{project.DOMAIN}}"
+    port: 3000
+    service: web
+    exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authentik
+    service: web
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - dify_db_postgres
+      - dify_storage
+
+overrides:
+  web:
+    ports:
+      - "${DIFY_PORT:-3000}:3000"
+
+overlays:
+  - when: [ollama]
+    services:
+      api:
+        environment:
+          - OPENAI_API_BASE=http://appbay.ollama:11434/v1
+      worker:
+        environment:
+          - OPENAI_API_BASE=http://appbay.ollama:11434/v1
+
+  - when: [litellm]
+    services:
+      api:
+        environment:
+          - OPENAI_API_BASE=http://appbay.litellm:4000/v1
+      worker:
+        environment:
+          - OPENAI_API_BASE=http://appbay.litellm:4000/v1

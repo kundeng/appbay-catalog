@@ -1,25 +1,36 @@
 name: langfuse
-description: Open-source LLM engineering platform for observability, metrics, evals, and prompt management
-version: latest
+description: LLM observability platform — traces, metrics, evals, prompt management, and cost tracking
+version: "3"
 category: ai
-tags: [monitoring, llm, tools]
+tags: [llm, observability, monitoring, evals, tracing]
 source:
   type: git
   url: https://github.com/langfuse/langfuse
-readiness: raw
+readiness: augmented
 required_inputs:
+  - name: LANGFUSE_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
   - name: LANGFUSE_SECRET_KEY
-    description: Secret key for Langfuse authentication
-    type: string
-    default: ""
+    description: API secret key for SDK authentication
+    type: secret
+    auto_generate: true
   - name: LANGFUSE_NEXT_AUTH_SECRET
-    description: NextAuth secret for session encryption
-    type: string
-    default: ""
-  - name: REDIS_AUTH
+    description: Session encryption key (NextAuth)
+    type: secret
+    auto_generate: true
+  - name: LANGFUSE_REDIS_PASSWORD
     description: Redis password
-    type: string
-    default: "myredissecret"
+    type: secret
+    auto_generate: true
+  - name: LANGFUSE_SALT
+    description: Salt for hashing API keys
+    type: secret
+    auto_generate: true
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: internal HTTPS (team tool, not public)"
+  - "secrets: 5 auto-generated (DB, API key, session, Redis, salt)"
+  - "backup: daily, 30-day retention (traces + evals are high-value data)"
+  - "auth: Authentik forward-auth"
 maintainer: appbay

@@ -1,8 +1,8 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, infrastructure]
 tags:
-  tier: app
+  tier: infra
   role: llm-proxy
 
 upstream:
@@ -15,6 +15,16 @@ traits:
     host: "litellm.${{project.DOMAIN}}"
     port: 4000
     service: litellm
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 7
+    volumes:
+      - litellm_db
+
+overlays:
+  - when: [ollama]
+    services:
+      litellm:
+        environment:
+          - OLLAMA_API_BASE=http://appbay.ollama:11434

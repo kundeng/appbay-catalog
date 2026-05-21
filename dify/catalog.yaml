@@ -1,18 +1,42 @@
 name: dify
-description: Open-source LLM app development platform with visual workflow builder, RAG, and agent capabilities
-version: latest
+description: Open-source LLM app development platform with visual workflow builder, RAG pipeline, and agent orchestration
+version: "1.6"
 category: ai
-tags:
-  - workflow
-  - rag
-  - agents
-  - llm
-  - platform
+tags: [llm, workflow, rag, agents, platform, no-code]
 source:
   type: git
   url: https://github.com/langgenius/dify
+  path: docker/docker-compose.yaml
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: SECRET_KEY
+    description: Application secret key for session encryption and sensitive data
+    type: secret
+    auto_generate: true
+  - name: DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  - name: REDIS_PASSWORD
+    description: Redis password
+    type: secret
+    auto_generate: true
+  - name: SANDBOX_API_KEY
+    description: Sandbox service API key
+    type: secret
+    auto_generate: true
+  - name: INIT_PASSWORD
+    description: Initial admin password (leave empty for no password on first login)
+    type: secret
+  - name: OPENAI_API_KEY
+    description: OpenAI API key (optional — can use Ollama or LiteLLM instead)
+    type: secret
 traits_summary:
-  - ingress (web UI on port 80)
+  - "ingress: external HTTPS on web service (port 3000)"
+  - "auth: Authentik forward-auth"
+  - "backup: daily, 14-day retention (postgres + file storage)"
+  - "secrets: 4 auto-generated (app key, DB, Redis, sandbox)"
+  - "overlays: auto-wires Ollama or LiteLLM as LLM backend"
+  - "excludes: nginx, certbot, alt vector DBs (Appbay handles ingress + TLS)"
 maintainer: appbay

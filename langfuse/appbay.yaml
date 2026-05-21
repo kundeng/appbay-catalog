@@ -1,8 +1,8 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, observability]
 tags:
-  tier: app
+  tier: infra
   role: llm-observability
 
 upstream:
@@ -15,6 +15,15 @@ traits:
     host: "langfuse.${{project.DOMAIN}}"
     port: 3000
     service: langfuse
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authentik
+    service: langfuse
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 30
+    volumes:
+      - langfuse_db
+      - langfuse_clickhouse
+      - langfuse_minio

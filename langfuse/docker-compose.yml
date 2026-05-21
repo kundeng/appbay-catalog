@@ -14,25 +14,52 @@ services:
         condition: service_healthy
     ports:
       - "${LANGFUSE_PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD}@langfuse-db:5432/langfuse
+      NEXTAUTH_SECRET: ${LANGFUSE_NEXT_AUTH_SECRET}
+      SALT: ${LANGFUSE_SALT}
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY}
+      REDIS_HOST: langfuse-redis
+      REDIS_PORT: 6379
+      REDIS_AUTH: ${LANGFUSE_REDIS_PASSWORD}
+      LANGFUSE_S3_BUCKET_NAME: langfuse
+      LANGFUSE_S3_ENDPOINT: http://langfuse-minio:9000
+      LANGFUSE_S3_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_SECRET_ACCESS_KEY: miniominio
+      LANGFUSE_S3_FORCE_PATH_STYLE: "true"
+      CLICKHOUSE_URL: http://langfuse-clickhouse:8123
 
   langfuse-worker:
     image: langfuse/langfuse-worker:3
     container_name: langfuse-worker
     restart: unless-stopped
     depends_on: *langfuse-depends-on
+    environment:
+      DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD}@langfuse-db:5432/langfuse
+      LANGFUSE_SECRET_KEY: ${LANGFUSE_SECRET_KEY}
+      SALT: ${LANGFUSE_SALT}
+      REDIS_HOST: langfuse-redis
+      REDIS_PORT: 6379
+      REDIS_AUTH: ${LANGFUSE_REDIS_PASSWORD}
+      LANGFUSE_S3_BUCKET_NAME: langfuse
+      LANGFUSE_S3_ENDPOINT: http://langfuse-minio:9000
+      LANGFUSE_S3_ACCESS_KEY_ID: minio
+      LANGFUSE_S3_SECRET_ACCESS_KEY: miniominio
+      LANGFUSE_S3_FORCE_PATH_STYLE: "true"
+      CLICKHOUSE_URL: http://langfuse-clickhouse:8123
 
   langfuse-db:
-    image: postgres:16
+    image: postgres:16-alpine
     container_name: langfuse-db
-    restart: always
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 1s
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 5s
       timeout: 5s
       retries: 10
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${LANGFUSE_DB_PASSWORD}
       POSTGRES_DB: langfuse
     volumes:
       - langfuse_db:/var/lib/postgresql/data
@@ -40,48 +67,42 @@ services:
   langfuse-clickhouse:
     image: clickhouse/clickhouse-server
     container_name: langfuse-clickhouse
-    restart: always
+    restart: unless-stopped
     user: "101:101"
-    hostname: langfuse-clickhouse
     volumes:
-      - langfuse_clickhouse_data:/var/lib/clickhouse
-      - langfuse_clickhouse_logs:/var/log/clickhouse-server
+      - langfuse_clickhouse:/var/lib/clickhouse
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8123/ping || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 10
-      start_period: 1s
 
   langfuse-minio:
     image: minio/minio
     container_name: langfuse-minio
-    restart: always
+    restart: unless-stopped
     entrypoint: sh
     command: -c 'mkdir -p /data/langfuse && minio server --address ":9000" --console-address ":9001" /data'
     volumes:
       - langfuse_minio:/data
     healthcheck:
       test: ["CMD", "mc", "ready", "local"]
-      interval: 1s
+      interval: 5s
       timeout: 5s
       retries: 5
-      start_period: 1s
 
   langfuse-redis:
-    image: redis:7
+    image: redis:7-alpine
     container_name: langfuse-redis
-    restart: always
-    command: >
-      --requirepass ${REDIS_AUTH:-myredissecret}
+    restart: unless-stopped
+    command: --requirepass ${LANGFUSE_REDIS_PASSWORD}
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 3s
-      timeout: 10s
+      interval: 5s
+      timeout: 5s
       retries: 10
 
 volumes:
   langfuse_db:
-  langfuse_clickhouse_data:
-  langfuse_clickhouse_logs:
+  langfuse_clickhouse:
   langfuse_minio:
