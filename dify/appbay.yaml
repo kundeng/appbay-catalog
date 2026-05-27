@@ -43,7 +43,7 @@ traits:
       staging: false
   - type: auth
     enabled: true
-    provider: authentik
+    provider: authelia
     service: web
   - type: backup
     schedule: "0 2 * * *"

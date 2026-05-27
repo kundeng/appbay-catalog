@@ -18,7 +18,7 @@ traits:
     exposure: internal
   - type: auth
     enabled: true
-    provider: authentik
+    provider: authelia
     service: langfuse
   - type: backup
     schedule: "0 3 * * *"

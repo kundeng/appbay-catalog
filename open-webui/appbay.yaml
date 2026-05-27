@@ -18,7 +18,7 @@ traits:
     exposure: both
   - type: auth
     enabled: true
-    provider: authentik
+    provider: authelia
     service: open-webui
 
 overlays:
