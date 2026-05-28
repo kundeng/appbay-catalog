@@ -1,20 +1,36 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: ai-search
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - morphic
-
+  - morphic
 traits:
-  - type: ingress
-    host: "morphic.${{project.DOMAIN}}"
-    port: 3000
-    service: morphic
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: morphic.${{project.DOMAIN}}
+  port: 3000
+  service: morphic
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: morphic
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - morphic_redis
+overlays:
+- when:
+  - ollama
+  services:
+    morphic:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

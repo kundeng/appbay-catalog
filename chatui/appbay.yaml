@@ -1,4 +1,20 @@
 traits:
-  - type: ingress
-    service: chatui
-    port: 3000
+- type: ingress
+  service: chatui
+  port: 3000
+- type: auth
+  enabled: true
+  provider: authelia
+  service: chatui
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - chatui_db
+overlays:
+- when:
+  - ollama
+  services:
+    chatui:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

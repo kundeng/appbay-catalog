@@ -1,20 +1,31 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: chat-ui
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - lobechat
-
+  - lobechat
 traits:
-  - type: ingress
-    host: "lobechat.${{project.DOMAIN}}"
-    port: 3210
-    service: lobechat
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: lobechat.${{project.DOMAIN}}
+  port: 3210
+  service: lobechat
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: lobechat
+overlays:
+- when:
+  - ollama
+  services:
+    lobechat:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

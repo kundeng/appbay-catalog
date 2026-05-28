@@ -1,18 +1,37 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection:
+- self-hosted
 tags:
   tier: app
   role: knowledge-management
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - onyx
-
+  - onyx
 traits:
-  - type: ingress
-    host: "onyx.${{project.DOMAIN}}"
-    port: 80
-    service: onyx
-    exposure: external
+- type: ingress
+  host: onyx.${{project.DOMAIN}}
+  port: 80
+  service: onyx
+  exposure: external
+- type: auth
+  enabled: true
+  provider: authelia
+  service: onyx
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - onyx-api-logs
+  - onyx-background-logs
+  - onyx-db
+  - onyx-vespa
+  - onyx-minio
+overlays:
+- when:
+  - ollama
+  services:
+    onyx:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

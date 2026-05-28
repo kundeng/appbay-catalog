@@ -1,4 +1,9 @@
 traits:
-  - type: ingress
-    service: aphrodite
-    port: 2242
+- type: ingress
+  service: aphrodite
+  port: 2242
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - hf_cache

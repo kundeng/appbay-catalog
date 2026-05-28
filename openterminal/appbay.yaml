@@ -1,18 +1,22 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection:
+- self-hosted
 tags:
   tier: app
   role: terminal
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - openterminal
-
+  - openterminal
 traits:
-  - type: ingress
-    host: "terminal.${{project.DOMAIN}}"
-    port: 8000
-    service: openterminal
-    exposure: external
+- type: ingress
+  host: terminal.${{project.DOMAIN}}
+  port: 8000
+  service: openterminal
+  exposure: external
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - openterminal-workspace

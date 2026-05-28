@@ -1,4 +1,21 @@
 traits:
-  - type: ingress
-    service: kobold
-    port: 5001
+- type: ingress
+  service: kobold
+  port: 5001
+- type: auth
+  enabled: true
+  provider: authelia
+  service: kobold
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - kobold_workspace
+  - hf_cache
+overlays:
+- when:
+  - ollama
+  services:
+    kobold:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

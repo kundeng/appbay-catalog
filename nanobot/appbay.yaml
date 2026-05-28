@@ -1,20 +1,32 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: agent-gateway
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - nanobot
-
+  - nanobot
 traits:
-  - type: ingress
-    host: "nanobot.${{project.DOMAIN}}"
-    port: 18790
-    service: nanobot
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: nanobot.${{project.DOMAIN}}
+  port: 18790
+  service: nanobot
+  exposure: external
+  tls:
+    staging: false
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - nanobot_config
+overlays:
+- when:
+  - ollama
+  services:
+    nanobot:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

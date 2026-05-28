@@ -1,18 +1,23 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection:
+- ai-stack
 tags:
   tier: app
   role: llm-finetuning
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - unsloth
-
+  - unsloth
 traits:
-  - type: ingress
-    host: "unsloth.${{project.DOMAIN}}"
-    port: 8888
-    service: unsloth
-    exposure: external
+- type: ingress
+  host: unsloth.${{project.DOMAIN}}
+  port: 8888
+  service: unsloth
+  exposure: external
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - unsloth-workspace
+  - unsloth-hf-cache

@@ -1,4 +1,10 @@
 traits:
-  - type: ingress
-    service: ktransformers
-    port: 12456
+- type: ingress
+  service: ktransformers
+  port: 12456
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - hf_cache
+  - llamacpp_cache

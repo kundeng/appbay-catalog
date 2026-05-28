@@ -1,4 +1,15 @@
 traits:
-  - type: ingress
-    service: hollama
-    port: 4173
+- type: ingress
+  service: hollama
+  port: 4173
+- type: auth
+  enabled: true
+  provider: authelia
+  service: hollama
+overlays:
+- when:
+  - ollama
+  services:
+    hollama:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

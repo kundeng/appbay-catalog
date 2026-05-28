@@ -1,18 +1,33 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection:
+- self-hosted
 tags:
   tier: app
   role: coding-agent
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - openhands
-
+  - openhands
 traits:
-  - type: ingress
-    host: "openhands.${{project.DOMAIN}}"
-    port: 3000
-    service: openhands
-    exposure: external
+- type: ingress
+  host: openhands.${{project.DOMAIN}}
+  port: 3000
+  service: openhands
+  exposure: external
+- type: auth
+  enabled: true
+  provider: authelia
+  service: openhands
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - openhands-state
+overlays:
+- when:
+  - ollama
+  services:
+    openhands:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

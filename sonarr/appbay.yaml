@@ -1,18 +1,26 @@
 project: default
 environment: default
-collection: [media]
+collection:
+- media
 tags:
   tier: app
   role: tv-manager
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - sonarr
-
+  - sonarr
 traits:
-  - type: ingress
-    host: "sonarr.${{project.DOMAIN}}"
-    port: 8989
-    service: sonarr
-    exposure: internal
+- type: ingress
+  host: sonarr.${{project.DOMAIN}}
+  port: 8989
+  service: sonarr
+  exposure: internal
+- type: auth
+  enabled: true
+  provider: authelia
+  service: sonarr
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - sonarr-config

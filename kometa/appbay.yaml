@@ -1,11 +1,17 @@
 project: default
 environment: default
-collection: [media]
+collection:
+- media
 tags:
   tier: app
   role: metadata-manager
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - kometa
+  - kometa
+traits:
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - kometa-config

@@ -1,4 +1,22 @@
 traits:
-  - type: ingress
-    service: airweave
-    port: 8080
+- type: ingress
+  service: airweave
+  port: 8080
+- type: auth
+  enabled: true
+  provider: authelia
+  service: airweave
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - airweave_pg
+  - airweave_redis
+  - airweave_qdrant
+overlays:
+- when:
+  - ollama
+  services:
+    airweave:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

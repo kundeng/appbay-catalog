@@ -1,18 +1,26 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection:
+- ai-stack
 tags:
   tier: app
   role: presentation-generator
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - presenton
-
+  - presenton
 traits:
-  - type: ingress
-    host: "presenton.${{project.DOMAIN}}"
-    port: 80
-    service: presenton
-    exposure: external
+- type: ingress
+  host: presenton.${{project.DOMAIN}}
+  port: 80
+  service: presenton
+  exposure: external
+- type: auth
+  enabled: true
+  provider: authelia
+  service: presenton
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - presenton-data

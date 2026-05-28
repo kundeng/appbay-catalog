@@ -1,18 +1,26 @@
 project: default
 environment: default
-collection: [media]
+collection:
+- media
 tags:
   tier: app
   role: usenet-downloader
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - sabnzbd
-
+  - sabnzbd
 traits:
-  - type: ingress
-    host: "sabnzbd.${{project.DOMAIN}}"
-    port: 8080
-    service: sabnzbd
-    exposure: internal
+- type: ingress
+  host: sabnzbd.${{project.DOMAIN}}
+  port: 8080
+  service: sabnzbd
+  exposure: internal
+- type: auth
+  enabled: true
+  provider: authelia
+  service: sabnzbd
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - sabnzbd-config

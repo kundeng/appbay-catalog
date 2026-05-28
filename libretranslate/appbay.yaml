@@ -1,20 +1,30 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: translation-api
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - libretranslate
-
+  - libretranslate
 traits:
-  - type: ingress
-    host: "libretranslate.${{project.DOMAIN}}"
-    port: 5000
-    service: libretranslate
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: libretranslate.${{project.DOMAIN}}
+  port: 5000
+  service: libretranslate
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: libretranslate
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - libretranslate_keys
+  - libretranslate_local

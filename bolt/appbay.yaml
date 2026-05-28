@@ -1,4 +1,15 @@
 traits:
-  - type: ingress
-    service: bolt
-    port: 5173
+- type: ingress
+  service: bolt
+  port: 5173
+- type: auth
+  enabled: true
+  provider: authelia
+  service: bolt
+overlays:
+- when:
+  - ollama
+  services:
+    bolt:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

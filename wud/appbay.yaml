@@ -1,18 +1,21 @@
 project: default
 environment: default
-collection: [monitoring]
+collection:
+- monitoring
 tags:
   tier: infra
   role: image-updates
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - wud
-
+  - wud
 traits:
-  - type: ingress
-    host: "wud.${{project.DOMAIN}}"
-    port: 3000
-    service: wud
-    exposure: internal
+- type: ingress
+  host: wud.${{project.DOMAIN}}
+  port: 3000
+  service: wud
+  exposure: internal
+- type: auth
+  enabled: true
+  provider: authelia
+  service: wud

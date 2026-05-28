@@ -1,24 +1,28 @@
 project: default
 environment: default
-collection: [monitoring, observability]
+collection:
+- monitoring
+- observability
 tags:
   tier: infra
   role: dashboards
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - grafana
-
+  - grafana
 traits:
-  - type: ingress
-    host: "grafana.${{project.DOMAIN}}"
-    port: 3000
-    service: grafana
-    exposure: internal
-  - type: backup
-    schedule: "0 3 * * *"
-    retention: 14
-    volumes:
-      - grafana-data
-      - prometheus-data
+- type: ingress
+  host: grafana.${{project.DOMAIN}}
+  port: 3000
+  service: grafana
+  exposure: internal
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - grafana-data
+  - prometheus-data
+- type: auth
+  enabled: true
+  provider: authelia
+  service: grafana

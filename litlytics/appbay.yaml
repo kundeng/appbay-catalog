@@ -1,20 +1,31 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: analytics
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - litlytics
-
+  - litlytics
 traits:
-  - type: ingress
-    host: "litlytics.${{project.DOMAIN}}"
-    port: 3000
-    service: litlytics
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: litlytics.${{project.DOMAIN}}
+  port: 3000
+  service: litlytics
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: litlytics
+overlays:
+- when:
+  - ollama
+  services:
+    litlytics:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

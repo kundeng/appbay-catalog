@@ -1,4 +1,20 @@
 traits:
-  - type: ingress
-    service: anythingllm
-    port: 3001
+- type: ingress
+  service: anythingllm
+  port: 3001
+- type: auth
+  enabled: true
+  provider: authelia
+  service: anythingllm
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - anythingllm_storage
+overlays:
+- when:
+  - ollama
+  services:
+    anythingllm:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

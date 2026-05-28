@@ -1,18 +1,26 @@
 project: default
 environment: default
-collection: [monitoring]
+collection:
+- monitoring
 tags:
   tier: infra
   role: system-monitor
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - glances
-
+  - glances
 traits:
-  - type: ingress
-    host: "glances.${{project.DOMAIN}}"
-    port: 61208
-    service: glances
-    exposure: internal
+- type: ingress
+  host: glances.${{project.DOMAIN}}
+  port: 61208
+  service: glances
+  exposure: internal
+- type: auth
+  enabled: true
+  provider: authelia
+  service: glances
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - glances-config

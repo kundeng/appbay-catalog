@@ -1,11 +1,17 @@
 project: default
 environment: default
-collection: [automation]
+collection:
+- automation
 tags:
   tier: infra
   role: garbage-collection
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - docker-gc
+  - docker-gc
+traits:
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - docker-gc-config

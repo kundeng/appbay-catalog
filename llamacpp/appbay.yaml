@@ -1,20 +1,26 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: infra
   role: inference-server
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - llamacpp
-
+  - llamacpp
 traits:
-  - type: ingress
-    host: "llamacpp.${{project.DOMAIN}}"
-    port: 8080
-    service: llamacpp
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: llamacpp.${{project.DOMAIN}}
+  port: 8080
+  service: llamacpp
+  exposure: external
+  tls:
+    staging: false
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - llamacpp_models
+  - llamacpp_cache

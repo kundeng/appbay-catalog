@@ -1,18 +1,35 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection:
+- ai-stack
 tags:
   tier: app
   role: rag-pipeline
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - raglite
-
+  - raglite
 traits:
-  - type: ingress
-    host: "raglite.${{project.DOMAIN}}"
-    port: 8000
-    service: raglite
-    exposure: external
+- type: ingress
+  host: raglite.${{project.DOMAIN}}
+  port: 8000
+  service: raglite
+  exposure: external
+- type: auth
+  enabled: true
+  provider: authelia
+  service: raglite
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - raglite-hf-cache
+  - raglite-data
+  - raglite-chainlit
+overlays:
+- when:
+  - ollama
+  services:
+    raglite:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

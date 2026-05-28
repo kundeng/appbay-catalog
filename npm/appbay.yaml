@@ -1,20 +1,31 @@
 project: default
 environment: default
-collection: [admin, self-hosted]
+collection:
+- admin
+- self-hosted
 tags:
   tier: infra
   role: reverse-proxy-manager
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - npm
-
+  - npm
 traits:
-  - type: ingress
-    host: "npm.${{project.DOMAIN}}"
-    port: 81
-    service: npm
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: npm.${{project.DOMAIN}}
+  port: 81
+  service: npm
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: npm
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - npm_data
+  - npm_letsencrypt
+  - maria_data

@@ -1,18 +1,28 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection:
+- self-hosted
 tags:
   tier: app
   role: workflow-editor
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - omnichain
-
+  - omnichain
 traits:
-  - type: ingress
-    host: "omnichain.${{project.DOMAIN}}"
-    port: 3333
-    service: omnichain
-    exposure: external
+- type: ingress
+  host: omnichain.${{project.DOMAIN}}
+  port: 3333
+  service: omnichain
+  exposure: external
+- type: auth
+  enabled: true
+  provider: authelia
+  service: omnichain
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - omnichain-custom-nodes
+  - omnichain-data
+  - omnichain-files

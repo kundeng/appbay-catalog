@@ -1,4 +1,22 @@
 traits:
-  - type: ingress
-    service: autogpt
-    port: 8000
+- type: ingress
+  service: autogpt
+  port: 8000
+- type: auth
+  enabled: true
+  provider: authelia
+  service: autogpt
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - autogpt_workspace
+  - autogpt_data
+  - autogpt_logs
+overlays:
+- when:
+  - ollama
+  services:
+    autogpt:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

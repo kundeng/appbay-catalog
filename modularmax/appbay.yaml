@@ -1,20 +1,29 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: infra
   role: inference-server
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - modularmax
-
+  - modularmax
 traits:
-  - type: ingress
-    host: "modularmax.${{project.DOMAIN}}"
-    port: 8000
-    service: modularmax
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: modularmax.${{project.DOMAIN}}
+  port: 8000
+  service: modularmax
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: modularmax
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - modularmax_hf_cache

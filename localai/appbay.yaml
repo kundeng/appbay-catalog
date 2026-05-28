@@ -1,20 +1,26 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: infra
   role: inference-server
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - localai
-
+  - localai
 traits:
-  - type: ingress
-    host: "localai.${{project.DOMAIN}}"
-    port: 8080
-    service: localai
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: localai.${{project.DOMAIN}}
+  port: 8080
+  service: localai
+  exposure: external
+  tls:
+    staging: false
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - localai_models
+  - localai_hf_cache

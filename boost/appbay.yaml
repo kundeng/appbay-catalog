@@ -1,4 +1,13 @@
 traits:
-  - type: ingress
-    service: boost
-    port: 8000
+- type: ingress
+  service: boost
+  port: 8000
+- type: auth
+  enabled: true
+  provider: authelia
+  service: boost
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - hf_cache

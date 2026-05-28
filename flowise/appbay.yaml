@@ -1,4 +1,20 @@
 traits:
-  - type: ingress
-    service: flowise
-    port: 3000
+- type: ingress
+  service: flowise
+  port: 3000
+- type: auth
+  enabled: true
+  provider: authelia
+  service: flowise
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - flowise_data
+overlays:
+- when:
+  - ollama
+  services:
+    flowise:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

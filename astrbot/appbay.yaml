@@ -1,4 +1,20 @@
 traits:
-  - type: ingress
-    service: astrbot
-    port: 6185
+- type: ingress
+  service: astrbot
+  port: 6185
+- type: auth
+  enabled: true
+  provider: authelia
+  service: astrbot
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - astrbot_data
+overlays:
+- when:
+  - ollama
+  services:
+    astrbot:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

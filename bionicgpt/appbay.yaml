@@ -1,4 +1,20 @@
 traits:
-  - type: ingress
-    service: bionicgpt
-    port: 7700
+- type: ingress
+  service: bionicgpt
+  port: 7700
+- type: auth
+  enabled: true
+  provider: authelia
+  service: bionicgpt
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - bionicgpt_db
+overlays:
+- when:
+  - ollama
+  services:
+    bionicgpt:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

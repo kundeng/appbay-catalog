@@ -1,20 +1,29 @@
 project: default
 environment: default
-collection: [admin, self-hosted]
+collection:
+- admin
+- self-hosted
 tags:
   tier: infra
   role: container-management
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - portainer
-
+  - portainer
 traits:
-  - type: ingress
-    host: "portainer.${{project.DOMAIN}}"
-    port: 9000
-    service: portainer
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: portainer.${{project.DOMAIN}}
+  port: 9000
+  service: portainer
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: portainer
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - portainer_data

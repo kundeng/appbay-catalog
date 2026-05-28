@@ -1,20 +1,38 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection:
+- ai
+- self-hosted
 tags:
   tier: app
   role: chat-ui
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - librechat
-
+  - librechat
 traits:
-  - type: ingress
-    host: "librechat.${{project.DOMAIN}}"
-    port: 3080
-    service: librechat
-    exposure: external
-    tls:
-      staging: false
+- type: ingress
+  host: librechat.${{project.DOMAIN}}
+  port: 3080
+  service: librechat
+  exposure: external
+  tls:
+    staging: false
+- type: auth
+  enabled: true
+  provider: authelia
+  service: librechat
+- type: backup
+  schedule: 0 3 * * *
+  retention: 14
+  volumes:
+  - librechat_db
+  - librechat_meili
+  - librechat_vectordb
+overlays:
+- when:
+  - ollama
+  services:
+    librechat:
+      environment:
+      - OLLAMA_BASE_URL=http://appbay.ollama:11434

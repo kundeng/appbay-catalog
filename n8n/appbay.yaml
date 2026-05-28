@@ -1,26 +1,30 @@
 project: default
 environment: default
-collection: [automation, self-hosted]
+collection:
+- automation
+- self-hosted
 tags:
   tier: app
   role: workflow-automation
-
 upstream:
   source: ./docker-compose.yml
   expose:
-    - n8n
-
+  - n8n
 traits:
-  - type: ingress
-    host: "n8n.${{project.DOMAIN}}"
-    port: 5678
-    service: n8n
-    exposure: external
-    tls:
-      staging: false
-  - type: backup
-    schedule: "0 2 * * *"
-    retention: 7
-    volumes:
-      - n8n-data
-      - n8n-db
+- type: ingress
+  host: n8n.${{project.DOMAIN}}
+  port: 5678
+  service: n8n
+  exposure: external
+  tls:
+    staging: false
+- type: backup
+  schedule: 0 2 * * *
+  retention: 7
+  volumes:
+  - n8n-data
+  - n8n-db
+- type: auth
+  enabled: true
+  provider: authelia
+  service: n8n
