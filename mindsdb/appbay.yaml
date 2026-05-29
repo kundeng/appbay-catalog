@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
   role: ai-database
@@ -10,11 +10,24 @@ upstream:
   expose:
     - mindsdb
 
+vars:
+  MINDSDB_HOST:
+    description: Hostname for MindsDB
+    type: string
+    default: "mindsdb.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "mindsdb.${{project.DOMAIN}}"
     port: 47334
     service: mindsdb
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: mindsdb
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - mindsdb_data

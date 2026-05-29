@@ -1,15 +1,24 @@
 name: vllm
-description: High-throughput LLM serving engine with PagedAttention and OpenAI-compatible API
+description: High-throughput LLM inference server with OpenAI-compatible API
 version: latest
 category: ai
-tags: [llm, inference, gpu]
+tags: [ai, llm, inference, gpu, openai-compatible]
 source:
   type: git
   url: https://github.com/vllm-project/vllm
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs:
   - name: HF_TOKEN
-    description: HuggingFace token for gated model access
+    description: HuggingFace token for gated models
     type: secret
-traits_summary: []
+  - name: VLLM_MODEL
+    description: Model to serve
+    type: string
+    default: meta-llama/Llama-3.1-8B-Instruct
+traits_summary:
+  - "no ingress — internal API service on port 8000"
+  - "gpu: nvidia (required)"
+  - "exposed on shared network — other apps use OpenAI-compatible API"
+  - "no auth, no backup (model cache is re-downloadable)"
 maintainer: appbay

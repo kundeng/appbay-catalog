@@ -1,18 +1,40 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection: [ai-stack, devtools]
 tags:
   tier: app
-  role: coding-agent
+  role: ai-coding-agent
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - openhands
 
+vars:
+  OPENHANDS_HOST:
+    description: Hostname for OpenHands
+    type: string
+    default: "openhands.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "openhands.${{project.DOMAIN}}"
     port: 3000
     service: openhands
-    exposure: external
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: openhands
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 7
+    volumes:
+      - openhands-state
+
+overlays:
+  - when: [ollama]
+    services:
+      openhands:
+        environment:
+          - LLM_BASE_URL=http://appbay.ollama:11434/v1

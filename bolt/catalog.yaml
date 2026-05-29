@@ -1,18 +1,24 @@
 name: bolt
-description: AI-powered full-stack web development tool that generates and deploys apps from prompts
+description: AI-powered full-stack web app builder in the browser
 version: latest
-category: ai
-tags:
-  - coding
-  - agents
-  - llm
+category: devtools
+tags: [ai, coding, web-development, no-code]
 source:
   type: git
   url: https://github.com/stackblitz-labs/bolt.diy
+  ref: main
 readiness: augmented
 required_inputs:
-  - OPENAI_API_KEY
-  - ANTHROPIC_API_KEY
+  - name: BOLT_HOST
+    description: Hostname for Bolt
+    type: string
+    default: "bolt.${{project.DOMAIN}}"
+  - name: OPENAI_API_KEY
+    description: OpenAI API key (optional)
+    type: secret
 traits_summary:
-  - ingress (web UI on port 5173)
+  - "ingress: internal HTTPS on port 5173"
+  - "auth: Authelia forward-auth"
+  - "overlays: auto-wires Ollama + LiteLLM"
+  - "stateless — no backup needed"
 maintainer: appbay

@@ -1,23 +1,21 @@
 name: open-webui
-description: ChatGPT-style web UI for local LLMs (Ollama, vLLM, OpenAI-compatible APIs)
+description: Feature-rich chat UI for Ollama and OpenAI-compatible LLMs
 version: latest
 category: ai
-tags: [ai, llm, chat, ollama, gpu]
+tags: [ai, llm, chat, ui, ollama]
 source:
   type: git
   url: https://github.com/open-webui/open-webui
+  ref: main
 readiness: augmented
 required_inputs:
-  - name: WEBUI_HOST
-    description: Hostname for the chat UI
+  - name: OPEN_WEBUI_HOST
+    description: Hostname for Open WebUI
     type: string
     default: "chat.${{project.DOMAIN}}"
-  - name: OLLAMA_BASE_URL
-    description: URL of the Ollama API (auto-configured if ollama is deployed)
-    type: string
-    default: "http://appbay.ollama:11434"
 traits_summary:
-  - "ingress: external HTTPS"
-  - "auth: Authentik forward-auth"
-  - "overlays: auto-configures when ollama, whisper, or searxng are active"
+  - "ingress: external HTTPS on port 8080"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (chat data)"
+  - "overlays: auto-wires Ollama"
 maintainer: appbay

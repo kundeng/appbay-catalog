@@ -1,12 +1,16 @@
 name: speaches
-description: OpenAI-compatible speech-to-text and text-to-speech server supporting multiple backends
+description: Speech-to-text and text-to-speech API server (OpenAI-compatible)
 version: latest
 category: ai
-tags: [tts, stt, inference]
+tags: [ai, speech, stt, tts, whisper]
 source:
   type: git
   url: https://github.com/speaches-ai/speaches
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs: []
-traits_summary: []
+traits_summary:
+  - "no ingress — internal API service on port 8000"
+  - "exposed on shared network for speech processing"
+  - "no auth, no secrets, no backup (model cache re-downloadable)"
 maintainer: appbay

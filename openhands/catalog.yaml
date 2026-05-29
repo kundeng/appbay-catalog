@@ -1,13 +1,22 @@
 name: openhands
-description: AI-powered coding agent with browser-based IDE and sandboxed code execution
+description: AI software development agent — autonomous coding, debugging, and deployment
 version: latest
-category: ai
-tags: [agents, coding, tools]
+category: devtools
+tags: [ai, coding, agent, autonomous, developer-tools]
 source:
   type: git
   url: https://github.com/All-Hands-AI/OpenHands
-readiness: raw
-required_inputs: []
+  ref: main
+readiness: augmented
+required_inputs:
+  - name: OPENHANDS_HOST
+    description: Hostname for OpenHands
+    type: string
+    default: "openhands.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: internal HTTPS on port 3000"
+  - "auth: Authelia forward-auth"
+  - "backup: weekly (agent state)"
+  - "overlays: auto-wires Ollama"
+  - "WARNING: mounts Docker socket (runs sandboxed containers)"
 maintainer: appbay

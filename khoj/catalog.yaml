@@ -1,20 +1,26 @@
 name: khoj
-description: Self-hosted AI personal assistant with web search, document RAG, and multi-model chat
+description: AI personal assistant with web search, document chat, and conversation memory
 version: latest
 category: ai
-tags:
-  - chat
-  - rag
-  - llm
-  - agents
+tags: [ai, assistant, rag, search, self-hosted]
 source:
   type: git
   url: https://github.com/khoj-ai/khoj
+  ref: master
 readiness: augmented
 required_inputs:
-  - KHOJ_DJANGO_SECRET_KEY
-  - KHOJ_ADMIN_EMAIL
-  - KHOJ_ADMIN_PASSWORD
+  - name: KHOJ_HOST
+    description: Hostname for Khoj
+    type: string
+    default: "khoj.${{project.DOMAIN}}"
+  - name: KHOJ_DB_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
 traits_summary:
-  - ingress (web UI on port 42110)
+  - "ingress: external HTTPS on port 42110"
+  - "auth: Authelia forward-auth"
+  - "secrets: 1 auto-generated (DB)"
+  - "backup: daily (postgres + config)"
+  - "overlays: auto-wires Ollama"
 maintainer: appbay

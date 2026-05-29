@@ -1,4 +1,47 @@
+project: default
+environment: default
+collection: [ai-stack, devtools]
+tags:
+  tier: app
+  role: ai-code-editor
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - bolt
+
+vars:
+  BOLT_HOST:
+    description: Hostname for Bolt
+    type: string
+    default: "bolt.${{project.DOMAIN}}"
+  OPENAI_API_KEY:
+    description: OpenAI API key (optional — can use Ollama/LiteLLM)
+    type: secret
+  ANTHROPIC_API_KEY:
+    description: Anthropic API key (optional)
+    type: secret
+
 traits:
   - type: ingress
-    service: bolt
+    host: "bolt.${{project.DOMAIN}}"
     port: 5173
+    service: bolt
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: bolt
+
+overlays:
+  - when: [ollama]
+    services:
+      bolt:
+        environment:
+          - OLLAMA_API_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      bolt:
+        environment:
+          - OPENAI_API_KEY=sk-appbay
+          - OPENAI_API_BASE=http://appbay.litellm:4000/v1

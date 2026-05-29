@@ -1,17 +1,21 @@
 name: anythingllm
-description: All-in-one AI desktop app for RAG, agents, and chat with any document using any LLM
+description: All-in-one AI workspace — RAG, agents, documents, multi-LLM support
 version: latest
 category: ai
-tags:
-  - rag
-  - chat
-  - llm
-  - agents
+tags: [ai, llm, rag, workspace, documents]
 source:
   type: git
   url: https://github.com/Mintplex-Labs/anything-llm
+  ref: master
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: ANYTHINGLLM_HOST
+    description: Hostname for AnythingLLM
+    type: string
+    default: "anythingllm.${{project.DOMAIN}}"
 traits_summary:
-  - ingress (web UI on port 3001)
+  - "ingress: external HTTPS on port 3001"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (storage)"
+  - "overlays: auto-wires Ollama"
 maintainer: appbay

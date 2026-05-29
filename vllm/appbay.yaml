@@ -8,17 +8,16 @@ tags:
 upstream:
   source: ./docker-compose.yml
   expose:
-    - llamacpp
+    - vllm
 
 vars:
-  LLAMACPP_MODEL:
-    description: Path to GGUF model file in /models volume
+  HF_TOKEN:
+    description: HuggingFace token for gated models (optional)
+    type: secret
+  VLLM_MODEL:
+    description: Model to serve (HuggingFace model ID)
     type: string
-    default: /models/model.gguf
-  LLAMACPP_CTX_SIZE:
-    description: Context window size
-    type: string
-    default: "4096"
+    default: meta-llama/Llama-3.1-8B-Instruct
 
 traits:
   - type: gpu

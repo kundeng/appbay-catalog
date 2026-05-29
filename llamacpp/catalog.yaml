@@ -1,17 +1,21 @@
 name: llamacpp
-description: High-performance LLM inference server using llama.cpp with OpenAI-compatible API
+description: CPU/GPU LLM inference server for GGUF models with OpenAI-compatible API
 version: latest
 category: ai
-tags: [inference, llm, gpu]
+tags: [ai, llm, inference, gguf, cpu, gpu]
 source:
   type: git
   url: https://github.com/ggerganov/llama.cpp
-readiness: raw
+  ref: master
+readiness: augmented
 required_inputs:
   - name: LLAMACPP_MODEL
-    description: Model specifier (e.g. HuggingFace repo or GGUF path)
+    description: Path to GGUF model file
     type: string
-    default: ""
+    default: /models/model.gguf
 traits_summary:
-  - "ingress: external HTTPS"
+  - "no ingress — internal API service"
+  - "gpu: nvidia (optional — runs on CPU too)"
+  - "exposed on shared network for OpenAI-compatible API"
+  - "no auth, no secrets"
 maintainer: appbay

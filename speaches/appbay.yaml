@@ -1,0 +1,11 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: compute
+  role: speech-processing
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - speaches
