@@ -4,9 +4,18 @@ version: latest
 category: admin
 tags: [docker, containers, management, admin]
 source:
-  type: local
+  type: git
+  url: https://github.com/portainer/portainer
+  ref: develop
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: PORTAINER_HOST
+    description: Hostname for the Portainer web UI
+    type: string
+    default: "portainer.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: internal HTTPS on port 9000"
+  - "backup: daily, 14-day retention"
+  - "no auth trait — portainer has robust built-in authentication"
+  - "WARNING: mounts Docker socket — full Docker access"
 maintainer: appbay

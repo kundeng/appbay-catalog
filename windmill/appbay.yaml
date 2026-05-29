@@ -3,16 +3,40 @@ environment: default
 collection: [automation, self-hosted]
 tags:
   tier: app
-  role: workflow-engine
+  role: workflow-platform
 
 upstream:
   source: ./docker-compose.yml
+  services:
+    exclude:
+      - windmill
   expose:
-    - windmill
+    - windmill-server
+
+vars:
+  WINDMILL_HOST:
+    description: Hostname for the Windmill web UI
+    type: string
+    default: "windmill.${{project.DOMAIN}}"
+  WINDMILL_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  NUM_WORKERS:
+    description: Number of native workers
+    type: string
+    default: "8"
 
 traits:
   - type: ingress
     host: "windmill.${{project.DOMAIN}}"
-    port: 80
-    service: windmill
+    port: 8000
+    service: windmill-server
     exposure: external
+    tls:
+      staging: false
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - windmill-db

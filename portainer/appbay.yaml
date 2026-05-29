@@ -10,11 +10,20 @@ upstream:
   expose:
     - portainer
 
+vars:
+  PORTAINER_HOST:
+    description: Hostname for the Portainer web UI
+    type: string
+    default: "portainer.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "portainer.${{project.DOMAIN}}"
     port: 9000
     service: portainer
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - portainer_data

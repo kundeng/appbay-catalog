@@ -1,13 +1,21 @@
 name: dozzle
-description: Real-time Docker container log viewer with web UI
+description: Real-time Docker container log viewer with a clean web UI
 version: latest
 category: monitoring
-tags: [docker, logs, monitoring, real-time]
+tags: [docker, logs, monitoring, admin]
 source:
   type: git
   url: https://github.com/amir20/dozzle
+  ref: master
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: DOZZLE_HOST
+    description: Hostname for the log viewer
+    type: string
+    default: "logs.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: internal HTTPS on port 8080"
+  - "auth: Authelia forward-auth"
+  - "no backup needed — stateless, reads Docker logs in real time"
+  - "WARNING: mounts Docker socket (read-only)"
 maintainer: appbay

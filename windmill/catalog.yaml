@@ -1,18 +1,32 @@
 name: windmill
-description: Open-source workflow engine and developer platform for scripts, flows, and apps
+description: Developer platform for scripts, workflows, and internal apps with multi-language support
 version: latest
-category: ai
-tags: [workflow, tools, agents]
+category: automation
+tags: [automation, workflow, scripts, internal-tools, platform]
 source:
   type: git
   url: https://github.com/windmill-labs/windmill
-readiness: raw
+  path: docker-compose.yml
+  ref: main
+readiness: augmented
 required_inputs:
+  - name: WINDMILL_HOST
+    description: Hostname for the Windmill web UI
+    type: string
+    default: "windmill.${{project.DOMAIN}}"
   - name: WINDMILL_DB_PASSWORD
     description: PostgreSQL password
     type: secret
     auto_generate: true
+  - name: NUM_WORKERS
+    description: Number of native workers
+    type: string
+    default: "8"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on windmill-server port 8000"
   - "secrets: 1 auto-generated (DB password)"
+  - "backup: daily, 14-day retention (database)"
+  - "excludes: caddy front-end (Appbay handles ingress via Traefik)"
+  - "WARNING: windmill-worker mounts Docker socket"
+  - "no auth trait — windmill has built-in authentication"
 maintainer: appbay

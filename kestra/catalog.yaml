@@ -1,21 +1,31 @@
 name: kestra
-description: Event-driven workflow orchestration platform with declarative YAML pipelines
+description: Event-driven orchestration platform for scheduled and event-driven workflows
 version: latest
 category: automation
-tags: [orchestration, workflow, data-pipeline, etl]
+tags: [automation, orchestration, workflows, scheduling, data-pipelines]
 source:
-  type: local
+  type: git
+  url: https://github.com/kestra-io/kestra
+  path: docker-compose.yml
+  ref: develop
 readiness: augmented
 required_inputs:
+  - name: KESTRA_HOST
+    description: Hostname for the Kestra web UI
+    type: string
+    default: "kestra.${{project.DOMAIN}}"
   - name: KESTRA_DB_PASSWORD
-    description: PostgreSQL password for Kestra database
+    description: PostgreSQL password
     type: secret
     auto_generate: true
   - name: KESTRA_BASIC_AUTH_PASSWORD
-    description: Password for Kestra web UI basic auth
+    description: Kestra admin password
     type: secret
     auto_generate: true
 traits_summary:
-  - "ingress: external HTTPS"
-  - "secrets: 2 auto-generated (DB password, basic auth password)"
+  - "ingress: external HTTPS on port 8080"
+  - "secrets: 2 auto-generated (DB password, admin password)"
+  - "backup: daily, 14-day retention (postgres + workflow storage)"
+  - "no auth trait — kestra has built-in basic auth"
+  - "WARNING: mounts Docker socket (for task execution)"
 maintainer: appbay

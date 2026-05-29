@@ -1,13 +1,25 @@
 name: stirling-pdf
-description: Self-hosted PDF manipulation tool — merge, split, convert, OCR, compress, and more
+description: Self-hosted PDF manipulation toolkit — merge, split, convert, OCR
 version: latest
-category: utilities
-tags: [pdf, documents, conversion, ocr, tools]
+category: productivity
+tags: [pdf, tools, documents, ocr, self-hosted]
 source:
   type: git
   url: https://github.com/Stirling-Tools/Stirling-PDF
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: STIRLING_PDF_HOST
+    description: Hostname for the PDF toolkit
+    type: string
+    default: "pdf.${{project.DOMAIN}}"
+  - name: LANGS
+    description: OCR languages to install
+    type: string
+    default: en_US
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: internal HTTPS on port 8080"
+  - "auth: Authelia forward-auth"
+  - "backup: daily, 14-day retention (configs only — training data re-downloadable)"
+  - "no secrets needed"
 maintainer: appbay

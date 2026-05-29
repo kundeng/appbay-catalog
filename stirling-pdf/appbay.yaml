@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [utilities]
+collection: [productivity, self-hosted]
 tags:
   tier: app
   role: pdf-tools
@@ -10,9 +10,28 @@ upstream:
   expose:
     - stirling-pdf
 
+vars:
+  STIRLING_PDF_HOST:
+    description: Hostname for the PDF toolkit
+    type: string
+    default: "pdf.${{project.DOMAIN}}"
+  LANGS:
+    description: OCR languages to install
+    type: string
+    default: en_US
+
 traits:
   - type: ingress
     host: "pdf.${{project.DOMAIN}}"
     port: 8080
     service: stirling-pdf
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: stirling-pdf
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - stirling-pdf-configs

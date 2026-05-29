@@ -1,4 +1,42 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+  role: llm-workflow-builder
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - flowise
+
+vars:
+  FLOWISE_HOST:
+    description: Hostname for the Flowise web UI
+    type: string
+    default: "flowise.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    service: flowise
+    host: "flowise.${{project.DOMAIN}}"
     port: 3000
+    service: flowise
+    exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: flowise
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - flowise_data
+
+overlays:
+  - when: [ollama]
+    services:
+      flowise:
+        environment:
+          - OLLAMA_URL=http://appbay.ollama:11434

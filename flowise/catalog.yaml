@@ -1,17 +1,22 @@
 name: flowise
-description: Drag-and-drop LLM workflow builder for creating chatbots, agents, and RAG pipelines
+description: Visual LLM workflow builder with drag-and-drop chains and agents
 version: latest
 category: ai
-tags:
-  - workflow
-  - llm
-  - chatbot
-  - rag
+tags: [ai, llm, workflow, no-code, langchain]
 source:
   type: git
   url: https://github.com/FlowiseAI/Flowise
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: FLOWISE_HOST
+    description: Hostname for the Flowise web UI
+    type: string
+    default: "flowise.${{project.DOMAIN}}"
 traits_summary:
-  - ingress (web UI on port 3000)
+  - "ingress: external HTTPS on port 3000"
+  - "auth: Authelia forward-auth"
+  - "backup: daily, 14-day retention"
+  - "overlays: auto-wires Ollama as LLM backend"
+  - "no secrets needed"
 maintainer: appbay

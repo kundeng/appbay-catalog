@@ -3,12 +3,26 @@ environment: default
 collection: [automation, self-hosted]
 tags:
   tier: app
-  role: workflow-orchestration
+  role: orchestration-platform
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - kestra
+
+vars:
+  KESTRA_HOST:
+    description: Hostname for the Kestra web UI
+    type: string
+    default: "kestra.${{project.DOMAIN}}"
+  KESTRA_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  KESTRA_BASIC_AUTH_PASSWORD:
+    description: Kestra admin password
+    type: secret
+    auto_generate: true
 
 traits:
   - type: ingress
@@ -18,3 +32,9 @@ traits:
     exposure: external
     tls:
       staging: false
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - postgres-data
+      - kestra-data

@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [monitoring]
+collection: [monitoring, admin]
 tags:
   tier: infra
   role: log-viewer
@@ -10,9 +10,23 @@ upstream:
   expose:
     - dozzle
 
+vars:
+  DOZZLE_HOST:
+    description: Hostname for the Dozzle log viewer
+    type: string
+    default: "logs.${{project.DOMAIN}}"
+  DOZZLE_TAILSIZE:
+    description: Number of log lines to show per container
+    type: string
+    default: "300"
+
 traits:
   - type: ingress
-    host: "dozzle.${{project.DOMAIN}}"
+    host: "logs.${{project.DOMAIN}}"
     port: 8080
     service: dozzle
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: dozzle
