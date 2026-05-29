@@ -11,8 +11,22 @@ upstream:
     - n8n
 
 vars:
-  N8N_HOST: "n8n.${{project.DOMAIN}}"
-  WEBHOOK_URL: "https://n8n.${{project.DOMAIN}}/"
+  N8N_HOST:
+    description: Hostname for the n8n web UI
+    type: string
+    default: "n8n.${{project.DOMAIN}}"
+  WEBHOOK_URL:
+    description: Public URL for n8n webhooks
+    type: string
+    default: "https://n8n.${{project.DOMAIN}}/"
+  N8N_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  N8N_ENCRYPTION_KEY:
+    description: Encryption key for stored credentials
+    type: secret
+    auto_generate: true
 
 traits:
   - type: ingress

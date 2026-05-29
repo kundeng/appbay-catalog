@@ -2,12 +2,21 @@ name: searxng
 description: Privacy-respecting metasearch engine aggregating results from 70+ search services
 version: latest
 category: ai
-tags: [search, tools]
+tags: [search, privacy, metasearch, tools]
 source:
   type: git
-  url: https://github.com/searxng/searxng
-readiness: raw
-required_inputs: []
+  url: https://github.com/searxng/searxng-docker
+  ref: master
+readiness: augmented
+required_inputs:
+  - name: INSTANCE_NAME
+    description: Display name for the SearXNG instance
+    type: string
+    default: searxng
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 8080"
+  - "auth: Authelia forward-auth"
+  - "backup: daily, 14-day retention (config data)"
+  - "exposed on shared network — other apps (perplexica, morphic) can use it as search backend"
+  - "no secrets needed"
 maintainer: appbay

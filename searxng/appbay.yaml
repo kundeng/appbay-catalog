@@ -10,9 +10,28 @@ upstream:
   expose:
     - searxng
 
+vars:
+  INSTANCE_NAME:
+    description: Display name for the SearXNG instance
+    type: string
+    default: searxng
+  BASE_URL:
+    description: Public URL for SearXNG
+    type: string
+    default: "https://search.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "search.${{project.DOMAIN}}"
     port: 8080
     service: searxng
     exposure: external
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: searxng
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - searxng-data

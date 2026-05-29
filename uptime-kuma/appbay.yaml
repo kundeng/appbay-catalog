@@ -11,7 +11,10 @@ upstream:
     - uptime-kuma
 
 vars:
-  UPTIME_KUMA_HOST: "status.${{project.DOMAIN}}"
+  UPTIME_KUMA_HOST:
+    description: Hostname for the status page
+    type: string
+    default: "status.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
