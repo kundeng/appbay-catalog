@@ -1,11 +1,27 @@
 project: default
 environment: default
-collection: [media]
+collection: [self-hosted]
 tags:
   tier: app
-  role: metadata-manager
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - kometa
+
+vars:
+  KOMETA_HOST:
+    description: Hostname for kometa
+    type: string
+    default: "kometa.${{project.DOMAIN}}"
+
+traits:
+  - type: ingress
+    host: "kometa.${{project.DOMAIN}}"
+    port: 3000
+    service: kometa
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: kometa

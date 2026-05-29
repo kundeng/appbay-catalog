@@ -1,14 +1,19 @@
 project: default
 environment: default
-collection: [media]
+collection: [self-hosted]
 tags:
   tier: app
-  role: media-maintenance
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - maintainerr
+
+vars:
+  MAINTAINERR_HOST:
+    description: Hostname for maintainerr
+    type: string
+    default: "maintainerr.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -16,3 +21,7 @@ traits:
     port: 6246
     service: maintainerr
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: maintainerr

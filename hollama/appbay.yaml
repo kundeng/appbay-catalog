@@ -1,4 +1,27 @@
+project: default
+environment: default
+collection: [self-hosted]
+tags:
+  tier: app
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - hollama
+
+vars:
+  HOLLAMA_HOST:
+    description: Hostname for hollama
+    type: string
+    default: "hollama.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
+    host: "hollama.${{project.DOMAIN}}"
+    port: 7860
     service: hollama
-    port: 4173
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: hollama

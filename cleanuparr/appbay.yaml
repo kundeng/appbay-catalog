@@ -1,18 +1,27 @@
 project: default
 environment: default
-collection: [media]
+collection: [self-hosted]
 tags:
   tier: app
-  role: arr-cleanup
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - cleanuparr
 
+vars:
+  CLEANUPARR_HOST:
+    description: Hostname for cleanuparr
+    type: string
+    default: "cleanuparr.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "cleanuparr.${{project.DOMAIN}}"
-    port: 11011
+    port: 3000
     service: cleanuparr
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: cleanuparr

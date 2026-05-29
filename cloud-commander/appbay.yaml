@@ -1,18 +1,27 @@
 project: default
 environment: default
-collection: [utilities]
+collection: [self-hosted]
 tags:
   tier: app
-  role: file-manager
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - cloud-commander
 
+vars:
+  CLOUD-COMMANDER_HOST:
+    description: Hostname for cloud-commander
+    type: string
+    default: "cloud-commander.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "files.${{project.DOMAIN}}"
+    host: "cloud-commander.${{project.DOMAIN}}"
     port: 8000
     service: cloud-commander
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: cloud-commander

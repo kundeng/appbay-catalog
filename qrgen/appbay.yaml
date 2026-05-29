@@ -7,21 +7,21 @@ tags:
 upstream:
   source: ./docker-compose.yml
   expose:
-    - mkvtoolnix
+    - qrgen
 
 vars:
-  MKVTOOLNIX_HOST:
-    description: Hostname for mkvtoolnix
+  QRGEN_HOST:
+    description: Hostname for qrgen
     type: string
-    default: "mkvtoolnix.${{project.DOMAIN}}"
+    default: "qrgen.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
-    host: "mkvtoolnix.${{project.DOMAIN}}"
-    port: 5800
-    service: mkvtoolnix
+    host: "qrgen.${{project.DOMAIN}}"
+    port: 3000
+    service: qrgen
     exposure: internal
   - type: auth
     enabled: true
     provider: authelia
-    service: mkvtoolnix
+    service: qrgen

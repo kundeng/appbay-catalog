@@ -1,18 +1,27 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection: [self-hosted]
 tags:
   tier: app
-  role: sql-chat
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - sqlchat
 
+vars:
+  SQLCHAT_HOST:
+    description: Hostname for sqlchat
+    type: string
+    default: "sqlchat.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "sqlchat.${{project.DOMAIN}}"
     port: 3000
     service: sqlchat
-    exposure: external
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: sqlchat

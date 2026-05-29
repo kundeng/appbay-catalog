@@ -1,14 +1,19 @@
 project: default
 environment: default
-collection: [media]
+collection: [self-hosted]
 tags:
   tier: app
-  role: disc-ripper
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - makemkv
+
+vars:
+  MAKEMKV_HOST:
+    description: Hostname for makemkv
+    type: string
+    default: "makemkv.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -16,3 +21,7 @@ traits:
     port: 5800
     service: makemkv
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: makemkv

@@ -7,21 +7,21 @@ tags:
 upstream:
   source: ./docker-compose.yml
   expose:
-    - mkvtoolnix
+    - slidev
 
 vars:
-  MKVTOOLNIX_HOST:
-    description: Hostname for mkvtoolnix
+  SLIDEV_HOST:
+    description: Hostname for slidev
     type: string
-    default: "mkvtoolnix.${{project.DOMAIN}}"
+    default: "slidev.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
-    host: "mkvtoolnix.${{project.DOMAIN}}"
-    port: 5800
-    service: mkvtoolnix
+    host: "slidev.${{project.DOMAIN}}"
+    port: 3030
+    service: slidev
     exposure: internal
   - type: auth
     enabled: true
     provider: authelia
-    service: mkvtoolnix
+    service: slidev

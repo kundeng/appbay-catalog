@@ -1,20 +1,27 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [self-hosted]
 tags:
   tier: app
-  role: text-completion
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - mikupad
 
+vars:
+  MIKUPAD_HOST:
+    description: Hostname for mikupad
+    type: string
+    default: "mikupad.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "mikupad.${{project.DOMAIN}}"
-    port: 8080
+    port: 4000
     service: mikupad
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: mikupad

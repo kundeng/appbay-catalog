@@ -1,4 +1,34 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - autogpt
+
+vars:
+  AUTOGPT_HOST:
+    description: Hostname for autogpt
+    type: string
+    default: "autogpt.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
+    host: "autogpt.${{project.DOMAIN}}"
+    port: 3000
     service: autogpt
-    port: 8000
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: autogpt
+
+overlays:
+  - when: [ollama]
+    services:
+      autogpt:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

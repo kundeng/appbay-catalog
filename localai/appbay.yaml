@@ -1,9 +1,9 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, gpu-apps]
 tags:
-  tier: infra
-  role: inference-server
+  tier: compute
+  role: llm-inference
 
 upstream:
   source: ./docker-compose.yml
@@ -11,10 +11,5 @@ upstream:
     - localai
 
 traits:
-  - type: ingress
-    host: "localai.${{project.DOMAIN}}"
-    port: 8080
-    service: localai
-    exposure: external
-    tls:
-      staging: false
+  - type: gpu
+    variant: nvidia

@@ -8,7 +8,7 @@ tags:
 upstream:
   source: ./docker-compose.yml
   expose:
-    - lmdeploy
+    - tabbyapi
 
 traits:
   - type: gpu

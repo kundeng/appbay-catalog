@@ -3,16 +3,25 @@ environment: default
 collection: [self-hosted]
 tags:
   tier: app
-  role: desktop-environment
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - webtop
 
+vars:
+  WEBTOP_HOST:
+    description: Hostname for webtop
+    type: string
+    default: "webtop.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "desktop.${{project.DOMAIN}}"
+    host: "webtop.${{project.DOMAIN}}"
     port: 3000
     service: webtop
-    exposure: external
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: webtop

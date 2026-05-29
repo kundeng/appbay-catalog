@@ -1,8 +1,8 @@
 project: default
 environment: default
-collection: [infrastructure]
+collection: [tools]
 tags:
-  tier: infra
+  tier: tool
 
 upstream:
   source: ./docker-compose.yml

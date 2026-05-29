@@ -7,21 +7,21 @@ tags:
 upstream:
   source: ./docker-compose.yml
   expose:
-    - mkvtoolnix
+    - shellngn
 
 vars:
-  MKVTOOLNIX_HOST:
-    description: Hostname for mkvtoolnix
+  SHELLNGN_HOST:
+    description: Hostname for shellngn
     type: string
-    default: "mkvtoolnix.${{project.DOMAIN}}"
+    default: "shellngn.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
-    host: "mkvtoolnix.${{project.DOMAIN}}"
-    port: 5800
-    service: mkvtoolnix
+    host: "shellngn.${{project.DOMAIN}}"
+    port: 4200
+    service: shellngn
     exposure: internal
   - type: auth
     enabled: true
     provider: authelia
-    service: mkvtoolnix
+    service: shellngn

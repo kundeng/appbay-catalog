@@ -1,20 +1,8 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [infrastructure]
 tags:
-  tier: app
-  role: landing-page
+  tier: infra
 
 upstream:
   source: ./docker-compose.yml
-  expose:
-    - landing
-
-traits:
-  - type: ingress
-    host: "landing.${{project.DOMAIN}}"
-    port: 80
-    service: landing
-    exposure: external
-    tls:
-      staging: false

@@ -1,4 +1,15 @@
+project: default
+environment: default
+collection: [ai-stack, gpu-apps]
+tags:
+  tier: compute
+  role: llm-inference
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - aphrodite
+
 traits:
-  - type: ingress
-    service: aphrodite
-    port: 2242
+  - type: gpu
+    variant: nvidia

@@ -1,4 +1,34 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - boost
+
+vars:
+  BOOST_HOST:
+    description: Hostname for boost
+    type: string
+    default: "boost.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
+    host: "boost.${{project.DOMAIN}}"
+    port: 3000
     service: boost
-    port: 8000
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: boost
+
+overlays:
+  - when: [ollama]
+    services:
+      boost:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

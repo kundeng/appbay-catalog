@@ -1,14 +1,19 @@
 project: default
 environment: default
-collection: [media]
+collection: [self-hosted]
 tags:
   tier: app
-  role: music-tagger
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - picard
+
+vars:
+  PICARD_HOST:
+    description: Hostname for picard
+    type: string
+    default: "picard.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -16,3 +21,7 @@ traits:
     port: 5800
     service: picard
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: picard

@@ -1,4 +1,8 @@
-traits:
-  - type: ingress
-    service: docling
-    port: 5001
+project: default
+environment: default
+collection: [infrastructure]
+tags:
+  tier: infra
+
+upstream:
+  source: ./docker-compose.yml

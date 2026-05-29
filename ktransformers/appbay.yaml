@@ -1,4 +1,15 @@
+project: default
+environment: default
+collection: [ai-stack, gpu-apps]
+tags:
+  tier: compute
+  role: llm-inference
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - ktransformers
+
 traits:
-  - type: ingress
-    service: ktransformers
-    port: 12456
+  - type: gpu
+    variant: nvidia
