@@ -1,16 +1,26 @@
 name: firefly
-description: Self-hosted personal finance manager for budgeting and expense tracking
+description: Personal finance manager — budgeting, expense tracking, and reports
 version: latest
-category: utilities
-tags: [finance, budgeting, personal-finance, self-hosted]
+category: productivity
+tags: [finance, budgeting, self-hosted, personal]
 source:
   type: git
   url: https://github.com/firefly-iii/firefly-iii
+  ref: main
 readiness: augmented
 required_inputs:
-  - name: FIREFLY_ENV_FILE
-    description: Path to firefly.env configuration file
+  - name: FIREFLY_HOST
+    description: Hostname for Firefly III
     type: string
+    default: "finance.${{project.DOMAIN}}"
+  - name: APP_KEY
+    description: Laravel application key
+    type: secret
+    auto_generate: true
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: external HTTPS on port 8080"
+  - "auth: Authelia forward-auth"
+  - "secrets: 1 auto-generated (app key)"
+  - "backup: daily (file uploads)"
+  - "note: compose references env_file — upstream firefly.env needed"
 maintainer: appbay

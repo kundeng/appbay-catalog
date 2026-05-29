@@ -1,0 +1,23 @@
+project: default
+environment: default
+collection: [ai-stack]
+tags:
+  tier: data
+  role: vector-database
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - qdrant
+
+vars:
+  QDRANT_API_KEY:
+    description: API key for Qdrant access (optional, blank for no auth)
+    type: secret
+
+traits:
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - qdrant-storage

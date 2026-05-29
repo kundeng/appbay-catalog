@@ -1,18 +1,39 @@
 project: default
 environment: default
-collection: [utilities]
+collection: [productivity, self-hosted]
 tags:
   tier: app
-  role: finance
+  role: personal-finance
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - firefly
 
+vars:
+  FIREFLY_HOST:
+    description: Hostname for Firefly III
+    type: string
+    default: "finance.${{project.DOMAIN}}"
+  APP_KEY:
+    description: Laravel application key (32 chars)
+    type: secret
+    auto_generate: true
+
 traits:
   - type: ingress
-    host: "firefly.${{project.DOMAIN}}"
+    host: "finance.${{project.DOMAIN}}"
     port: 8080
     service: firefly
-    exposure: internal
+    exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: firefly
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - firefly-upload

@@ -1,4 +1,38 @@
+project: default
+environment: default
+collection: [ai-stack, gpu-apps]
+tags:
+  tier: compute
+  role: image-generation
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - comfyui
+
+vars:
+  COMFYUI_HOST:
+    description: Hostname for ComfyUI
+    type: string
+    default: "comfyui.${{project.DOMAIN}}"
+  HF_TOKEN:
+    description: HuggingFace token for downloading gated models (optional)
+    type: secret
+
 traits:
   - type: ingress
-    service: comfyui
+    host: "comfyui.${{project.DOMAIN}}"
     port: 8188
+    service: comfyui
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: comfyui
+  - type: gpu
+    variant: nvidia
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 7
+    volumes:
+      - comfyui_workspace

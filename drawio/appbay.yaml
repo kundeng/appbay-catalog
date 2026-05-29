@@ -1,4 +1,51 @@
+project: default
+environment: default
+collection: [productivity, self-hosted]
+tags:
+  tier: app
+  role: diagramming
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - drawio
+
+vars:
+  DRAWIO_HOST:
+    description: Hostname for the AI Draw.io editor
+    type: string
+    default: "drawio.${{project.DOMAIN}}"
+  DRAWIO_AI_PROVIDER:
+    description: AI provider (openai, anthropic, google)
+    type: string
+    default: openai
+  DRAWIO_AI_MODEL:
+    description: AI model name
+    type: string
+    default: gpt-4o
+  OPENAI_API_KEY:
+    description: OpenAI API key (optional)
+    type: secret
+  ANTHROPIC_API_KEY:
+    description: Anthropic API key (optional)
+    type: secret
+
 traits:
   - type: ingress
-    service: drawio
+    host: "drawio.${{project.DOMAIN}}"
     port: 3000
+    service: drawio
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: drawio
+
+overlays:
+  - when: [litellm]
+    services:
+      drawio:
+        environment:
+          - OPENAI_API_KEY=sk-appbay
+          - AI_PROVIDER=openai
+          - OPENAI_BASE_URL=http://appbay.litellm:4000/v1

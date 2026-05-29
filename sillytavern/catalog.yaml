@@ -1,13 +1,22 @@
 name: sillytavern
-description: Feature-rich frontend for LLM roleplay and chat with character management
+description: AI chat frontend for roleplay and creative writing with character cards
 version: latest
 category: ai
-tags: [llm, chat]
+tags: [ai, llm, chat, roleplay, creative-writing]
 source:
   type: git
   url: https://github.com/SillyTavern/SillyTavern
-readiness: raw
-required_inputs: []
+  ref: release
+readiness: augmented
+required_inputs:
+  - name: SILLYTAVERN_HOST
+    description: Hostname for SillyTavern
+    type: string
+    default: "tavern.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 8000"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config + character data)"
+  - "overlays: auto-wires Ollama"
+  - "no secrets needed"
 maintainer: appbay

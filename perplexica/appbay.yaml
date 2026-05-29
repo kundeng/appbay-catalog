@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
   role: ai-search
@@ -10,9 +10,38 @@ upstream:
   expose:
     - perplexica
 
+vars:
+  PERPLEXICA_HOST:
+    description: Hostname for the Perplexica web UI
+    type: string
+    default: "perplexica.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "perplexica.${{project.DOMAIN}}"
     port: 3000
     service: perplexica
     exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: perplexica
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - perplexica-data
+
+overlays:
+  - when: [ollama]
+    services:
+      perplexica-be:
+        environment:
+          - OLLAMA_URL=http://appbay.ollama:11434
+  - when: [searxng]
+    services:
+      perplexica-be:
+        environment:
+          - SEARXNG_URL=http://appbay.searxng:8080

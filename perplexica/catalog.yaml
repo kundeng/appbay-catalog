@@ -1,22 +1,21 @@
 name: perplexica
-description: Open-source AI-powered search engine with multiple LLM provider support
+description: AI-powered search engine with real-time web search and LLM summarization
 version: latest
 category: ai
-tags: [llm, search, rag]
+tags: [ai, search, llm, rag, perplexity-alternative]
 source:
   type: git
   url: https://github.com/ItzCrazyKns/Perplexica
-readiness: raw
+  ref: master
+readiness: augmented
 required_inputs:
-  - name: OPENAI_API_KEY
-    description: OpenAI API key for search backend
-    type: secret
-  - name: ANTHROPIC_API_KEY
-    description: Anthropic API key (optional)
-    type: secret
-  - name: GROQ_API_KEY
-    description: Groq API key (optional)
-    type: secret
+  - name: PERPLEXICA_HOST
+    description: Hostname for the Perplexica web UI
+    type: string
+    default: "perplexica.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 3000"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (backend data)"
+  - "overlays: auto-wires Ollama + SearXNG"
 maintainer: appbay

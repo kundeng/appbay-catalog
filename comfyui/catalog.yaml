@@ -1,16 +1,24 @@
 name: comfyui
-description: Node-based image generation workflow editor for Stable Diffusion models
+description: Node-based Stable Diffusion workflow editor for AI image generation
 version: latest
 category: ai
-tags:
-  - image-generation
-  - stable-diffusion
-  - workflow
+tags: [ai, image-generation, stable-diffusion, gpu, creative]
 source:
   type: git
-  url: https://github.com/comfyanonymous/ComfyUI
+  url: https://github.com/ai-dock/comfyui
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: COMFYUI_HOST
+    description: Hostname for ComfyUI
+    type: string
+    default: "comfyui.${{project.DOMAIN}}"
+  - name: HF_TOKEN
+    description: HuggingFace token for gated models (optional)
+    type: secret
 traits_summary:
-  - ingress (web UI on port 8188)
+  - "ingress: internal HTTPS on port 8188"
+  - "auth: Authelia forward-auth"
+  - "gpu: nvidia (required)"
+  - "backup: weekly (workspace with models + workflows)"
 maintainer: appbay

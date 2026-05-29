@@ -1,17 +1,28 @@
 name: drawio
-description: AI-enhanced diagramming tool based on draw.io with LLM-assisted diagram generation
+description: AI-powered diagram editor — generates and edits diagrams from natural language
 version: latest
-category: utilities
-tags:
-  - diagramming
-  - productivity
-  - ai-enhanced
+category: productivity
+tags: [diagrams, ai, tools, productivity]
 source:
   type: git
   url: https://github.com/dayuanjiang/next-ai-draw-io
+  ref: main
 readiness: augmented
 required_inputs:
-  - OPENAI_API_KEY
+  - name: DRAWIO_HOST
+    description: Hostname for the editor
+    type: string
+    default: "drawio.${{project.DOMAIN}}"
+  - name: DRAWIO_AI_PROVIDER
+    description: AI provider
+    type: string
+    default: openai
+  - name: OPENAI_API_KEY
+    description: OpenAI API key (optional)
+    type: secret
 traits_summary:
-  - ingress (web UI on port 3000)
+  - "ingress: internal HTTPS on port 3000"
+  - "auth: Authelia forward-auth"
+  - "overlays: auto-wires LiteLLM as OpenAI-compatible backend"
+  - "stateless — no backup needed"
 maintainer: appbay

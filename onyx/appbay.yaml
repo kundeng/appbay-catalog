@@ -1,18 +1,56 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
-  role: knowledge-management
+  role: ai-knowledge-base
 
 upstream:
   source: ./docker-compose.yml
+  services:
+    exclude:
+      - onyx
   expose:
-    - onyx
+    - onyx-web
+
+vars:
+  ONYX_HOST:
+    description: Hostname for the Onyx web UI
+    type: string
+    default: "onyx.${{project.DOMAIN}}"
+  ONYX_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  ONYX_MINIO_PASSWORD:
+    description: MinIO password
+    type: secret
+    auto_generate: true
 
 traits:
   - type: ingress
     host: "onyx.${{project.DOMAIN}}"
-    port: 80
-    service: onyx
+    port: 3000
+    service: onyx-web
     exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: onyx-web
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - onyx-db
+      - onyx-vespa
+      - onyx-minio
+
+overlays:
+  - when: [ollama]
+    services:
+      onyx-api:
+        environment:
+          - GEN_AI_MODEL_PROVIDER=ollama
+          - GEN_AI_API_ENDPOINT=http://appbay.ollama:11434

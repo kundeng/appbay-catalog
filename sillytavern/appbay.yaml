@@ -1,18 +1,43 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection: [ai-stack, self-hosted]
 tags:
-  tier: frontend
-  role: chat-ui
+  tier: app
+  role: roleplay-chat
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - sillytavern
 
+vars:
+  SILLYTAVERN_HOST:
+    description: Hostname for SillyTavern
+    type: string
+    default: "tavern.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "sillytavern.${{project.DOMAIN}}"
+    host: "tavern.${{project.DOMAIN}}"
     port: 8000
     service: sillytavern
     exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: sillytavern
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - sillytavern-config
+      - sillytavern-data
+
+overlays:
+  - when: [ollama]
+    services:
+      sillytavern:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

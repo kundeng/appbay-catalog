@@ -1,22 +1,31 @@
 name: onyx
-description: Enterprise knowledge management platform with document indexing, search, and AI chat
+description: AI-powered knowledge management with document search, chat, and connectors
 version: latest
 category: ai
-tags: [knowledge, search, rag]
+tags: [ai, knowledge-base, search, rag, document-management]
 source:
   type: git
   url: https://github.com/onyx-dot-app/onyx
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs:
+  - name: ONYX_HOST
+    description: Hostname for the Onyx web UI
+    type: string
+    default: "onyx.${{project.DOMAIN}}"
   - name: ONYX_DB_PASSWORD
-    description: PostgreSQL password for Onyx database
+    description: PostgreSQL password
     type: secret
     auto_generate: true
   - name: ONYX_MINIO_PASSWORD
-    description: MinIO root password
+    description: MinIO password
     type: secret
     auto_generate: true
 traits_summary:
-  - "ingress: external HTTPS"
-  - "secrets: 2 auto-generated (DB, MinIO passwords)"
+  - "ingress: external HTTPS on onyx-web port 3000"
+  - "auth: Authelia forward-auth"
+  - "secrets: 2 auto-generated (DB, MinIO)"
+  - "backup: daily (postgres, vespa, minio)"
+  - "excludes: nginx front-end (Appbay handles ingress)"
+  - "overlays: auto-wires Ollama as LLM backend"
 maintainer: appbay
