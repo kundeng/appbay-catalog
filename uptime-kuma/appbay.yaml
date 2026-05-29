@@ -10,9 +10,21 @@ upstream:
   expose:
     - uptime-kuma
 
+vars:
+  UPTIME_KUMA_HOST: "status.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "status.${{project.DOMAIN}}"
     port: 3001
     service: uptime-kuma
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: uptime-kuma
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - uptime-kuma-data

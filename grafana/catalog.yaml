@@ -6,18 +6,25 @@ tags: [monitoring, metrics, dashboards, prometheus, observability]
 source:
   type: git
   url: https://github.com/grafana/grafana
+  ref: main
 readiness: augmented
 required_inputs:
   - name: GRAFANA_HOST
     description: Hostname for the Grafana web UI
     type: string
     default: "grafana.${{project.DOMAIN}}"
+  - name: GF_SECURITY_ADMIN_USER
+    description: Grafana admin username
+    type: string
+    default: admin
   - name: GF_SECURITY_ADMIN_PASSWORD
     description: Grafana admin password
     type: secret
     auto_generate: true
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: internal HTTPS on port 3000"
+  - "auth: Authelia forward-auth"
   - "secrets: 1 auto-generated (admin password)"
-  - "backup: daily, 14-day retention"
+  - "backup: daily, 14-day retention (grafana-data + prometheus-data)"
+  - "exposes: prometheus on shared network for other apps to query"
 maintainer: appbay

@@ -6,6 +6,8 @@ tags: [automation, workflow, integrations, no-code]
 source:
   type: git
   url: https://github.com/n8n-io/n8n
+  path: docker/compose/withPostgres
+  ref: master
 readiness: augmented
 required_inputs:
   - name: N8N_HOST
@@ -21,7 +23,9 @@ required_inputs:
     type: secret
     auto_generate: true
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 5678"
+  - "auth: Authelia forward-auth"
   - "secrets: 2 auto-generated (DB password, encryption key)"
-  - "backup: daily, 7-day retention"
+  - "backup: daily, 7-day retention (n8n-data + n8n-db)"
+  - "overlays: auto-wires Ollama as LLM backend for AI nodes"
 maintainer: appbay

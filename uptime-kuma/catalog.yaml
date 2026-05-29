@@ -1,13 +1,21 @@
 name: uptime-kuma
-description: Self-hosted monitoring tool with status pages and notifications
+description: Self-hosted uptime monitoring with notifications
 version: "1"
 category: monitoring
-tags: [monitoring, uptime, status-page, notifications]
+tags: [monitoring, uptime, status-page, alerts]
 source:
   type: git
   url: https://github.com/louislam/uptime-kuma
+  ref: master
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: UPTIME_KUMA_HOST
+    description: Hostname for the status page
+    type: string
+    default: "status.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: internal HTTPS on port 3001"
+  - "auth: Authelia forward-auth"
+  - "backup: daily, 14-day retention"
+  - "no secrets needed — app manages its own credentials"
 maintainer: appbay

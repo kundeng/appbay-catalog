@@ -10,6 +10,10 @@ upstream:
   expose:
     - n8n
 
+vars:
+  N8N_HOST: "n8n.${{project.DOMAIN}}"
+  WEBHOOK_URL: "https://n8n.${{project.DOMAIN}}/"
+
 traits:
   - type: ingress
     host: "n8n.${{project.DOMAIN}}"
@@ -18,9 +22,20 @@ traits:
     exposure: external
     tls:
       staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: n8n
   - type: backup
     schedule: "0 2 * * *"
     retention: 7
     volumes:
       - n8n-data
       - n8n-db
+
+overlays:
+  - when: [ollama]
+    services:
+      n8n:
+        environment:
+          - OLLAMA_HOST=http://appbay.ollama:11434

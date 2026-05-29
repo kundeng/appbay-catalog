@@ -9,6 +9,11 @@ upstream:
   source: ./docker-compose.yml
   expose:
     - grafana
+    - prometheus
+
+vars:
+  GRAFANA_HOST: "grafana.${{project.DOMAIN}}"
+  GF_SECURITY_ADMIN_USER: admin
 
 traits:
   - type: ingress
@@ -16,6 +21,10 @@ traits:
     port: 3000
     service: grafana
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: grafana
   - type: backup
     schedule: "0 3 * * *"
     retention: 14
