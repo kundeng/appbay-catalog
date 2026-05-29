@@ -1,18 +1,33 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection: [monitoring]
 tags:
   tier: infra
-  role: monitoring
+  role: system-monitoring
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - netdata
 
+vars:
+  NETDATA_HOST:
+    description: Hostname for the Netdata dashboard
+    type: string
+    default: "monitor.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "netdata.${{project.DOMAIN}}"
+    host: "monitor.${{project.DOMAIN}}"
     port: 19999
     service: netdata
-    exposure: external
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: netdata
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 7
+    volumes:
+      - netdata-config

@@ -1,13 +1,21 @@
 name: lobechat
-description: Modern ChatGPT-style UI with multi-model support, plugins, and knowledge base features
+description: Modern chat UI supporting multiple LLM providers with plugin ecosystem
 version: latest
 category: ai
-tags: [chat, llm]
+tags: [ai, llm, chat, ui]
 source:
   type: git
   url: https://github.com/lobehub/lobe-chat
-readiness: raw
-required_inputs: []
+  ref: main
+readiness: augmented
+required_inputs:
+  - name: LOBECHAT_HOST
+    description: Hostname for the LobeChat web UI
+    type: string
+    default: "chat.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 3210"
+  - "auth: Authelia forward-auth"
+  - "overlays: auto-wires Ollama as LLM backend"
+  - "stateless — no backup needed, no secrets"
 maintainer: appbay

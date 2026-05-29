@@ -1,14 +1,40 @@
 project: default
 environment: default
-collection: [media]
+collection: [media, self-hosted]
 tags:
   tier: app
-  role: photo-manager
+  role: photo-management
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - photoprism
+
+vars:
+  PHOTOPRISM_HOST:
+    description: Hostname for the PhotoPrism web UI
+    type: string
+    default: "photos.${{project.DOMAIN}}"
+  PHOTOPRISM_SITE_TITLE:
+    description: Site title shown in the UI
+    type: string
+    default: PhotoPrism
+  PHOTOPRISM_ADMIN_USER:
+    description: Admin username
+    type: string
+    default: admin
+  PHOTOPRISM_ADMIN_PASSWORD:
+    description: Admin password
+    type: secret
+    auto_generate: true
+  PHOTOPRISM_DB_PASSWORD:
+    description: MariaDB password
+    type: secret
+    auto_generate: true
+  PHOTOPRISM_DB_ROOT_PASSWORD:
+    description: MariaDB root password
+    type: secret
+    auto_generate: true
 
 traits:
   - type: ingress
@@ -16,3 +42,12 @@ traits:
     port: 2342
     service: photoprism
     exposure: external
+    tls:
+      staging: false
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - photoprism-originals
+      - photoprism-storage
+      - photoprism-db

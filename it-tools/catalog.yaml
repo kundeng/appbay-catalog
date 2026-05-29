@@ -1,12 +1,20 @@
 name: it-tools
-description: Collection of handy developer utilities (network, crypto, text, code tools)
+description: Collection of handy developer tools — base64, hash, UUID, JWT, regex, cron, and 30+ more
 version: latest
-category: utilities
-tags: [developer, tools, stateless]
+category: productivity
+tags: [tools, developer, utilities, self-hosted]
 source:
   type: git
   url: https://github.com/CorentinTh/it-tools
-readiness: raw
-required_inputs: []
-traits_summary: []
+  ref: main
+readiness: augmented
+required_inputs:
+  - name: IT_TOOLS_HOST
+    description: Hostname for the IT Tools web UI
+    type: string
+    default: "tools.${{project.DOMAIN}}"
+traits_summary:
+  - "ingress: internal HTTPS on port 80"
+  - "auth: Authelia forward-auth"
+  - "stateless — no backup, no secrets, no volumes"
 maintainer: appbay

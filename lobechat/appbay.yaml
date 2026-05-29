@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
   role: chat-ui
@@ -10,11 +10,28 @@ upstream:
   expose:
     - lobechat
 
+vars:
+  LOBECHAT_HOST:
+    description: Hostname for the LobeChat web UI
+    type: string
+    default: "chat.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "lobechat.${{project.DOMAIN}}"
+    host: "chat.${{project.DOMAIN}}"
     port: 3210
     service: lobechat
     exposure: external
     tls:
       staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: lobechat
+
+overlays:
+  - when: [ollama]
+    services:
+      lobechat:
+        environment:
+          - OLLAMA_PROXY_URL=http://appbay.ollama:11434/v1

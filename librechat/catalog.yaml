@@ -1,25 +1,28 @@
 name: librechat
-description: Enhanced ChatGPT clone with multi-provider support, RAG, plugins, and conversation search
+description: Multi-provider AI chat interface with RAG, plugins, and conversation management
 version: latest
 category: ai
-tags: [chat, llm, rag, agents]
+tags: [ai, llm, chat, rag, multi-provider]
 source:
   type: git
   url: https://github.com/danny-avila/LibreChat
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs:
+  - name: LIBRECHAT_HOST
+    description: Hostname for the LibreChat web UI
+    type: string
+    default: "librechat.${{project.DOMAIN}}"
   - name: OPENAI_API_KEY
-    description: OpenAI API key
-    type: string
-    default: ""
+    description: OpenAI API key (optional — can use Ollama instead)
+    type: secret
   - name: ANTHROPIC_API_KEY
-    description: Anthropic API key
-    type: string
-    default: ""
-  - name: GOOGLE_KEY
-    description: Google AI API key
-    type: string
-    default: ""
+    description: Anthropic API key (optional)
+    type: secret
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 3080"
+  - "auth: Authelia forward-auth"
+  - "backup: daily, 14-day retention (MongoDB + pgvector)"
+  - "overlays: auto-wires Ollama for RAG embeddings"
+  - "note: pgvector has hardcoded password — secrets trait replaces at compile time"
 maintainer: appbay

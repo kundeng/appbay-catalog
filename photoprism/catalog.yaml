@@ -1,13 +1,22 @@
 name: photoprism
-description: AI-powered photo management app with face recognition, object detection, and geotagging
+description: AI-powered photo management with face recognition, maps, and automatic organization
 version: latest
 category: media
-tags: [media, image-gen, tools]
+tags: [photos, media, ai, face-recognition, self-hosted]
 source:
   type: git
   url: https://github.com/photoprism/photoprism
-readiness: raw
+  ref: develop
+readiness: augmented
 required_inputs:
+  - name: PHOTOPRISM_HOST
+    description: Hostname for the PhotoPrism web UI
+    type: string
+    default: "photos.${{project.DOMAIN}}"
+  - name: PHOTOPRISM_SITE_TITLE
+    description: Site title
+    type: string
+    default: PhotoPrism
   - name: PHOTOPRISM_ADMIN_USER
     description: Admin username
     type: string
@@ -25,6 +34,8 @@ required_inputs:
     type: secret
     auto_generate: true
 traits_summary:
-  - "ingress: external HTTPS"
-  - "secrets: 3 auto-generated (admin, DB, DB root passwords)"
+  - "ingress: external HTTPS on port 2342"
+  - "secrets: 3 auto-generated (admin, DB, DB root)"
+  - "backup: daily, 14-day retention (photos + storage + database)"
+  - "no auth trait — PhotoPrism has robust built-in authentication"
 maintainer: appbay

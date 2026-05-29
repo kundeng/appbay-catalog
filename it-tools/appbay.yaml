@@ -1,0 +1,28 @@
+project: default
+environment: default
+collection: [productivity, self-hosted]
+tags:
+  tier: app
+  role: dev-tools
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - it-tools
+
+vars:
+  IT_TOOLS_HOST:
+    description: Hostname for the IT Tools web UI
+    type: string
+    default: "tools.${{project.DOMAIN}}"
+
+traits:
+  - type: ingress
+    host: "tools.${{project.DOMAIN}}"
+    port: 80
+    service: it-tools
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: it-tools

@@ -1,13 +1,22 @@
 name: netdata
-description: Real-time infrastructure monitoring and troubleshooting dashboard with per-second granularity
+description: Real-time system monitoring with per-second granularity — CPU, memory, disk, network, containers
 version: latest
 category: monitoring
-tags: [monitoring]
+tags: [monitoring, metrics, system, performance, real-time]
 source:
   type: git
   url: https://github.com/netdata/netdata
-readiness: raw
-required_inputs: []
+  ref: master
+readiness: augmented
+required_inputs:
+  - name: NETDATA_HOST
+    description: Hostname for the Netdata dashboard
+    type: string
+    default: "monitor.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: internal HTTPS on port 19999"
+  - "auth: Authelia forward-auth"
+  - "backup: config only (metrics are ephemeral)"
+  - "WARNING: host PID namespace, SYS_PTRACE, Docker socket, full filesystem read"
+  - "no secrets needed"
 maintainer: appbay
