@@ -1,13 +1,21 @@
 name: sonarr
-description: TV show collection manager and downloader for Usenet and BitTorrent
-version: develop
+description: TV series management with automatic downloading and organization
+version: latest
 category: media
-tags: [media, tv-shows, arr, downloads, automation]
+tags: [tv,series,pvr,automation]
 source:
   type: git
   url: https://github.com/Sonarr/Sonarr
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: SONARR_HOST
+    description: Hostname for Sonarr
+    type: string
+    default: "sonarr.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay

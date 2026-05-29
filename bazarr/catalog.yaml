@@ -1,13 +1,21 @@
 name: bazarr
-description: Automated subtitle download and management companion for Sonarr and Radarr
+description: Automatic subtitle downloading for Sonarr and Radarr
 version: latest
 category: media
-tags: [media, subtitles, sonarr, radarr, arr]
+tags: [subtitles,media,automation]
 source:
   type: git
   url: https://github.com/morpheus65535/bazarr
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: BAZARR_HOST
+    description: Hostname for Bazarr
+    type: string
+    default: "bazarr.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay

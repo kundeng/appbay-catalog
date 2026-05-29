@@ -1,13 +1,21 @@
 name: sabnzbd
-description: Binary newsreader and NZB downloader for Usenet with web UI
+description: Usenet binary downloader
 version: latest
 category: media
-tags: [media, usenet, downloads, nzb]
+tags: [usenet,download,nzb]
 source:
   type: git
   url: https://github.com/sabnzbd/sabnzbd
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: SABNZBD_HOST
+    description: Hostname for Sabnzbd
+    type: string
+    default: "sabnzbd.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay

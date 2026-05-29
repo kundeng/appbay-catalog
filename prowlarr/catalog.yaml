@@ -1,13 +1,21 @@
 name: prowlarr
-description: Indexer manager and proxy for the Arr media stack (Sonarr, Radarr, Lidarr)
-version: develop
+description: Indexer manager for Sonarr, Radarr, and Lidarr
+version: latest
 category: media
-tags: [media, indexer, arr, usenet, torrent]
+tags: [indexer,search,pvr]
 source:
   type: git
   url: https://github.com/Prowlarr/Prowlarr
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: PROWLARR_HOST
+    description: Hostname for Prowlarr
+    type: string
+    default: "prowlarr.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay

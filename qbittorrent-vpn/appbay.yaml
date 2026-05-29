@@ -3,9 +3,24 @@ environment: default
 collection: [media]
 tags:
   tier: app
-  role: torrent-client
+  role: torrent-downloader
 
 upstream:
   source: ./docker-compose.yml
-  expose:
-    - qbittorrent-vpn
+
+vars:
+  DOWNLOADS_DIR:
+    description: Host path for downloads
+    type: path
+    default: /data/downloads
+  TZ:
+    description: Timezone
+    type: string
+    default: Etc/UTC
+
+traits:
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - qbittorrent-config

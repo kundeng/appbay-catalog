@@ -1,13 +1,21 @@
 name: radarr
-description: Movie collection manager and downloader for Usenet and BitTorrent
+description: Movie management with automatic downloading and organization
 version: latest
 category: media
-tags: [media, movies, arr, downloads, automation]
+tags: [movies,pvr,automation]
 source:
   type: git
   url: https://github.com/Radarr/Radarr
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: RADARR_HOST
+    description: Hostname for Radarr
+    type: string
+    default: "radarr.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay

@@ -3,12 +3,18 @@ environment: default
 collection: [media]
 tags:
   tier: app
-  role: tv-manager
+  role: tv-management
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - sonarr
+
+vars:
+  SONARR_HOST:
+    description: Hostname for Sonarr
+    type: string
+    default: "sonarr.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -16,3 +22,12 @@ traits:
     port: 8989
     service: sonarr
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: sonarr
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - sonarr-config

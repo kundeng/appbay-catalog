@@ -3,12 +3,18 @@ environment: default
 collection: [media]
 tags:
   tier: app
-  role: movie-manager
+  role: movie-management
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - radarr
+
+vars:
+  RADARR_HOST:
+    description: Hostname for Radarr
+    type: string
+    default: "radarr.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -16,3 +22,12 @@ traits:
     port: 7878
     service: radarr
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: radarr
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - radarr-config

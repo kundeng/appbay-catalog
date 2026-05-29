@@ -1,13 +1,21 @@
 name: lidarr
-description: Music collection manager and downloader for Usenet and BitTorrent
+description: Music management with automatic downloading
 version: latest
 category: media
-tags: [media, music, arr, downloads, automation]
+tags: [music,pvr,automation]
 source:
   type: git
   url: https://github.com/Lidarr/Lidarr
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: LIDARR_HOST
+    description: Hostname for Lidarr
+    type: string
+    default: "lidarr.${{project.DOMAIN}}"
 traits_summary:
   - "ingress: internal HTTPS"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (config)"
+  - "no secrets — built-in auth"
 maintainer: appbay
