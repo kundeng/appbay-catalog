@@ -1,28 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: photo-manager
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - photoprism
+    - photoprism
+
 traits:
-- type: ingress
-  host: photos.${{project.DOMAIN}}
-  port: 2342
-  service: photoprism
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: photoprism
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - photoprism-originals
-  - photoprism-storage
-  - photoprism-db
+  - type: ingress
+    host: "photos.${{project.DOMAIN}}"
+    port: 2342
+    service: photoprism
+    exposure: external

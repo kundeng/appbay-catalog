@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- ai-stack
+collection: [ai-stack]
 tags:
   tier: app
   role: resume-analysis
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - resume-matcher
+    - resume-matcher
+
 traits:
-- type: ingress
-  host: resume-matcher.${{project.DOMAIN}}
-  port: 3000
-  service: resume-matcher
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: resume-matcher
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - resume-matcher-data
+  - type: ingress
+    host: "resume-matcher.${{project.DOMAIN}}"
+    port: 3000
+    service: resume-matcher
+    exposure: external

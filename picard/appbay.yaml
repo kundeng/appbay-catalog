@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: music-tagger
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - picard
+    - picard
+
 traits:
-- type: ingress
-  host: picard.${{project.DOMAIN}}
-  port: 5800
-  service: picard
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: picard
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - picard-config
+  - type: ingress
+    host: "picard.${{project.DOMAIN}}"
+    port: 5800
+    service: picard
+    exposure: internal

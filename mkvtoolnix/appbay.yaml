@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: video-remuxer
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - mkvtoolnix
+    - mkvtoolnix
+
 traits:
-- type: ingress
-  host: mkvtoolnix.${{project.DOMAIN}}
-  port: 5800
-  service: mkvtoolnix
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: mkvtoolnix
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - mkvtoolnix-config
+  - type: ingress
+    host: "mkvtoolnix.${{project.DOMAIN}}"
+    port: 5800
+    service: mkvtoolnix
+    exposure: internal

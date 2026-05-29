@@ -1,31 +1,20 @@
 project: default
 environment: default
-collection:
-- ai
-- self-hosted
+collection: [ai, self-hosted]
 tags:
   tier: app
   role: text-completion
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - mikupad
+    - mikupad
+
 traits:
-- type: ingress
-  host: mikupad.${{project.DOMAIN}}
-  port: 8080
-  service: mikupad
-  exposure: external
-  tls:
-    staging: false
-- type: auth
-  enabled: true
-  provider: authelia
-  service: mikupad
-overlays:
-- when:
-  - ollama
-  services:
-    mikupad:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "mikupad.${{project.DOMAIN}}"
+    port: 8080
+    service: mikupad
+    exposure: external
+    tls:
+      staging: false

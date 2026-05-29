@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- monitoring
+collection: [monitoring]
 tags:
   tier: infra
   role: uptime-monitor
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - uptime-kuma
+    - uptime-kuma
+
 traits:
-- type: ingress
-  host: status.${{project.DOMAIN}}
-  port: 3001
-  service: uptime-kuma
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: uptime-kuma
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - uptime-kuma-data
+  - type: ingress
+    host: "status.${{project.DOMAIN}}"
+    port: 3001
+    service: uptime-kuma
+    exposure: internal

@@ -1,8 +1,4 @@
 traits:
-- type: ingress
-  service: drawio
-  port: 3000
-- type: auth
-  enabled: true
-  provider: authelia
-  service: drawio
+  - type: ingress
+    service: drawio
+    port: 3000

@@ -1,8 +1,4 @@
 traits:
-- type: ingress
-  service: aider
-  port: 8501
-- type: auth
-  enabled: true
-  provider: authelia
-  service: aider
+  - type: ingress
+    service: aider
+    port: 8501

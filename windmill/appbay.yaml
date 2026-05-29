@@ -1,31 +1,18 @@
 project: default
 environment: default
-collection:
-- automation
-- self-hosted
+collection: [automation, self-hosted]
 tags:
   tier: app
   role: workflow-engine
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - windmill
+    - windmill
+
 traits:
-- type: ingress
-  host: windmill.${{project.DOMAIN}}
-  port: 80
-  service: windmill
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: windmill
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - windmill-caddy-data
-  - windmill-db
-  - windmill-logs
-  - windmill-cache
-  - windmill-lsp-cache
+  - type: ingress
+    host: "windmill.${{project.DOMAIN}}"
+    port: 80
+    service: windmill
+    exposure: external

@@ -1,34 +1,30 @@
 project: default
 environment: default
-collection:
-- ai-stack
-- infrastructure
+collection: [ai-stack, infrastructure]
 tags:
   tier: infra
   role: llm-proxy
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - litellm
+    - litellm
+
 traits:
-- type: ingress
-  host: litellm.${{project.DOMAIN}}
-  port: 4000
-  service: litellm
-  exposure: internal
-- type: backup
-  schedule: 0 3 * * *
-  retention: 7
-  volumes:
-  - litellm_db
-- type: auth
-  enabled: true
-  provider: authelia
-  service: litellm
+  - type: ingress
+    host: "litellm.${{project.DOMAIN}}"
+    port: 4000
+    service: litellm
+    exposure: internal
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 7
+    volumes:
+      - litellm_db
+
 overlays:
-- when:
-  - ollama
-  services:
-    litellm:
-      environment:
-      - OLLAMA_API_BASE=http://appbay.ollama:11434
+  - when: [ollama]
+    services:
+      litellm:
+        environment:
+          - OLLAMA_API_BASE=http://appbay.ollama:11434

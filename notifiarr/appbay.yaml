@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: notifications
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - notifiarr
+    - notifiarr
+
 traits:
-- type: ingress
-  host: notifiarr.${{project.DOMAIN}}
-  port: 5454
-  service: notifiarr
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: notifiarr
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - notifiarr-config
+  - type: ingress
+    host: "notifiarr.${{project.DOMAIN}}"
+    port: 5454
+    service: notifiarr
+    exposure: internal

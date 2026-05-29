@@ -1,27 +1,18 @@
 project: default
 environment: default
-collection:
-- ai-stack
-- self-hosted
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
   role: search-engine
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - searxng
+    - searxng
+
 traits:
-- type: ingress
-  host: search.${{project.DOMAIN}}
-  port: 8080
-  service: searxng
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: searxng
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - searxng-data
+  - type: ingress
+    host: "search.${{project.DOMAIN}}"
+    port: 8080
+    service: searxng
+    exposure: external

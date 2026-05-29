@@ -1,27 +1,18 @@
 project: default
 environment: default
-collection:
-- utilities
+collection: [utilities]
 tags:
   tier: app
   role: pdf-tools
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - stirling-pdf
+    - stirling-pdf
+
 traits:
-- type: ingress
-  host: pdf.${{project.DOMAIN}}
-  port: 8080
-  service: stirling-pdf
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: stirling-pdf
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - stirling-pdf-training
-  - stirling-pdf-configs
+  - type: ingress
+    host: "pdf.${{project.DOMAIN}}"
+    port: 8080
+    service: stirling-pdf
+    exposure: internal

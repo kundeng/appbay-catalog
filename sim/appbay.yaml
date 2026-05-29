@@ -1,33 +1,18 @@
 project: default
 environment: default
-collection:
-- ai-stack
+collection: [ai-stack]
 tags:
   tier: app
   role: agent-builder
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - sim
+    - sim
+
 traits:
-- type: ingress
-  host: sim.${{project.DOMAIN}}
-  port: 3000
-  service: sim
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: sim
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - sim-db
-overlays:
-- when:
-  - ollama
-  services:
-    sim:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "sim.${{project.DOMAIN}}"
+    port: 3000
+    service: sim
+    exposure: external

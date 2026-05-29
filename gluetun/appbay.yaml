@@ -1,17 +1,11 @@
 project: default
 environment: default
-collection:
-- security
+collection: [security]
 tags:
   tier: infra
   role: vpn-client
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - gluetun
-traits:
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - gluetun-data
+    - gluetun

@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- utilities
+collection: [utilities]
 tags:
   tier: app
   role: file-manager
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - cloud-commander
+    - cloud-commander
+
 traits:
-- type: ingress
-  host: files.${{project.DOMAIN}}
-  port: 8000
-  service: cloud-commander
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: cloud-commander
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - cloud-commander-config
+  - type: ingress
+    host: "files.${{project.DOMAIN}}"
+    port: 8000
+    service: cloud-commander
+    exposure: internal

@@ -1,15 +1,4 @@
 traits:
-- type: ingress
-  service: docling
-  port: 5001
-- type: auth
-  enabled: true
-  provider: authelia
-  service: docling
-overlays:
-- when:
-  - ollama
-  services:
-    docling:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    service: docling
+    port: 5001

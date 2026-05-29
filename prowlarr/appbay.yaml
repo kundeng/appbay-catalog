@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: indexer-manager
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - prowlarr
+    - prowlarr
+
 traits:
-- type: ingress
-  host: prowlarr.${{project.DOMAIN}}
-  port: 9696
-  service: prowlarr
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: prowlarr
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - prowlarr-config
+  - type: ingress
+    host: "prowlarr.${{project.DOMAIN}}"
+    port: 9696
+    service: prowlarr
+    exposure: internal

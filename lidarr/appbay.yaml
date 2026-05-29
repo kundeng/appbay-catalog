@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: music-manager
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - lidarr
+    - lidarr
+
 traits:
-- type: ingress
-  host: lidarr.${{project.DOMAIN}}
-  port: 8686
-  service: lidarr
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: lidarr
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - lidarr-config
+  - type: ingress
+    host: "lidarr.${{project.DOMAIN}}"
+    port: 8686
+    service: lidarr
+    exposure: internal

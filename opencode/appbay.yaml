@@ -1,23 +1,18 @@
 project: default
 environment: default
-collection:
-- self-hosted
+collection: [self-hosted]
 tags:
   tier: app
   role: coding-assistant
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - opencode
+    - opencode
+
 traits:
-- type: ingress
-  host: opencode.${{project.DOMAIN}}
-  port: 4096
-  service: opencode
-  exposure: external
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - opencode-data
-  - opencode-config
+  - type: ingress
+    host: "opencode.${{project.DOMAIN}}"
+    port: 4096
+    service: opencode
+    exposure: external

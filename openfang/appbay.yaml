@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- self-hosted
+collection: [self-hosted]
 tags:
   tier: app
   role: agent-platform
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - openfang
+    - openfang
+
 traits:
-- type: ingress
-  host: openfang.${{project.DOMAIN}}
-  port: 4200
-  service: openfang
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: openfang
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - openfang-data
+  - type: ingress
+    host: "openfang.${{project.DOMAIN}}"
+    port: 4200
+    service: openfang
+    exposure: external

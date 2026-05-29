@@ -1,26 +1,20 @@
 project: default
 environment: default
-collection:
-- ai
-- self-hosted
+collection: [ai, self-hosted]
 tags:
   tier: infra
   role: inference-server
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - mistralrs
+    - mistralrs
+
 traits:
-- type: ingress
-  host: mistralrs.${{project.DOMAIN}}
-  port: 8021
-  service: mistralrs
-  exposure: external
-  tls:
-    staging: false
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - mistralrs_hf_cache
-  - mistralrs_gguf
+  - type: ingress
+    host: "mistralrs.${{project.DOMAIN}}"
+    port: 8021
+    service: mistralrs
+    exposure: external
+    tls:
+      staging: false

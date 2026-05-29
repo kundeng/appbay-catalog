@@ -1,21 +1,18 @@
 project: default
 environment: default
-collection:
-- admin
+collection: [admin]
 tags:
   tier: app
   role: database-ui
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - adminer
+    - adminer
+
 traits:
-- type: ingress
-  host: adminer.${{project.DOMAIN}}
-  port: 8080
-  service: adminer
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: adminer
+  - type: ingress
+    host: "adminer.${{project.DOMAIN}}"
+    port: 8080
+    service: adminer
+    exposure: internal

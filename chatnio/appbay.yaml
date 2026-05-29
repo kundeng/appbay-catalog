@@ -1,24 +1,4 @@
 traits:
-- type: ingress
-  service: chatnio
-  port: 8094
-- type: auth
-  enabled: true
-  provider: authelia
-  service: chatnio
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - chatnio_config
-  - chatnio_logs
-  - chatnio_storage
-  - chatnio_db
-  - chatnio_redis
-overlays:
-- when:
-  - ollama
-  services:
-    chatnio:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    service: chatnio
+    port: 8094

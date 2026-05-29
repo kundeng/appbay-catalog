@@ -1,20 +1,4 @@
 traits:
-- type: ingress
-  service: kotaemon
-  port: 7860
-- type: auth
-  enabled: true
-  provider: authelia
-  service: kotaemon
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - kotaemon_data
-overlays:
-- when:
-  - ollama
-  services:
-    kotaemon:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    service: kotaemon
+    port: 7860

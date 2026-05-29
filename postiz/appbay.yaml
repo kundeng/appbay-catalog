@@ -1,30 +1,18 @@
 project: default
 environment: default
-collection:
-- self-hosted
+collection: [self-hosted]
 tags:
   tier: app
   role: social-media-scheduler
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - postiz
+    - postiz
+
 traits:
-- type: ingress
-  host: postiz.${{project.DOMAIN}}
-  port: 5000
-  service: postiz
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: postiz
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - postiz-config
-  - postiz-uploads
-  - postiz-db
-  - postiz-redis
-  - postiz-temporal-db
+  - type: ingress
+    host: "postiz.${{project.DOMAIN}}"
+    port: 5000
+    service: postiz
+    exposure: external

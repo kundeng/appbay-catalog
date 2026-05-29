@@ -1,28 +1,18 @@
 project: default
 environment: default
-collection:
-- self-hosted
+collection: [self-hosted]
 tags:
   tier: app
   role: reasoning-ui
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - ol1
+    - ol1
+
 traits:
-- type: ingress
-  host: ol1.${{project.DOMAIN}}
-  port: 8501
-  service: ol1
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: ol1
-overlays:
-- when:
-  - ollama
-  services:
-    ol1:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "ol1.${{project.DOMAIN}}"
+    port: 8501
+    service: ol1
+    exposure: external

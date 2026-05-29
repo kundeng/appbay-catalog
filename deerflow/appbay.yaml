@@ -1,20 +1,4 @@
 traits:
-- type: ingress
-  service: deerflow
-  port: 3000
-- type: auth
-  enabled: true
-  provider: authelia
-  service: deerflow
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - deerflow_data
-overlays:
-- when:
-  - ollama
-  services:
-    deerflow:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    service: deerflow
+    port: 3000

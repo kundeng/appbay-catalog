@@ -1,27 +1,18 @@
 project: default
 environment: default
-collection:
-- self-hosted
+collection: [self-hosted]
 tags:
   tier: app
   role: notebook
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - opennotebook
+    - opennotebook
+
 traits:
-- type: ingress
-  host: notebook.${{project.DOMAIN}}
-  port: 8502
-  service: opennotebook
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: opennotebook
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - opennotebook-data
-  - opennotebook-db
+  - type: ingress
+    host: "notebook.${{project.DOMAIN}}"
+    port: 8502
+    service: opennotebook
+    exposure: external

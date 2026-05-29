@@ -1,36 +1,20 @@
 project: default
 environment: default
-collection:
-- ai
-- self-hosted
+collection: [ai, self-hosted]
 tags:
   tier: app
   role: ai-database
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - mindsdb
+    - mindsdb
+
 traits:
-- type: ingress
-  host: mindsdb.${{project.DOMAIN}}
-  port: 47334
-  service: mindsdb
-  exposure: external
-  tls:
-    staging: false
-- type: auth
-  enabled: true
-  provider: authelia
-  service: mindsdb
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - mindsdb_data
-overlays:
-- when:
-  - ollama
-  services:
-    mindsdb:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "mindsdb.${{project.DOMAIN}}"
+    port: 47334
+    service: mindsdb
+    exposure: external
+    tls:
+      staging: false

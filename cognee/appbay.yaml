@@ -1,20 +1,4 @@
 traits:
-- type: ingress
-  service: cognee
-  port: 8000
-- type: auth
-  enabled: true
-  provider: authelia
-  service: cognee
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - cognee_data
-overlays:
-- when:
-  - ollama
-  services:
-    cognee:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    service: cognee
+    port: 8000

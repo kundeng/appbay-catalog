@@ -1,33 +1,18 @@
 project: default
 environment: default
-collection:
-- ai-stack
+collection: [ai-stack]
 tags:
   tier: app
   role: ai-search
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - perplexica
+    - perplexica
+
 traits:
-- type: ingress
-  host: perplexica.${{project.DOMAIN}}
-  port: 3000
-  service: perplexica
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: perplexica
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - perplexica-data
-overlays:
-- when:
-  - ollama
-  services:
-    perplexica:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "perplexica.${{project.DOMAIN}}"
+    port: 3000
+    service: perplexica
+    exposure: external

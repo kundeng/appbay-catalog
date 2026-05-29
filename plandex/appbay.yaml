@@ -1,34 +1,18 @@
 project: default
 environment: default
-collection:
-- ai-stack
+collection: [ai-stack]
 tags:
   tier: app
   role: coding-agent
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - plandex-server
+    - plandex-server
+
 traits:
-- type: ingress
-  host: plandex.${{project.DOMAIN}}
-  port: 8080
-  service: plandex-server
-  exposure: external
-- type: auth
-  enabled: true
-  provider: authelia
-  service: plandex-server
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - plandex-data
-  - plandex-db
-overlays:
-- when:
-  - ollama
-  services:
-    plandex-server:
-      environment:
-      - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - type: ingress
+    host: "plandex.${{project.DOMAIN}}"
+    port: 8080
+    service: plandex-server
+    exposure: external

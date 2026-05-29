@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- utilities
+collection: [utilities]
 tags:
   tier: app
   role: finance
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - firefly
+    - firefly
+
 traits:
-- type: ingress
-  host: firefly.${{project.DOMAIN}}
-  port: 8080
-  service: firefly
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: firefly
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - firefly-upload
+  - type: ingress
+    host: "firefly.${{project.DOMAIN}}"
+    port: 8080
+    service: firefly
+    exposure: internal

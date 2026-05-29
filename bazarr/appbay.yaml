@@ -1,26 +1,18 @@
 project: default
 environment: default
-collection:
-- media
+collection: [media]
 tags:
   tier: app
   role: subtitles
+
 upstream:
   source: ./docker-compose.yml
   expose:
-  - bazarr
+    - bazarr
+
 traits:
-- type: ingress
-  host: bazarr.${{project.DOMAIN}}
-  port: 6767
-  service: bazarr
-  exposure: internal
-- type: auth
-  enabled: true
-  provider: authelia
-  service: bazarr
-- type: backup
-  schedule: 0 3 * * *
-  retention: 14
-  volumes:
-  - bazarr-config
+  - type: ingress
+    host: "bazarr.${{project.DOMAIN}}"
+    port: 6767
+    service: bazarr
+    exposure: internal
