@@ -1,13 +1,21 @@
 name: langflow
-description: Visual framework for building multi-agent and RAG applications with drag-and-drop UI
+description: Visual LLM workflow builder with LangChain integration
 version: latest
 category: ai
-tags: [workflow, rag, agents]
+tags: [ai, llm, workflow, langchain, no-code]
 source:
   type: git
   url: https://github.com/langflow-ai/langflow
-readiness: raw
-required_inputs: []
+  ref: main
+readiness: augmented
+required_inputs:
+  - name: LANGFLOW_HOST
+    description: Hostname for Langflow
+    type: string
+    default: "langflow.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS"
+  - "ingress: external HTTPS on port 7860"
+  - "auth: Authelia forward-auth"
+  - "backup: daily (flow data)"
+  - "overlays: auto-wires Ollama"
 maintainer: appbay

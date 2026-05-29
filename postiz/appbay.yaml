@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [self-hosted]
+collection: [productivity, self-hosted]
 tags:
   tier: app
   role: social-media-scheduler
@@ -10,9 +10,34 @@ upstream:
   expose:
     - postiz
 
+vars:
+  POSTIZ_HOST:
+    description: Hostname for Postiz
+    type: string
+    default: "postiz.${{project.DOMAIN}}"
+  POSTIZ_JWT_SECRET:
+    description: JWT signing secret
+    type: secret
+    auto_generate: true
+  POSTIZ_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+
 traits:
   - type: ingress
     host: "postiz.${{project.DOMAIN}}"
     port: 5000
     service: postiz
     exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: postiz
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - postiz-postgres

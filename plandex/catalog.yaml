@@ -1,16 +1,21 @@
 name: plandex
-description: AI-powered coding agent with server backend for multi-file code generation and planning
+description: AI coding agent for complex tasks — plans, implements, and iterates across files
 version: latest
-category: ai
-tags: [llm, coding, agents]
+category: devtools
+tags: [ai, coding, agent, developer-tools]
 source:
   type: git
   url: https://github.com/plandex-ai/plandex
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs:
-  - name: OPENAI_API_KEY
-    description: OpenAI API key for code generation
-    type: secret
+  - name: PLANDEX_HOST
+    description: Hostname for Plandex server
+    type: string
+    default: "plandex.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: external HTTPS (server API)"
+  - "ingress: internal HTTPS on port 8080"
+  - "backup: daily (project data + postgres)"
+  - "overlays: auto-wires Ollama via OpenAI-compatible API"
+  - "note: plandex-db has hardcoded postgres password — secrets trait handles at compile time"
 maintainer: appbay

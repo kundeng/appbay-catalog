@@ -2,17 +2,27 @@ project: default
 environment: default
 collection: [admin]
 tags:
-  tier: app
-  role: database-ui
+  tier: infra
+  role: database-admin
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - adminer
 
+vars:
+  ADMINER_HOST:
+    description: Hostname for Adminer
+    type: string
+    default: "dbadmin.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "adminer.${{project.DOMAIN}}"
+    host: "dbadmin.${{project.DOMAIN}}"
     port: 8080
     service: adminer
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: adminer

@@ -1,14 +1,20 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
-  role: workflow-builder
+  role: llm-workflow-builder
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - langflow
+
+vars:
+  LANGFLOW_HOST:
+    description: Hostname for Langflow
+    type: string
+    default: "langflow.${{project.DOMAIN}}"
 
 traits:
   - type: ingress
@@ -18,3 +24,19 @@ traits:
     exposure: external
     tls:
       staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: langflow
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - langflow_data
+
+overlays:
+  - when: [ollama]
+    services:
+      langflow:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

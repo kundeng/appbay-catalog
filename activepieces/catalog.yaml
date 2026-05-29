@@ -1,17 +1,29 @@
 name: activepieces
-description: Open-source no-code business automation platform with 200+ integrations
+description: No-code workflow automation with 200+ integrations (Zapier alternative)
 version: latest
-category: ai
-tags:
-  - workflow
-  - tools
+category: automation
+tags: [automation, workflow, no-code, integrations]
 source:
   type: git
   url: https://github.com/activepieces/activepieces
+  ref: main
 readiness: augmented
 required_inputs:
-  - AP_ENCRYPTION_KEY
-  - AP_JWT_SECRET
+  - name: ACTIVEPIECES_HOST
+    description: Hostname for Activepieces
+    type: string
+    default: "automate.${{project.DOMAIN}}"
+  - name: ACTIVEPIECES_PG_PASSWORD
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  - name: AP_JWT_SECRET
+    description: JWT signing secret
+    type: secret
+    auto_generate: true
 traits_summary:
-  - ingress (web UI on port 80)
+  - "ingress: external HTTPS"
+  - "secrets: 2 auto-generated (DB, JWT)"
+  - "backup: daily (postgres)"
+  - "no auth trait — activepieces has built-in auth"
 maintainer: appbay

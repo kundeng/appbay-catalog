@@ -1,13 +1,24 @@
 name: morphic
-description: AI-powered search engine with generative UI that provides answers with cited sources
+description: AI-powered answer engine with real-time web search (Perplexity alternative)
 version: latest
 category: ai
-tags: [rag, chat, agents]
+tags: [ai, search, llm, perplexity-alternative]
 source:
   type: git
   url: https://github.com/miurla/morphic
-readiness: raw
-required_inputs: []
+  ref: main
+readiness: augmented
+required_inputs:
+  - name: MORPHIC_HOST
+    description: Hostname for Morphic
+    type: string
+    default: "morphic.${{project.DOMAIN}}"
+  - name: OPENAI_API_KEY
+    description: OpenAI API key (or use LiteLLM proxy)
+    type: secret
 traits_summary:
   - "ingress: external HTTPS"
+  - "auth: Authelia forward-auth"
+  - "overlays: auto-wires SearXNG + LiteLLM"
+  - "stateless — no backup needed"
 maintainer: appbay

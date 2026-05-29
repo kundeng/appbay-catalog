@@ -1,6 +1,6 @@
 project: default
 environment: default
-collection: [ai, self-hosted]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
   role: ai-search
@@ -10,6 +10,15 @@ upstream:
   expose:
     - morphic
 
+vars:
+  MORPHIC_HOST:
+    description: Hostname for Morphic
+    type: string
+    default: "morphic.${{project.DOMAIN}}"
+  OPENAI_API_KEY:
+    description: OpenAI API key (or use LiteLLM proxy)
+    type: secret
+
 traits:
   - type: ingress
     host: "morphic.${{project.DOMAIN}}"
@@ -18,3 +27,19 @@ traits:
     exposure: external
     tls:
       staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: morphic
+
+overlays:
+  - when: [searxng]
+    services:
+      morphic:
+        environment:
+          - SEARXNG_API_URL=http://appbay.searxng:8080
+  - when: [litellm]
+    services:
+      morphic:
+        environment:
+          - OPENAI_API_BASE=http://appbay.litellm:4000/v1

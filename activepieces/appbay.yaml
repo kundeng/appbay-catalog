@@ -1,4 +1,39 @@
+project: default
+environment: default
+collection: [automation, self-hosted]
+tags:
+  tier: app
+  role: workflow-automation
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - activepieces
+
+vars:
+  ACTIVEPIECES_HOST:
+    description: Hostname for Activepieces
+    type: string
+    default: "automate.${{project.DOMAIN}}"
+  ACTIVEPIECES_PG_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  AP_JWT_SECRET:
+    description: JWT signing secret
+    type: secret
+    auto_generate: true
+
 traits:
   - type: ingress
-    service: activepieces
+    host: "automate.${{project.DOMAIN}}"
     port: 80
+    service: activepieces
+    exposure: external
+    tls:
+      staging: false
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - activepieces_db

@@ -1,14 +1,28 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection: [ai-stack, self-hosted]
 tags:
   tier: app
-  role: agent-builder
+  role: ai-agent-builder
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - sim
+
+vars:
+  SIM_HOST:
+    description: Hostname for Sim Studio
+    type: string
+    default: "sim.${{project.DOMAIN}}"
+  SIM_DB_PASSWORD:
+    description: PostgreSQL password
+    type: secret
+    auto_generate: true
+  SIM_AUTH_SECRET:
+    description: Authentication secret
+    type: secret
+    auto_generate: true
 
 traits:
   - type: ingress
@@ -16,3 +30,17 @@ traits:
     port: 3000
     service: sim
     exposure: external
+    tls:
+      staging: false
+  - type: backup
+    schedule: "0 2 * * *"
+    retention: 14
+    volumes:
+      - sim-db
+
+overlays:
+  - when: [ollama]
+    services:
+      sim:
+        environment:
+          - OLLAMA_HOST=http://appbay.ollama:11434

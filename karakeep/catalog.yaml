@@ -1,17 +1,26 @@
 name: karakeep
-description: AI-powered bookmarking and read-later app with full-text search and AI tagging
+description: AI-powered bookmark manager with automatic tagging and full-text search
 version: latest
-category: utilities
-tags:
-  - bookmarks
-  - read-later
-  - search
-  - ai-enhanced
+category: productivity
+tags: [bookmarks, ai, self-hosted, knowledge]
 source:
   type: git
   url: https://github.com/karakeep-app/karakeep
+  ref: main
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: KARAKEEP_HOST
+    description: Hostname for Karakeep
+    type: string
+    default: "bookmarks.${{project.DOMAIN}}"
+  - name: KARAKEEP_NEXTAUTH_SECRET
+    description: NextAuth session secret
+    type: secret
+    auto_generate: true
 traits_summary:
-  - ingress (web UI on port 3000)
+  - "ingress: external HTTPS"
+  - "auth: Authelia forward-auth"
+  - "secrets: 1 auto-generated (NextAuth)"
+  - "backup: daily (bookmark data)"
+  - "overlays: auto-wires Ollama for AI tagging"
 maintainer: appbay

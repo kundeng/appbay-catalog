@@ -1,4 +1,49 @@
+project: default
+environment: default
+collection: [productivity, self-hosted]
+tags:
+  tier: app
+  role: bookmarks
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - karakeep
+
+vars:
+  KARAKEEP_HOST:
+    description: Hostname for Karakeep
+    type: string
+    default: "bookmarks.${{project.DOMAIN}}"
+  KARAKEEP_NEXTAUTH_SECRET:
+    description: NextAuth session secret
+    type: secret
+    auto_generate: true
+  OPENAI_API_KEY:
+    description: OpenAI API key for AI tagging (optional)
+    type: secret
+
 traits:
   - type: ingress
-    service: karakeep
+    host: "bookmarks.${{project.DOMAIN}}"
     port: 3000
+    service: karakeep
+    exposure: external
+    tls:
+      staging: false
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: karakeep
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - karakeep_data
+
+overlays:
+  - when: [ollama]
+    services:
+      karakeep:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

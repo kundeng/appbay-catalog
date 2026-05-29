@@ -1,18 +1,37 @@
 project: default
 environment: default
-collection: [ai-stack]
+collection: [ai-stack, devtools]
 tags:
   tier: app
-  role: coding-agent
+  role: ai-coding-agent
 
 upstream:
   source: ./docker-compose.yml
   expose:
     - plandex-server
 
+vars:
+  PLANDEX_HOST:
+    description: Hostname for Plandex server
+    type: string
+    default: "plandex.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
     host: "plandex.${{project.DOMAIN}}"
     port: 8080
     service: plandex-server
-    exposure: external
+    exposure: internal
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - plandex-data
+      - plandex-db
+
+overlays:
+  - when: [ollama]
+    services:
+      plandex-server:
+        environment:
+          - OPENAI_API_BASE=http://appbay.ollama:11434/v1

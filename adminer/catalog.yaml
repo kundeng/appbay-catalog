@@ -1,13 +1,20 @@
 name: adminer
-description: Lightweight database management UI for MySQL, PostgreSQL, SQLite, and more
+description: Lightweight database management UI — MySQL, PostgreSQL, SQLite, MSSQL
 version: latest
 category: admin
-tags: [database, management, sql, admin]
+tags: [database, admin, sql, management]
 source:
   type: git
   url: https://github.com/vrana/adminer
+  ref: master
 readiness: augmented
-required_inputs: []
+required_inputs:
+  - name: ADMINER_HOST
+    description: Hostname for Adminer
+    type: string
+    default: "dbadmin.${{project.DOMAIN}}"
 traits_summary:
-  - "ingress: internal HTTPS"
+  - "ingress: internal HTTPS on port 8080"
+  - "auth: Authelia forward-auth (critical — exposes databases)"
+  - "stateless — no backup needed"
 maintainer: appbay

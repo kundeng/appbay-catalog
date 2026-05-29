@@ -1,15 +1,20 @@
 name: postiz
-description: Social media scheduling and management platform with Temporal workflow engine
+description: Social media scheduling and analytics platform
 version: latest
-category: ai
-tags: [tools, workflow]
+category: productivity
+tags: [social-media, scheduling, marketing, self-hosted]
 source:
   type: git
   url: https://github.com/gitroomhq/postiz-app
-readiness: raw
+  ref: main
+readiness: augmented
 required_inputs:
+  - name: POSTIZ_HOST
+    description: Hostname for Postiz
+    type: string
+    default: "postiz.${{project.DOMAIN}}"
   - name: POSTIZ_JWT_SECRET
-    description: JWT secret for authentication
+    description: JWT signing secret
     type: secret
     auto_generate: true
   - name: POSTIZ_DB_PASSWORD
@@ -18,5 +23,8 @@ required_inputs:
     auto_generate: true
 traits_summary:
   - "ingress: external HTTPS"
-  - "secrets: 2 auto-generated (JWT, DB password)"
+  - "auth: Authelia forward-auth"
+  - "secrets: 2 auto-generated (JWT, DB)"
+  - "backup: daily (postgres)"
+  - "5 services: app, postgres, redis, temporal-postgres, elasticsearch"
 maintainer: appbay
