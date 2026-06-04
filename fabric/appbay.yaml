@@ -6,3 +6,15 @@ tags:
 
 upstream:
   source: ./docker-compose.yml
+
+overlays:
+  - when: [ollama]
+    services:
+      fabric:
+        environment:
+          - OLLAMA_API_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      fabric:
+        environment:
+          - LITELLM_API_BASE_URL=http://appbay.litellm:4000/v1

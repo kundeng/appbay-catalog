@@ -4,7 +4,7 @@ services:
     container_name: aphrodite
     ipc: host
     ports:
-      - ${APHRODITE_PORT:-2242}:2242
+      - ${APHRODITE_HOST_PORT:-2242}:2242
     volumes:
       - hf_cache:/root/.cache/huggingface
     user: root

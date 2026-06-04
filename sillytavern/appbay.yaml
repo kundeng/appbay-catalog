@@ -21,9 +21,7 @@ traits:
     host: "tavern.${{project.DOMAIN}}"
     port: 8000
     service: sillytavern
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -41,3 +39,8 @@ overlays:
       sillytavern:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      sillytavern:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

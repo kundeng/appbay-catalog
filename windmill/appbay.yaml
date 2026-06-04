@@ -32,9 +32,16 @@ traits:
     host: "windmill.${{project.DOMAIN}}"
     port: 8000
     service: windmill-server
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: windmill-server
+  - type: secrets
+    provider: vault
+    refs:
+      WINDMILL_DB_PASSWORD: vault://windmill/WINDMILL_DB_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 14

@@ -3,7 +3,7 @@ services:
     image: ghcr.io/bionic-gpt/bionicgpt-envoy:1.7.41
     container_name: bionicgpt
     ports:
-      - ${BIONICGPT_PORT:-7700}:7700
+      - ${BIONICGPT_HOST_PORT:-7700}:7700
     depends_on:
       bionicgpt-app:
         condition: service_started

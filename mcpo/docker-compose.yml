@@ -4,7 +4,7 @@ services:
     container_name: mcpo
     restart: unless-stopped
     ports:
-      - "${MCPO_PORT:-8000}:8000"
+      - "${MCPO_HOST_PORT:-8000}:8000"
     volumes:
       - mcpo_cache:/app/cache
       - mcpo_data:/app/data

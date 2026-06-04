@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${BAZARR_PORT:-6767}:6767"
+      - "${BAZARR_HOST_PORT:-6767}:6767"
     volumes:
       - bazarr-config:/config
       - ${MEDIA_DIR:-/data/media}:/data/media

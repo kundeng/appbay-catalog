@@ -3,7 +3,7 @@ services:
     image: ghcr.io/sillytavern/sillytavern:latest
     container_name: sillytavern
     ports:
-      - "${SILLYTAVERN_PORT:-8000}:8000"
+      - "${SILLYTAVERN_HOST_PORT:-8000}:8000"
     volumes:
       - sillytavern-config:/home/node/app/config
       - sillytavern-data:/home/node/app/data

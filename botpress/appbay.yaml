@@ -32,3 +32,8 @@ overlays:
       botpress:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      botpress:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

@@ -6,4 +6,4 @@ services:
       dockerfile: Dockerfile
     container_name: omniparser
     ports:
-      - "${OMNIPARSER_PORT:-7861}:7861"
+      - "${OMNIPARSER_HOST_PORT:-7861}:7861"

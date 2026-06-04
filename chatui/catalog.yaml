@@ -11,7 +11,10 @@ source:
   url: https://github.com/huggingface/chat-ui
 readiness: augmented
 required_inputs:
-  - HF_TOKEN
+  - name: HF_TOKEN
+    description: HuggingFace API token (optional, for gated models)
+    type: string
 traits_summary:
-  - ingress (web UI on port 3000)
+  - "ingress: web UI on port 3000"
+  - "auth: Authelia forward-auth"
 maintainer: appbay

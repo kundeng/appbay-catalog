@@ -4,8 +4,8 @@ services:
     container_name: mindsdb
     restart: unless-stopped
     ports:
-      - "${MINDSDB_PORT:-47334}:47334"
-      - "${MINDSDB_MYSQL_PORT:-47335}:47335"
+      - "${MINDSDB_HOST_PORT:-47334}:47334"
+      - "${MINDSDB_MYSQL_HOST_PORT:-47335}:47335"
     environment:
       - MINDSDB_APIS=${MINDSDB_APIS:-http,mysql}
       - MINDSDB_USERNAME=${MINDSDB_USERNAME:-admin}

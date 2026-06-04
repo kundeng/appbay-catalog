@@ -3,7 +3,7 @@ services:
     image: ghcr.io/superlinear-ai/raglite:latest
     container_name: raglite
     ports:
-      - "${RAGLITE_PORT:-8000}:8000"
+      - "${RAGLITE_HOST_PORT:-8000}:8000"
     volumes:
       - raglite-hf-cache:/root/.cache/huggingface
       - raglite-data:/root/raglite

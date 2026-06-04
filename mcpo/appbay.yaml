@@ -15,6 +15,4 @@ traits:
     host: "mcpo.${{project.DOMAIN}}"
     port: 8000
     service: mcpo
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal

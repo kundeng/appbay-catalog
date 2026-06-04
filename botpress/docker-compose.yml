@@ -8,7 +8,7 @@ services:
     volumes:
       - botpress_data:/botpress/data
     ports:
-      - "${BOTPRESS_PORT:-3000}:3000"
+      - "${BOTPRESS_HOST_PORT:-3000}:3000"
 
 volumes:
   botpress_data:

@@ -7,12 +7,12 @@ services:
       - karakeep-chrome
       - karakeep-meilisearch
     ports:
-      - ${KARAKEEP_PORT:-3000}:3000
+      - ${KARAKEEP_HOST_PORT:-3000}:3000
     volumes:
       - karakeep_data:/data
     environment:
       - NEXTAUTH_SECRET=${KARAKEEP_NEXTAUTH_SECRET:-change_me_secret}
-      - NEXTAUTH_URL=http://localhost:${KARAKEEP_PORT:-3000}
+      - NEXTAUTH_URL=https://${KARAKEEP_HOST:-bookmarks.localhost}
       - MEILI_ADDR=http://karakeep-meilisearch:7700
       - MEILI_MASTER_KEY=${KARAKEEP_MEILI_MASTER_KEY:-change_me_meili_key}
       - BROWSER_WEB_URL=http://karakeep-chrome:9222

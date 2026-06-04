@@ -3,7 +3,7 @@ services:
     image: koboldai/koboldcpp:latest
     container_name: kobold
     ports:
-      - ${KOBOLD_PORT:-5001}:5001
+      - ${KOBOLD_HOST_PORT:-5001}:5001
     volumes:
       - kobold_workspace:/workspace
       - hf_cache:/hf

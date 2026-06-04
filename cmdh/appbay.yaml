@@ -7,3 +7,10 @@ tags:
 
 upstream:
   source: ./docker-compose.yml
+
+overlays:
+  - when: [ollama]
+    services:
+      cmdh:
+        environment:
+          - OLLAMA_HOST=http://appbay.ollama:11434

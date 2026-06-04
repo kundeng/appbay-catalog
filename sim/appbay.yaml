@@ -29,9 +29,7 @@ traits:
     host: "sim.${{project.DOMAIN}}"
     port: 3000
     service: sim
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: backup
     schedule: "0 2 * * *"
     retention: 14
@@ -44,3 +42,8 @@ overlays:
       sim:
         environment:
           - OLLAMA_HOST=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      sim:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

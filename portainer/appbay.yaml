@@ -22,6 +22,10 @@ traits:
     port: 9000
     service: portainer
     exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: portainer
   - type: backup
     schedule: "0 3 * * *"
     retention: 14

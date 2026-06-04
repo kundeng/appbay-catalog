@@ -4,4 +4,4 @@ services:
     container_name: lobechat
     restart: unless-stopped
     ports:
-      - "${LOBECHAT_PORT:-3210}:3210"
+      - "${LOBECHAT_HOST_PORT:-3210}:3210"

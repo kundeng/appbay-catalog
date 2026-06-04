@@ -4,7 +4,7 @@ services:
     container_name: ldr
     restart: unless-stopped
     ports:
-      - "${LDR_PORT:-5000}:5000"
+      - "${LDR_HOST_PORT:-5000}:5000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - LDR_OPENAI_API_KEY=${OPENAI_API_KEY:-}

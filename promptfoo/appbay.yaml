@@ -15,4 +15,11 @@ traits:
     host: "promptfoo.${{project.DOMAIN}}"
     port: 3000
     service: promptfoo
-    exposure: external
+    exposure: internal
+
+overlays:
+  - when: [ollama]
+    services:
+      promptfoo:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

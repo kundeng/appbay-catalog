@@ -6,7 +6,7 @@ services:
     environment:
       - TERM=xterm-256color
     ports:
-      - "${NANOBOT_PORT:-18790}:18790"
+      - "${NANOBOT_HOST_PORT:-18790}:18790"
     volumes:
       - nanobot_config:/root/.nanobot
     init: true

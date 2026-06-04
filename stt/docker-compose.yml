@@ -3,7 +3,7 @@ services:
     image: fedirz/faster-whisper-server:latest-cpu
     container_name: stt
     ports:
-      - "${STT_PORT:-8000}:8000"
+      - "${STT_HOST_PORT:-8000}:8000"
     volumes:
       - stt-hf-cache:/root/.cache/huggingface
 

@@ -35,6 +35,11 @@ traits:
     enabled: true
     provider: authelia
     service: grafana
+  - type: secrets
+    provider: vault
+    refs:
+      GF_SECURITY_ADMIN_PASSWORD: vault://grafana/GF_SECURITY_ADMIN_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 3 * * *"
     retention: 14

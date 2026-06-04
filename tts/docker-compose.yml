@@ -3,7 +3,7 @@ services:
     image: ghcr.io/matatonic/openedai-speech:latest
     container_name: tts
     ports:
-      - "${TTS_PORT:-8000}:8000"
+      - "${TTS_HOST_PORT:-8000}:8000"
     volumes:
       - tts-voices:/app/voices
       - tts-config:/app/config

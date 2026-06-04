@@ -22,7 +22,7 @@ services:
     environment:
       OPENFANG_HOME: /data
     ports:
-      - "${OPENFANG_PORT:-4200}:4200"
+      - "${OPENFANG_HOST_PORT:-4200}:4200"
     volumes:
       - openfang-data:/data
 

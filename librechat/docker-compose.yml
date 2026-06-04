@@ -4,7 +4,7 @@ services:
     container_name: librechat
     restart: unless-stopped
     ports:
-      - "${LIBRECHAT_PORT:-3080}:3080"
+      - "${LIBRECHAT_HOST_PORT:-3080}:3080"
     depends_on:
       - librechat-db
       - librechat-rag
@@ -22,7 +22,7 @@ services:
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
 
   librechat-db:
-    image: mongo
+    image: mongo:7
     container_name: librechat-db
     restart: unless-stopped
     volumes:
@@ -44,9 +44,9 @@ services:
     container_name: librechat-vector
     restart: unless-stopped
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${LIBRECHAT_PG_DB:-librechat}
+      POSTGRES_USER: ${LIBRECHAT_PG_USER:-librechat}
+      POSTGRES_PASSWORD: ${LIBRECHAT_PG_PASSWORD}
     volumes:
       - librechat_vectordb:/var/lib/postgresql/data
 
@@ -56,6 +56,9 @@ services:
     restart: unless-stopped
     environment:
       - DB_HOST=librechat-vector
+      - POSTGRES_DB=${LIBRECHAT_PG_DB:-librechat}
+      - POSTGRES_USER=${LIBRECHAT_PG_USER:-librechat}
+      - POSTGRES_PASSWORD=${LIBRECHAT_PG_PASSWORD}
       - RAG_PORT=8000
       - EMBEDDINGS_PROVIDER=ollama
       - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}

@@ -15,4 +15,4 @@ traits:
     host: "textgrad.${{project.DOMAIN}}"
     port: 8888
     service: textgrad
-    exposure: external
+    exposure: internal

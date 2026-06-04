@@ -49,3 +49,8 @@ overlays:
           - OPENAI_API_KEY=sk-appbay
           - AI_PROVIDER=openai
           - OPENAI_BASE_URL=http://appbay.litellm:4000/v1
+  - when: [ollama]
+    services:
+      drawio:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

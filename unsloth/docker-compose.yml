@@ -3,7 +3,7 @@ services:
     image: unslothai/unsloth:latest
     container_name: unsloth
     ports:
-      - "${UNSLOTH_PORT:-8888}:8888"
+      - "${UNSLOTH_HOST_PORT:-8888}:8888"
     environment:
       JUPYTER_PASSWORD: ${UNSLOTH_JUPYTER_PASSWORD:-}
       HF_TOKEN: ${HF_TOKEN:-}

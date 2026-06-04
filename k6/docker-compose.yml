@@ -3,7 +3,7 @@ services:
     image: grafana/k6:latest
     container_name: k6
     ports:
-      - ${K6_PORT:-6565}:6565
+      - ${K6_HOST_PORT:-6565}:6565
     environment:
       - K6_OUT=influxdb=http://k6-influxdb:8086/k6
     extra_hosts:
@@ -13,13 +13,13 @@ services:
     image: influxdb:1.8
     container_name: k6-influxdb
     ports:
-      - ${K6_INFLUXDB_PORT:-8086}:8086
+      - ${K6_INFLUXDB_HOST_PORT:-8086}:8086
 
   k6-grafana:
     image: grafana/grafana:10.2.4
     container_name: k6-grafana
     ports:
-      - ${K6_GRAFANA_PORT:-3000}:3000
+      - ${K6_GRAFANA_HOST_PORT:-3000}:3000
     environment:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_ANONYMOUS_ENABLED=true

@@ -3,7 +3,7 @@ services:
     image: netdata/netdata:latest
     container_name: netdata
     ports:
-      - "${NETDATA_PORT:-19999}:19999"
+      - "${NETDATA_HOST_PORT:-19999}:19999"
     pid: host
     restart: unless-stopped
     cap_add:

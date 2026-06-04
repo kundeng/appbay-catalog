@@ -6,7 +6,7 @@ services:
     volumes:
       - shellngn-data:/home/node/server/data
     ports:
-      - "${SHELLNGN_PORT:-8022}:8080"
+      - "${SHELLNGN_HOST_PORT:-8022}:8080"
 
 volumes:
   shellngn-data:

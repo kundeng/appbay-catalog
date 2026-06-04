@@ -4,7 +4,7 @@ services:
     container_name: mistralrs
     restart: unless-stopped
     ports:
-      - "${MISTRALRS_PORT:-8021}:8021"
+      - "${MISTRALRS_HOST_PORT:-8021}:8021"
     environment:
       - RUST_BACKTRACE=full
       - HF_TOKEN=${HF_TOKEN:-}

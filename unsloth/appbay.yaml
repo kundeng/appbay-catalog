@@ -15,4 +15,4 @@ traits:
     host: "unsloth.${{project.DOMAIN}}"
     port: 8888
     service: unsloth
-    exposure: external
+    exposure: internal

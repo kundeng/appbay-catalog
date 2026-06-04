@@ -3,7 +3,7 @@ services:
     image: paulgauthier/aider-full:latest
     container_name: aider
     ports:
-      - ${AIDER_PORT:-8501}:8501
+      - ${AIDER_HOST_PORT:-8501}:8501
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}

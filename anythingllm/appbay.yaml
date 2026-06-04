@@ -21,9 +21,7 @@ traits:
     host: "anythingllm.${{project.DOMAIN}}"
     port: 3001
     service: anythingllm
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -41,3 +39,9 @@ overlays:
         environment:
           - LLM_PROVIDER=ollama
           - OLLAMA_BASE_PATH=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      anythingllm:
+        environment:
+          - LLM_PROVIDER=openai
+          - OPENAI_BASE_PATH=http://litellm_litellm:4000/v1

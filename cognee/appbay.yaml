@@ -32,3 +32,8 @@ overlays:
       cognee:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      cognee:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

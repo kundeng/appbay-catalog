@@ -29,9 +29,17 @@ traits:
     host: "kestra.${{project.DOMAIN}}"
     port: 8080
     service: kestra
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: kestra
+  - type: secrets
+    provider: vault
+    refs:
+      KESTRA_DB_PASSWORD: vault://kestra/KESTRA_DB_PASSWORD?gen=password:24
+      KESTRA_BASIC_AUTH_PASSWORD: vault://kestra/KESTRA_BASIC_AUTH_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 14

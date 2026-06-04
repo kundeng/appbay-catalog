@@ -38,3 +38,9 @@ overlays:
       openhands:
         environment:
           - LLM_BASE_URL=http://appbay.ollama:11434/v1
+  - when: [litellm]
+    services:
+      openhands:
+        environment:
+          - LLM_BASE_URL=http://litellm_litellm:4000/v1
+          - LLM_API_KEY=placeholder

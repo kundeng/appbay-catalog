@@ -3,7 +3,7 @@ services:
     image: lscr.io/linuxserver/webtop:latest
     container_name: webtop
     ports:
-      - "${WEBTOP_PORT:-3000}:3000"
+      - "${WEBTOP_HOST_PORT:-3000}:3000"
     volumes:
       - webtop-config:/config
       - /var/run/docker.sock:/var/run/docker.sock

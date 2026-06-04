@@ -3,7 +3,7 @@ services:
     image: sigoden/aichat:latest
     container_name: aichat
     ports:
-      - ${AICHAT_PORT:-8080}:8080
+      - ${AICHAT_HOST_PORT:-8080}:8080
     volumes:
       - aichat_config:/root/.config/aichat
 

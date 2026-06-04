@@ -3,7 +3,7 @@ services:
     image: ghcr.io/av/harbor-boost:latest
     container_name: boost
     ports:
-      - ${BOOST_PORT:-8000}:8000
+      - ${BOOST_HOST_PORT:-8000}:8000
     volumes:
       - hf_cache:/root/.cache/huggingface
 

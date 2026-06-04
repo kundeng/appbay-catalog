@@ -3,7 +3,7 @@ services:
     image: ghcr.io/speaches-ai/speaches:latest-cpu
     container_name: speaches
     ports:
-      - "${SPEACHES_PORT:-8000}:8000"
+      - "${SPEACHES_HOST_PORT:-8000}:8000"
     volumes:
       - speaches-hf-cache:/home/ubuntu/.cache/huggingface
 

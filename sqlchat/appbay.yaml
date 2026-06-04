@@ -25,3 +25,10 @@ traits:
     enabled: true
     provider: authelia
     service: sqlchat
+
+overlays:
+  - when: [ollama]
+    services:
+      sqlchat:
+        environment:
+          - OLLAMA_INTERNAL_URL=http://appbay.ollama:11434

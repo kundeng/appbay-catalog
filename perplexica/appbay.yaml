@@ -21,9 +21,7 @@ traits:
     host: "perplexica.${{project.DOMAIN}}"
     port: 3000
     service: perplexica
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -40,6 +38,11 @@ overlays:
       perplexica-be:
         environment:
           - OLLAMA_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      perplexica-be:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1
   - when: [searxng]
     services:
       perplexica-be:

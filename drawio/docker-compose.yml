@@ -3,7 +3,7 @@ services:
     image: ghcr.io/dayuanjiang/next-ai-draw-io:latest
     container_name: drawio
     ports:
-      - ${DRAWIO_PORT:-3000}:3000
+      - ${DRAWIO_HOST_PORT:-3000}:3000
     environment:
       - AI_PROVIDER=${DRAWIO_AI_PROVIDER:-openai}
       - AI_MODEL=${DRAWIO_AI_MODEL:-gpt-4o}

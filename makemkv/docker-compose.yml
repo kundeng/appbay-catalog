@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${MAKEMKV_PORT:-5800}:5800"
+      - "${MAKEMKV_HOST_PORT:-5800}:5800"
     volumes:
       - makemkv-config:/config
       - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads

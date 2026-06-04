@@ -24,9 +24,7 @@ traits:
     host: "morphic.${{project.DOMAIN}}"
     port: 3000
     service: morphic
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -43,3 +41,8 @@ overlays:
       morphic:
         environment:
           - OPENAI_API_BASE=http://appbay.litellm:4000/v1
+  - when: [ollama]
+    services:
+      morphic:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

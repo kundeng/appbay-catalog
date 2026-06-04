@@ -4,6 +4,6 @@ services:
     container_name: mock-openai
     restart: unless-stopped
     ports:
-      - "${MOCK_OPENAI_PORT:-29350}:8080"
+      - "${MOCK_OPENAI_HOST_PORT:-29350}:8080"
     environment:
       - PORT=8080

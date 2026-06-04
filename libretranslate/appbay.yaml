@@ -10,11 +10,19 @@ upstream:
   expose:
     - libretranslate
 
+vars:
+  LIBRETRANSLATE_HOST:
+    description: Hostname for LibreTranslate
+    type: string
+    default: "translate.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    host: "libretranslate.${{project.DOMAIN}}"
+    host: "translate.${{project.DOMAIN}}"
     port: 5000
     service: libretranslate
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: libretranslate

@@ -5,16 +5,16 @@ services:
     depends_on:
       - perplexica-be
     ports:
-      - "${PERPLEXICA_PORT:-3000}:3000"
+      - "${PERPLEXICA_HOST_PORT:-3000}:3000"
     environment:
-      BACKEND_API_URL: http://localhost:${PERPLEXICA_BACKEND_PORT:-3001}/api
-      BACKEND_WS_URL: ws://localhost:${PERPLEXICA_BACKEND_PORT:-3001}
+      BACKEND_API_URL: http://localhost:${PERPLEXICA_BACKEND_HOST_PORT:-3001}/api
+      BACKEND_WS_URL: ws://localhost:${PERPLEXICA_BACKEND_HOST_PORT:-3001}
 
   perplexica-be:
     image: andypenno/perplexica-backend:latest
     container_name: perplexica-be
     ports:
-      - "${PERPLEXICA_BACKEND_PORT:-3001}:3001"
+      - "${PERPLEXICA_BACKEND_HOST_PORT:-3001}:3001"
     volumes:
       - perplexica-data:/home/perplexica/data
     environment:

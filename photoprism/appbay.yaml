@@ -41,9 +41,18 @@ traits:
     host: "photos.${{project.DOMAIN}}"
     port: 2342
     service: photoprism
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: photoprism
+  - type: secrets
+    provider: vault
+    refs:
+      PHOTOPRISM_ADMIN_PASSWORD: vault://photoprism/PHOTOPRISM_ADMIN_PASSWORD?gen=password:24
+      PHOTOPRISM_DB_PASSWORD: vault://photoprism/PHOTOPRISM_DB_PASSWORD?gen=password:24
+      PHOTOPRISM_DB_ROOT_PASSWORD: vault://photoprism/PHOTOPRISM_DB_ROOT_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 14
@@ -51,3 +60,10 @@ traits:
       - photoprism-originals
       - photoprism-storage
       - photoprism-db
+
+overlays:
+  - when: [ollama]
+    services:
+      photoprism:
+        environment:
+          - OLLAMA_INTERNAL_URL=http://appbay.ollama:11434

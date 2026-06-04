@@ -3,15 +3,16 @@ services:
     image: ghcr.io/huggingface/chat-ui:latest
     container_name: chatui
     ports:
-      - ${CHATUI_PORT:-3000}:3000
+      - ${CHATUI_HOST_PORT:-3000}:3000
     environment:
       - HF_TOKEN=${HF_TOKEN:-}
+      - MONGODB_URL=mongodb://chatui-db:27017/chatui
     depends_on:
       chatui-db:
         condition: service_healthy
 
   chatui-db:
-    image: mongo:latest
+    image: mongo:7
     container_name: chatui-db
     volumes:
       - chatui_db:/data/db

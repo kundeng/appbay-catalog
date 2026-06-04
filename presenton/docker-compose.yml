@@ -3,7 +3,7 @@ services:
     image: ghcr.io/presenton-ai/presenton:latest
     container_name: presenton
     ports:
-      - "${PRESENTON_PORT:-8080}:80"
+      - "${PRESENTON_HOST_PORT:-8080}:80"
     volumes:
       - presenton-data:/app_data
     environment:

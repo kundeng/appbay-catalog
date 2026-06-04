@@ -15,6 +15,4 @@ traits:
     host: "metamcp.${{project.DOMAIN}}"
     port: 3000
     service: metamcp
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal

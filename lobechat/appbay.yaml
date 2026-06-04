@@ -21,9 +21,7 @@ traits:
     host: "chat.${{project.DOMAIN}}"
     port: 3210
     service: lobechat
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -35,3 +33,8 @@ overlays:
       lobechat:
         environment:
           - OLLAMA_PROXY_URL=http://appbay.ollama:11434/v1
+  - when: [litellm]
+    services:
+      lobechat:
+        environment:
+          - OPENAI_PROXY_URL=http://litellm_litellm:4000/v1

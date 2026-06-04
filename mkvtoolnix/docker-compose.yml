@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${MKVTOOLNIX_PORT:-5800}:5800"
+      - "${MKVTOOLNIX_HOST_PORT:-5800}:5800"
     volumes:
       - mkvtoolnix-config:/config
       - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads

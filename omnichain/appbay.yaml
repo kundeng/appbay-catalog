@@ -15,4 +15,4 @@ traits:
     host: "omnichain.${{project.DOMAIN}}"
     port: 3333
     service: omnichain
-    exposure: external
+    exposure: internal

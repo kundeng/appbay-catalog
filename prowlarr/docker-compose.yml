@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${PROWLARR_PORT:-9696}:9696"
+      - "${PROWLARR_HOST_PORT:-9696}:9696"
     volumes:
       - prowlarr-config:/config
       - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads

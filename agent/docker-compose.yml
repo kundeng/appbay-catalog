@@ -3,7 +3,7 @@ services:
     image: av/harbor-agent:latest
     container_name: agent
     ports:
-      - ${AGENT_PORT:-8000}:8000
+      - ${AGENT_HOST_PORT:-8000}:8000
     volumes:
       - agent_data:/config
     shm_size: "2gb"

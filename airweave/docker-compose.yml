@@ -3,7 +3,7 @@ services:
     image: airweave/airweave-frontend:latest
     container_name: airweave
     ports:
-      - ${AIRWEAVE_PORT:-8080}:8080
+      - ${AIRWEAVE_HOST_PORT:-8080}:8080
     environment:
       - API_URL=http://airweave-backend:8001
       - ENABLE_AUTH=false
@@ -20,7 +20,7 @@ services:
     image: airweave/airweave-backend:latest
     container_name: airweave-backend
     ports:
-      - ${AIRWEAVE_BACKEND_PORT:-8001}:8001
+      - ${AIRWEAVE_BACKEND_HOST_PORT:-8001}:8001
     environment:
       - POSTGRES_HOST=airweave-postgres
       - REDIS_HOST=airweave-redis

@@ -3,7 +3,7 @@ services:
     image: ghcr.io/zou-group/textgrad:latest
     container_name: textgrad
     ports:
-      - "${TEXTGRAD_PORT:-8888}:8888"
+      - "${TEXTGRAD_HOST_PORT:-8888}:8888"
     command: [
       "jupyter", "lab",
       "--port=8888", "--ip=0.0.0.0",

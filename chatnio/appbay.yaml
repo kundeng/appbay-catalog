@@ -1,4 +1,52 @@
+project: default
+environment: default
+collection: [ai-stack, self-hosted]
+tags:
+  tier: app
+  role: chat-ui
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - chatnio
+
+vars:
+  CHATNIO_HOST:
+    description: Hostname for ChatNio
+    type: string
+    default: "chatnio.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    service: chatnio
+    host: "chatnio.${{project.DOMAIN}}"
     port: 8094
+    service: chatnio
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: chatnio
+  - type: secrets
+    provider: vault
+    refs:
+      CHATNIO_MYSQL_PASSWORD: vault://chatnio/CHATNIO_MYSQL_PASSWORD?gen=password:24
+      CHATNIO_MYSQL_ROOT_PASSWORD: vault://chatnio/CHATNIO_MYSQL_ROOT_PASSWORD?gen=password:24
+    injection: runtime-env
+  - type: backup
+    schedule: "0 3 * * *"
+    retention: 14
+    volumes:
+      - chatnio_db
+      - chatnio_config
+
+overlays:
+  - when: [ollama]
+    services:
+      chatnio:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      chatnio:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

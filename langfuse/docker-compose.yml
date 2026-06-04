@@ -13,7 +13,7 @@ services:
       langfuse-clickhouse:
         condition: service_healthy
     ports:
-      - "${LANGFUSE_PORT:-3000}:3000"
+      - "${LANGFUSE_HOST_PORT:-3000}:3000"
     environment:
       DATABASE_URL: postgresql://langfuse:${LANGFUSE_DB_PASSWORD}@langfuse-db:5432/langfuse
       NEXTAUTH_SECRET: ${LANGFUSE_NEXT_AUTH_SECRET}
@@ -28,6 +28,10 @@ services:
       LANGFUSE_S3_SECRET_ACCESS_KEY: miniominio
       LANGFUSE_S3_FORCE_PATH_STYLE: "true"
       CLICKHOUSE_URL: http://langfuse-clickhouse:8123
+      LANGFUSE_READ_FROM_CLICKHOUSE_ONLY: "true"
+      LANGFUSE_RETURN_FROM_CLICKHOUSE: "true"
+      TELEMETRY_ENABLED: "false"
+      LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: "false"
 
   langfuse-worker:
     image: langfuse/langfuse-worker:3
@@ -47,6 +51,8 @@ services:
       LANGFUSE_S3_SECRET_ACCESS_KEY: miniominio
       LANGFUSE_S3_FORCE_PATH_STYLE: "true"
       CLICKHOUSE_URL: http://langfuse-clickhouse:8123
+      LANGFUSE_READ_FROM_CLICKHOUSE_ONLY: "true"
+      LANGFUSE_RETURN_FROM_CLICKHOUSE: "true"
 
   langfuse-db:
     image: postgres:16-alpine

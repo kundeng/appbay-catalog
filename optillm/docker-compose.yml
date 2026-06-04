@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: optillm
     ports:
-      - "${OPTILLM_PORT:-8000}:8000"
+      - "${OPTILLM_HOST_PORT:-8000}:8000"
     volumes:
       - optillm-config:/root/.config/optillm
 

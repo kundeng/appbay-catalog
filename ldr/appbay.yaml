@@ -15,6 +15,11 @@ traits:
     host: "ldr.${{project.DOMAIN}}"
     port: 5000
     service: ldr
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
+
+overlays:
+  - when: [ollama]
+    services:
+      ldr:
+        environment:
+          - OLLAMA_BASE_URL=http://appbay.ollama:11434

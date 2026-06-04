@@ -15,4 +15,4 @@ traits:
     host: "opencode.${{project.DOMAIN}}"
     port: 4096
     service: opencode
-    exposure: external
+    exposure: internal

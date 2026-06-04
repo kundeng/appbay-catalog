@@ -29,6 +29,15 @@ upstream:
       - opensearch-dashboards
       - opengauss
       - unstructured
+      - myscale
+      - matrixone
+      - elasticsearch
+      - kibana
+      - milvus
+      - ssrf_proxy_network
+      - opensearch-net
+      - oradata
+      - dify_es01_data
   expose:
     - api
     - web
@@ -38,13 +47,19 @@ traits:
     host: "dify.${{project.DOMAIN}}"
     port: 3000
     service: web
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
     service: web
+  - type: secrets
+    provider: vault
+    refs:
+      SECRET_KEY: vault://dify/SECRET_KEY?gen=password:32
+      DB_PASSWORD: vault://dify/DB_PASSWORD?gen=password:24
+      REDIS_PASSWORD: vault://dify/REDIS_PASSWORD?gen=password:24
+      SANDBOX_API_KEY: vault://dify/SANDBOX_API_KEY?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 14
@@ -55,7 +70,7 @@ traits:
 overrides:
   web:
     ports:
-      - "${DIFY_PORT:-3000}:3000"
+      - "${DIFY_HOST_PORT:-3000}:3000"
 
 overlays:
   - when: [ollama]

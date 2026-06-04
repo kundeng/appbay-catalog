@@ -3,7 +3,7 @@ services:
     image: bytedance/deer-flow-backend:latest
     container_name: deerflow-backend
     ports:
-      - ${DEERFLOW_BACKEND_PORT:-8000}:8000
+      - ${DEERFLOW_BACKEND_HOST_PORT:-8000}:8000
     environment:
       - ALLOWED_ORIGINS=http://localhost:${DEERFLOW_PORT:-3000}
     volumes:
@@ -19,7 +19,7 @@ services:
     image: bytedance/deer-flow-frontend:latest
     container_name: deerflow
     ports:
-      - ${DEERFLOW_PORT:-3000}:3000
+      - ${DEERFLOW_HOST_PORT:-3000}:3000
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:${DEERFLOW_BACKEND_PORT:-8000}/api
     depends_on:

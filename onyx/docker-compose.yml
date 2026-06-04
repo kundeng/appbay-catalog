@@ -9,7 +9,7 @@ services:
       - onyx-api
       - onyx-web
     ports:
-      - "${ONYX_PORT:-3080}:80"
+      - "${ONYX_HOST_PORT:-3080}:80"
     restart: unless-stopped
 
   onyx-web:

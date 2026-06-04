@@ -1,4 +1,28 @@
+project: default
+environment: default
+collection: [monitoring, self-hosted]
+tags:
+  tier: infra
+  role: load-testing
+
+upstream:
+  source: ./docker-compose.yml
+  expose:
+    - k6-grafana
+
+vars:
+  K6_HOST:
+    description: Hostname for k6 Grafana dashboard
+    type: string
+    default: "k6.${{project.DOMAIN}}"
+
 traits:
   - type: ingress
-    service: k6-grafana
+    host: "k6.${{project.DOMAIN}}"
     port: 3000
+    service: k6-grafana
+    exposure: internal
+  - type: auth
+    enabled: true
+    provider: authelia
+    service: k6-grafana

@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${STIRLING_PDF_PORT:-8080}:8080"
+      - "${STIRLING_PDF_HOST_PORT:-8080}:8080"
     volumes:
       - stirling-pdf-training:/usr/share/tessdata
       - stirling-pdf-configs:/configs

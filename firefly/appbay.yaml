@@ -25,9 +25,7 @@ traits:
     host: "finance.${{project.DOMAIN}}"
     port: 8080
     service: firefly
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia

@@ -21,9 +21,7 @@ traits:
     host: "chat.${{project.DOMAIN}}"
     port: 8080
     service: open-webui
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -40,3 +38,16 @@ overlays:
       open-webui:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      open-webui:
+        environment:
+          - OPENAI_API_BASE_URLS=http://litellm_litellm:4000/v1
+          - ENABLE_OPENAI_API=true
+  - when: [searxng]
+    services:
+      open-webui:
+        environment:
+          - ENABLE_RAG_WEB_SEARCH=true
+          - RAG_WEB_SEARCH_ENGINE=searxng
+          - SEARXNG_QUERY_URL=http://appbay.searxng:8080/search?q=<query>

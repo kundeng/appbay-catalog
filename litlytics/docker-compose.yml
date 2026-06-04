@@ -4,4 +4,4 @@ services:
     container_name: litlytics
     restart: unless-stopped
     ports:
-      - "${LITLYTICS_PORT:-3000}:3000"
+      - "${LITLYTICS_HOST_PORT:-3000}:3000"

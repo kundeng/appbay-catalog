@@ -27,13 +27,16 @@ traits:
     host: "librechat.${{project.DOMAIN}}"
     port: 3080
     service: librechat
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
     service: librechat
+  - type: secrets
+    provider: vault
+    refs:
+      LIBRECHAT_PG_PASSWORD: vault://librechat/LIBRECHAT_PG_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 3 * * *"
     retention: 14
@@ -47,3 +50,8 @@ overlays:
       librechat-rag:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      librechat-rag:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

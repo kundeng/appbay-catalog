@@ -6,7 +6,7 @@ services:
     environment:
       - LATENT_SCOPE_DATA=/root/latentscope-data
     ports:
-      - "${LATENTSCOPE_PORT:-5001}:5001"
+      - "${LATENTSCOPE_HOST_PORT:-5001}:5001"
     volumes:
       - latentscope_hf_cache:/root/.cache/huggingface
       - latentscope_data:/root/latentscope-data

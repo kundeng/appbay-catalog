@@ -3,7 +3,7 @@ services:
     image: lmsysorg/sglang:latest
     container_name: sglang
     ports:
-      - "${SGLANG_PORT:-30000}:30000"
+      - "${SGLANG_HOST_PORT:-30000}:30000"
     volumes:
       - sglang-hf-cache:/root/.cache/huggingface
       - sglang-vllm-cache:/root/.cache/vllm

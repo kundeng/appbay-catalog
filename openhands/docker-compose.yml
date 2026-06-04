@@ -6,7 +6,7 @@ services:
       SANDBOX_RUNTIME_CONTAINER_IMAGE: docker.all-hands.dev/all-hands-ai/runtime:latest-nikolaik
       SANDBOX_USER_ID: ${OPENHANDS_USER_ID:-1000}
     ports:
-      - "${OPENHANDS_PORT:-3000}:3000"
+      - "${OPENHANDS_HOST_PORT:-3000}:3000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - openhands-state:/.openhands-state

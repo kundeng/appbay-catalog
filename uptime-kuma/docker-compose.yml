@@ -6,7 +6,7 @@ services:
     volumes:
       - uptime-kuma-data:/app/data
     ports:
-      - "${UPTIME_KUMA_PORT:-3001}:3001"
+      - "${UPTIME_KUMA_HOST_PORT:-3001}:3001"
 
 volumes:
   uptime-kuma-data:

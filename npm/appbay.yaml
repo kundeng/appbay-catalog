@@ -15,6 +15,4 @@ traits:
     host: "npm.${{project.DOMAIN}}"
     port: 81
     service: npm
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal

@@ -4,7 +4,7 @@ services:
     container_name: windmill
     restart: unless-stopped
     ports:
-      - "${WINDMILL_PORT:-8080}:80"
+      - "${WINDMILL_HOST_PORT:-8080}:80"
     volumes:
       - windmill-caddy-data:/data
     depends_on:

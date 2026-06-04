@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${NOTIFIARR_PORT:-5454}:5454"
+      - "${NOTIFIARR_HOST_PORT:-5454}:5454"
     volumes:
       - notifiarr-config:/config
       - /var/run/utmp:/var/run/utmp:ro

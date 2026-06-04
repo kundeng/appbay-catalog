@@ -3,7 +3,7 @@ services:
     image: ghcr.io/srbhr/resume-matcher-frontend:latest
     container_name: resume-matcher
     ports:
-      - "${RESUME_MATCHER_PORT:-3000}:3000"
+      - "${RESUME_MATCHER_HOST_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: http://resume-matcher-backend:8000
@@ -21,7 +21,7 @@ services:
     image: ghcr.io/srbhr/resume-matcher-backend:latest
     container_name: resume-matcher-backend
     ports:
-      - "${RESUME_MATCHER_BACKEND_PORT:-8000}:8000"
+      - "${RESUME_MATCHER_BACKEND_HOST_PORT:-8000}:8000"
     environment:
       SESSION_SECRET_KEY: ${RESUME_MATCHER_SESSION_SECRET}
       SYNC_DATABASE_URL: sqlite:///./app.db

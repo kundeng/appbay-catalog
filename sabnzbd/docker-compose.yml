@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${SABNZBD_PORT:-8080}:8080"
+      - "${SABNZBD_HOST_PORT:-8080}:8080"
     volumes:
       - sabnzbd-config:/config
       - ${DOWNLOADS_DIR:-/data/downloads}:/data/downloads

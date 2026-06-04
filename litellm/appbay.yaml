@@ -10,12 +10,25 @@ upstream:
   expose:
     - litellm
 
+vars:
+  UI_USERNAME:
+    description: Username for the LiteLLM admin dashboard
+    type: string
+    default: admin
+
 traits:
   - type: ingress
     host: "litellm.${{project.DOMAIN}}"
     port: 4000
     service: litellm
     exposure: internal
+  - type: secrets
+    provider: vault
+    refs:
+      LITELLM_MASTER_KEY: vault://litellm/LITELLM_MASTER_KEY?gen=password:32
+      LITELLM_DB_PASSWORD: vault://litellm/LITELLM_DB_PASSWORD?gen=password:32
+      UI_PASSWORD: vault://litellm/UI_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 3 * * *"
     retention: 7

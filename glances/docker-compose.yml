@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${GLANCES_PORT:-61208}:61208"
+      - "${GLANCES_HOST_PORT:-61208}:61208"
     pid: host
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro

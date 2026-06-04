@@ -15,4 +15,11 @@ traits:
     host: "raglite.${{project.DOMAIN}}"
     port: 8000
     service: raglite
-    exposure: external
+    exposure: internal
+
+overlays:
+  - when: [ollama]
+    services:
+      raglite:
+        environment:
+          - OLLAMA_API_BASE=http://appbay.ollama:11434

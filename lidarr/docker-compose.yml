@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${LIDARR_PORT:-8686}:8686"
+      - "${LIDARR_HOST_PORT:-8686}:8686"
     volumes:
       - lidarr-config:/config
       - ${DATA_DIR:-/data}:/data

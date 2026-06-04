@@ -4,7 +4,7 @@ services:
     container_name: ktransformers
     ipc: host
     ports:
-      - ${KTRANSFORMERS_PORT:-12456}:12456
+      - ${KTRANSFORMERS_HOST_PORT:-12456}:12456
     volumes:
       - hf_cache:/root/.cache/huggingface
       - llamacpp_cache:/root/.cache/llama.cpp

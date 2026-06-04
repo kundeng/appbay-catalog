@@ -25,7 +25,7 @@ traits:
     host: "search.${{project.DOMAIN}}"
     port: 8080
     service: searxng
-    exposure: external
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia

@@ -5,5 +5,5 @@ services:
     restart: unless-stopped
     command: npx @modelcontextprotocol/inspector
     ports:
-      - "${MCP_INSPECTOR_PORT:-6274}:6274"
-      - "${MCP_INSPECTOR_CLIENT_PORT:-6277}:6277"
+      - "${MCP_INSPECTOR_HOST_PORT:-6274}:6274"
+      - "${MCP_INSPECTOR_CLIENT_HOST_PORT:-6277}:6277"

@@ -4,7 +4,7 @@ services:
     container_name: sim
     restart: unless-stopped
     ports:
-      - "${SIM_PORT:-3000}:3000"
+      - "${SIM_HOST_PORT:-3000}:3000"
     deploy:
       resources:
         limits:
@@ -38,7 +38,7 @@ services:
     container_name: sim-realtime
     restart: unless-stopped
     ports:
-      - "${SIM_REALTIME_PORT:-3002}:3002"
+      - "${SIM_REALTIME_HOST_PORT:-3002}:3002"
     deploy:
       resources:
         limits:

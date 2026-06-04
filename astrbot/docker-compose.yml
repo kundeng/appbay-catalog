@@ -3,7 +3,7 @@ services:
     image: soulter/astrbot:latest
     container_name: astrbot
     ports:
-      - ${ASTRBOT_PORT:-6185}:6185
+      - ${ASTRBOT_HOST_PORT:-6185}:6185
     volumes:
       - astrbot_data:/AstrBot/data
     healthcheck:

@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${CLEANUPARR_PORT:-11011}:11011"
+      - "${CLEANUPARR_HOST_PORT:-11011}:11011"
     volumes:
       - cleanuparr-config:/config
     environment:

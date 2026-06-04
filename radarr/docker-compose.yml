@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${RADARR_PORT:-7878}:7878"
+      - "${RADARR_HOST_PORT:-7878}:7878"
     volumes:
       - radarr-config:/config
       - ${MEDIA_DIR:-/data/media}:/data/media

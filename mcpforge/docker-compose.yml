@@ -4,7 +4,7 @@ services:
     container_name: mcpforge
     restart: unless-stopped
     ports:
-      - "${MCPFORGE_PORT:-4444}:4444"
+      - "${MCPFORGE_HOST_PORT:-4444}:4444"
     environment:
       - HOST=0.0.0.0
       - PORT=4444

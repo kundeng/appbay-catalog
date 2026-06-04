@@ -31,3 +31,10 @@ traits:
     retention: 14
     volumes:
       - mindsdb_data
+
+overlays:
+  - when: [ollama]
+    services:
+      mindsdb:
+        environment:
+          - OLLAMA_INTERNAL_URL=http://appbay.ollama:11434

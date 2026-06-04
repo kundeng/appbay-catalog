@@ -3,4 +3,4 @@ services:
     image: ghcr.io/docling-project/docling-serve-cpu:latest
     container_name: docling
     ports:
-      - ${DOCLING_PORT:-5001}:5001
+      - ${DOCLING_HOST_PORT:-5001}:5001

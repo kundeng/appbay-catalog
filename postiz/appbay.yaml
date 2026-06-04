@@ -29,13 +29,17 @@ traits:
     host: "postiz.${{project.DOMAIN}}"
     port: 5000
     service: postiz
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
     service: postiz
+  - type: secrets
+    provider: vault
+    refs:
+      POSTIZ_JWT_SECRET: vault://postiz/POSTIZ_JWT_SECRET?gen=password:32
+      POSTIZ_DB_PASSWORD: vault://postiz/POSTIZ_DB_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 14

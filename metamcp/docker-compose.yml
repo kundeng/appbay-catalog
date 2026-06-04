@@ -4,7 +4,7 @@ services:
     container_name: metamcp
     restart: unless-stopped
     ports:
-      - "${METAMCP_PORT:-3000}:3000"
+      - "${METAMCP_HOST_PORT:-3000}:3000"
     depends_on:
       - metamcp-postgres
     extra_hosts:
@@ -31,7 +31,7 @@ services:
     container_name: metamcp-sse
     restart: unless-stopped
     ports:
-      - "${METAMCP_SSE_PORT:-12006}:12006"
+      - "${METAMCP_SSE_HOST_PORT:-12006}:12006"
     depends_on:
       metamcp-postgres:
         condition: service_healthy

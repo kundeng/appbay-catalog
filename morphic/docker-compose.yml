@@ -4,7 +4,7 @@ services:
     container_name: morphic
     restart: unless-stopped
     ports:
-      - "${MORPHIC_PORT:-3000}:3000"
+      - "${MORPHIC_HOST_PORT:-3000}:3000"
 
   morphic-redis:
     image: redis:alpine

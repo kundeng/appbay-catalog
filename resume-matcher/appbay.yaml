@@ -15,4 +15,4 @@ traits:
     host: "resume-matcher.${{project.DOMAIN}}"
     port: 3000
     service: resume-matcher
-    exposure: external
+    exposure: internal

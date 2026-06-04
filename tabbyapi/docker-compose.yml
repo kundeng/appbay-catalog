@@ -3,7 +3,7 @@ services:
     image: nschle/tabbyapi:latest
     container_name: tabbyapi
     ports:
-      - "${TABBYAPI_PORT:-5000}:5000"
+      - "${TABBYAPI_HOST_PORT:-5000}:5000"
     environment:
       NAME: TabbyAPI
     volumes:

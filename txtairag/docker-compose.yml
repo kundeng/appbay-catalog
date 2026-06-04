@@ -3,7 +3,7 @@ services:
     image: neuml/rag:latest
     container_name: txtairag
     ports:
-      - "${TXTAIRAG_PORT:-8501}:8501"
+      - "${TXTAIRAG_HOST_PORT:-8501}:8501"
     volumes:
       - txtairag-hf-cache:/root/.cache/huggingface
       - txtairag-data:/root/.cache/txtai

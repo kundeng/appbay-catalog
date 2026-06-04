@@ -3,7 +3,7 @@ services:
     image: fedirz/parler-tts-server:latest
     container_name: parler
     ports:
-      - "${PARLER_PORT:-8000}:8000"
+      - "${PARLER_HOST_PORT:-8000}:8000"
     volumes:
       - parler-hf-cache:/root/.cache/huggingface
     environment:

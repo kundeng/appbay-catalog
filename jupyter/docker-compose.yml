@@ -3,7 +3,7 @@ services:
     image: pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
     container_name: jupyter
     ports:
-      - ${JUPYTER_PORT:-8888}:8888
+      - ${JUPYTER_HOST_PORT:-8888}:8888
     command:
       - jupyter
       - lab

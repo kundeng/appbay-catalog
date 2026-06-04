@@ -33,13 +33,18 @@ traits:
     host: "n8n.${{project.DOMAIN}}"
     port: 5678
     service: n8n
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
     service: n8n
+  - type: secrets
+    provider: vault
+    refs:
+      N8N_DB_PASSWORD: vault://n8n/N8N_DB_PASSWORD?gen=password:24
+      N8N_ENCRYPTION_KEY: vault://n8n/N8N_ENCRYPTION_KEY?gen=password:32
+      N8N_JWT_SECRET: vault://n8n/N8N_JWT_SECRET?gen=password:32
+    injection: runtime-env
   - type: backup
     schedule: "0 2 * * *"
     retention: 7
@@ -53,3 +58,8 @@ overlays:
       n8n:
         environment:
           - OLLAMA_HOST=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      n8n:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

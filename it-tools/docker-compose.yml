@@ -4,4 +4,4 @@ services:
     container_name: it-tools
     restart: unless-stopped
     ports:
-      - "${IT_TOOLS_PORT:-8080}:80"
+      - "${IT_TOOLS_HOST_PORT:-8080}:80"

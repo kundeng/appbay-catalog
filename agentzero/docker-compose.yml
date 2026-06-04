@@ -3,7 +3,7 @@ services:
     image: frdel/agent-zero:latest
     container_name: agentzero
     ports:
-      - ${AGENTZERO_PORT:-8080}:80
+      - ${AGENTZERO_HOST_PORT:-8080}:80
     volumes:
       - agentzero_data:/a0
     environment:

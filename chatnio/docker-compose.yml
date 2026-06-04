@@ -3,14 +3,14 @@ services:
     image: programzmh/chatnio:latest
     container_name: chatnio
     ports:
-      - ${CHATNIO_PORT:-8094}:8094
+      - ${CHATNIO_HOST_PORT:-8094}:8094
     depends_on:
       - chatnio-mysql
       - chatnio-redis
     environment:
       MYSQL_HOST: chatnio-mysql
       MYSQL_USER: ${CHATNIO_MYSQL_USER:-chatnio}
-      MYSQL_PASSWORD: ${CHATNIO_MYSQL_PASSWORD:-chatnio123456}
+      MYSQL_PASSWORD: ${CHATNIO_MYSQL_PASSWORD}
       MYSQL_DB: ${CHATNIO_MYSQL_DATABASE:-chatnio}
       REDIS_HOST: chatnio-redis
       REDIS_PORT: 6379
@@ -23,18 +23,18 @@ services:
       - chatnio_storage:/storage
 
   chatnio-mysql:
-    image: mysql:latest
+    image: mysql:8.0
     container_name: chatnio-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${CHATNIO_MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_ROOT_PASSWORD: ${CHATNIO_MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${CHATNIO_MYSQL_DATABASE:-chatnio}
       MYSQL_USER: ${CHATNIO_MYSQL_USER:-chatnio}
-      MYSQL_PASSWORD: ${CHATNIO_MYSQL_PASSWORD:-chatnio123456}
+      MYSQL_PASSWORD: ${CHATNIO_MYSQL_PASSWORD}
     volumes:
       - chatnio_db:/var/lib/mysql
 
   chatnio-redis:
-    image: redis:latest
+    image: redis:7-alpine
     container_name: chatnio-redis
     volumes:
       - chatnio_redis:/data

@@ -21,9 +21,7 @@ traits:
     host: "flowise.${{project.DOMAIN}}"
     port: 3000
     service: flowise
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
@@ -40,3 +38,8 @@ overlays:
       flowise:
         environment:
           - OLLAMA_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      flowise:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

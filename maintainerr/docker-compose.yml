@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${MAINTAINERR_PORT:-6246}:6246"
+      - "${MAINTAINERR_HOST_PORT:-6246}:6246"
     user: "${PUID:-1000}:${PGID:-1000}"
     volumes:
       - maintainerr-data:/opt/data

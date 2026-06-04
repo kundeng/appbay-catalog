@@ -3,7 +3,7 @@ services:
     image: ghcr.io/topoteretes/cognee:latest
     container_name: cognee
     ports:
-      - ${COGNEE_PORT:-8000}:8000
+      - ${COGNEE_HOST_PORT:-8000}:8000
     environment:
       - HOST=0.0.0.0
       - ENVIRONMENT=local

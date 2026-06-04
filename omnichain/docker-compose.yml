@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: omnichain
     ports:
-      - "${OMNICHAIN_PORT:-3333}:3333"
-      - "${OMNICHAIN_API_PORT:-3334}:3334"
+      - "${OMNICHAIN_HOST_PORT:-3333}:3333"
+      - "${OMNICHAIN_API_HOST_PORT:-3334}:3334"
     command: >
       npm run serve --
       --port 3333

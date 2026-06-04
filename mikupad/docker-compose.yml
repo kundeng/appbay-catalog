@@ -4,6 +4,6 @@ services:
     container_name: mikupad
     restart: unless-stopped
     ports:
-      - "${MIKUPAD_PORT:-8080}:8080"
+      - "${MIKUPAD_HOST_PORT:-8080}:8080"
     working_dir: /app
     command: ["npx", "http-server", "-p", "8080"]

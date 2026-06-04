@@ -28,13 +28,17 @@ traits:
     host: "bookmarks.${{project.DOMAIN}}"
     port: 3000
     service: karakeep
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal
   - type: auth
     enabled: true
     provider: authelia
     service: karakeep
+  - type: secrets
+    provider: vault
+    refs:
+      KARAKEEP_NEXTAUTH_SECRET: vault://karakeep/KARAKEEP_NEXTAUTH_SECRET?gen=password:32
+      KARAKEEP_MEILI_MASTER_KEY: vault://karakeep/KARAKEEP_MEILI_MASTER_KEY?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 3 * * *"
     retention: 14
@@ -47,3 +51,8 @@ overlays:
       karakeep:
         environment:
           - OLLAMA_BASE_URL=http://appbay.ollama:11434
+  - when: [litellm]
+    services:
+      karakeep:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

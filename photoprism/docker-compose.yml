@@ -10,11 +10,11 @@ services:
       - seccomp:unconfined
       - apparmor:unconfined
     ports:
-      - "${PHOTOPRISM_PORT:-2342}:2342"
+      - "${PHOTOPRISM_HOST_PORT:-2342}:2342"
     environment:
       PHOTOPRISM_ADMIN_USER: ${PHOTOPRISM_ADMIN_USER:-admin}
       PHOTOPRISM_ADMIN_PASSWORD: ${PHOTOPRISM_ADMIN_PASSWORD}
-      PHOTOPRISM_SITE_URL: http://localhost:${PHOTOPRISM_PORT:-2342}/
+      PHOTOPRISM_SITE_URL: https://${PHOTOPRISM_HOST:-photos.localhost}/
       PHOTOPRISM_SITE_TITLE: ${PHOTOPRISM_SITE_TITLE:-PhotoPrism}
       PHOTOPRISM_DATABASE_SERVER: photoprism-db:3306
       PHOTOPRISM_DATABASE_NAME: ${PHOTOPRISM_DB_NAME:-photoprism}

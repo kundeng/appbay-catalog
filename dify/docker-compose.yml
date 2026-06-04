@@ -1133,7 +1133,7 @@ services:
       MODE: mini
       LANG: en_US.UTF-8
     ports:
-      - "${OCEANBASE_VECTOR_PORT:-2881}:2881"
+      - "${OCEANBASE_VECTOR_HOST_PORT:-2881}:2881"
     healthcheck:
       test:
         [
@@ -1159,7 +1159,7 @@ services:
       MEMORY_LIMIT: ${SEEKDB_MEMORY_LIMIT:-2G}
       REPORTER: dify-ai-seekdb
     ports:
-      - "${OCEANBASE_VECTOR_PORT:-2881}:2881"
+      - "${OCEANBASE_VECTOR_HOST_PORT:-2881}:2881"
     healthcheck:
       test:
         [
@@ -1314,8 +1314,8 @@ services:
     restart: always
     init: true
     ports:
-      - "${IRIS_SUPER_SERVER_PORT:-1972}:1972"
-      - "${IRIS_WEB_SERVER_PORT:-52773}:52773"
+      - "${IRIS_SUPER_SERVER_HOST_PORT:-1972}:1972"
+      - "${IRIS_WEB_SERVER_HOST_PORT:-52773}:52773"
     volumes:
       - ./volumes/iris:/opt/iris
       - ./iris/iris-init.script:/iris-init.script
@@ -1517,7 +1517,7 @@ services:
       xpack.security.enrollment.enabled: "false"
       xpack.security.http.ssl.enabled: "false"
     ports:
-      - ${ELASTICSEARCH_PORT:-9200}:9200
+      - ${ELASTICSEARCH_HOST_PORT:-9200}:9200
     deploy:
       resources:
         limits:
@@ -1551,7 +1551,7 @@ services:
       SERVER_PORT: "5601"
       ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     ports:
-      - ${KIBANA_PORT:-5601}:5601
+      - ${KIBANA_HOST_PORT:-5601}:5601
     healthcheck:
       test: ["CMD-SHELL", "curl -s http://localhost:5601 >/dev/null || exit 1"]
       interval: 30s

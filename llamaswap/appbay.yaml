@@ -15,6 +15,4 @@ traits:
     host: "llamaswap.${{project.DOMAIN}}"
     port: 8080
     service: llamaswap
-    exposure: external
-    tls:
-      staging: false
+    exposure: internal

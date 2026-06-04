@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${SONARR_PORT:-8989}:8989"
+      - "${SONARR_HOST_PORT:-8989}:8989"
     volumes:
       - sonarr-config:/config
       - ${MEDIA_DIR:-/data/media}:/data/media

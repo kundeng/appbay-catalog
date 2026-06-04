@@ -20,6 +20,15 @@ traits:
     enabled: true
     provider: authelia
     service: langfuse
+  - type: secrets
+    provider: vault
+    refs:
+      LANGFUSE_DB_PASSWORD: vault://langfuse/LANGFUSE_DB_PASSWORD?gen=password:24
+      LANGFUSE_NEXT_AUTH_SECRET: vault://langfuse/LANGFUSE_NEXT_AUTH_SECRET?gen=password:32
+      LANGFUSE_SALT: vault://langfuse/LANGFUSE_SALT?gen=password:32
+      LANGFUSE_SECRET_KEY: vault://langfuse/LANGFUSE_SECRET_KEY?gen=password:32
+      LANGFUSE_REDIS_PASSWORD: vault://langfuse/LANGFUSE_REDIS_PASSWORD?gen=password:24
+    injection: runtime-env
   - type: backup
     schedule: "0 3 * * *"
     retention: 30

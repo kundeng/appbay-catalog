@@ -6,7 +6,7 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     ports:
-      - "${PICARD_PORT:-5800}:5800"
+      - "${PICARD_HOST_PORT:-5800}:5800"
     volumes:
       - picard-config:/config
       - ${DOWNLOADS_DIR:-/data/downloads}:/downloads

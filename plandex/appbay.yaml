@@ -35,3 +35,8 @@ overlays:
       plandex-server:
         environment:
           - OPENAI_API_BASE=http://appbay.ollama:11434/v1
+  - when: [litellm]
+    services:
+      plandex-server:
+        environment:
+          - OPENAI_API_BASE=http://litellm_litellm:4000/v1

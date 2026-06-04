@@ -15,4 +15,4 @@ traits:
     host: "terminal.${{project.DOMAIN}}"
     port: 8000
     service: openterminal
-    exposure: external
+    exposure: internal

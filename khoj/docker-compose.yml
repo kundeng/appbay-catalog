@@ -6,7 +6,7 @@ services:
       khoj-db:
         condition: service_healthy
     ports:
-      - ${KHOJ_PORT:-42110}:42110
+      - ${KHOJ_HOST_PORT:-42110}:42110
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:

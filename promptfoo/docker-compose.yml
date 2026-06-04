@@ -3,7 +3,7 @@ services:
     image: ghcr.io/promptfoo/promptfoo:latest
     container_name: promptfoo
     ports:
-      - "${PROMPTFOO_PORT:-3000}:3000"
+      - "${PROMPTFOO_HOST_PORT:-3000}:3000"
     volumes:
       - promptfoo-data:/home/promptfoo/.promptfoo
     environment:

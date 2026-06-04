@@ -8,7 +8,7 @@ services:
       - MAX_LENGTH=${AIRLLM_CTX_LEN:-512}
       - COMPRESSION=${AIRLLM_COMPRESSION:-4bit}
     ports:
-      - ${AIRLLM_PORT:-5000}:5000
+      - ${AIRLLM_HOST_PORT:-5000}:5000
     volumes:
       - hf_cache:/root/.cache/huggingface
     deploy:

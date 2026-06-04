@@ -3,7 +3,7 @@ services:
     image: nginx:alpine
     container_name: perplexideez
     ports:
-      - "${PERPLEXIDEEZ_PORT:-8080}:80"
+      - "${PERPLEXIDEEZ_HOST_PORT:-8080}:80"
     depends_on:
       perplexideez-service:
         condition: service_healthy

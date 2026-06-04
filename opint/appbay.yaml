@@ -6,3 +6,10 @@ tags:
 
 upstream:
   source: ./docker-compose.yml
+
+overlays:
+  - when: [ollama]
+    services:
+      opint:
+        environment:
+          - OLLAMA_INTERNAL_URL=http://appbay.ollama:11434
