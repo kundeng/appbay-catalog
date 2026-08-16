@@ -22,4 +22,7 @@ vars:
 
 traits:
   - type: gpu
+    # "gpu: nvidia (optional — runs on CPU too)" per this entry's own catalog.yaml,
+    # so it opts out of the default refuse-without-a-GPU behaviour.
+    required: false
     variant: nvidia
