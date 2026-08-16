@@ -12,6 +12,7 @@ required_inputs:
   - name: QDRANT_API_KEY
     description: API key for Qdrant (optional — blank for no auth)
     type: secret
+    default: ""
 traits_summary:
   - "no ingress — internal service, accessed by other AI apps on shared network"
   - "backup: daily (vector storage)"

@@ -32,6 +32,7 @@ required_inputs:
   - name: OPENAI_API_KEY
     description: OpenAI API key (optional — can use Ollama or LiteLLM instead)
     type: secret
+    default: ""
 traits_summary:
   - "ingress: external HTTPS on web service (port 3000)"
   - "auth: Authentik forward-auth"

@@ -1,6 +1,6 @@
 services:
   comfyui:
-    image: ghcr.io/ai-dock/comfyui:latest-cuda
+    image: ${COMFYUI_IMAGE:-ghcr.io/ai-dock/comfyui:latest-cuda}
     container_name: comfyui
     ports:
       - ${COMFYUI_HOST_PORT:-8188}:8188

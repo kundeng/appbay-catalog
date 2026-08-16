@@ -16,6 +16,7 @@ required_inputs:
   - name: OPENAI_API_KEY
     description: OpenAI API key (optional)
     type: secret
+    default: ""
 traits_summary:
   - "ingress: internal HTTPS on port 5173"
   - "auth: Authelia forward-auth"

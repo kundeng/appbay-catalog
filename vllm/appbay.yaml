@@ -21,4 +21,5 @@ vars:
 
 traits:
   - type: gpu
+    required: true
     variant: nvidia

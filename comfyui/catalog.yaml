@@ -13,9 +13,18 @@ required_inputs:
     description: Hostname for ComfyUI
     type: string
     default: "comfyui.${{project.DOMAIN}}"
+  - name: COMFYUI_IMAGE
+    description: >-
+      Container image. The default (ai-dock latest-cuda) ships PyTorch 2.4.1+cu121, which
+      supports up to sm_90 — it CANNOT run on Blackwell (RTX 50-series, sm_120) and fails
+      with "no kernel image is available for execution on the device". Point this at an
+      image whose PyTorch matches your GPU.
+    type: string
+    default: "ghcr.io/ai-dock/comfyui:latest-cuda"
   - name: HF_TOKEN
     description: HuggingFace token for gated models (optional)
     type: secret
+    default: ""
 traits_summary:
   - "ingress: internal HTTPS on port 8188"
   - "auth: Authelia forward-auth"

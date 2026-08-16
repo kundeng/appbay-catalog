@@ -14,6 +14,7 @@ required_inputs:
   - name: HF_TOKEN
     description: HuggingFace API token (optional, for gated models)
     type: string
+    default: ""
 traits_summary:
   - "ingress: web UI on port 3000"
   - "auth: Authelia forward-auth"

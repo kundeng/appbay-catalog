@@ -15,6 +15,12 @@ vars:
     description: Hostname for ComfyUI
     type: string
     default: "comfyui.${{project.DOMAIN}}"
+  COMFYUI_IMAGE:
+    description: >-
+      Container image. The ai-dock default ships PyTorch 2.4.1+cu121 (sm_50-sm_90) and
+      cannot execute on Blackwell / RTX 50-series (sm_120). Override for newer hardware.
+    type: string
+    default: "ghcr.io/ai-dock/comfyui:latest-cuda"
   HF_TOKEN:
     description: HuggingFace token for downloading gated models (optional)
     type: secret
@@ -30,6 +36,7 @@ traits:
     provider: authelia
     service: comfyui
   - type: gpu
+    required: true
     variant: nvidia
   - type: backup
     schedule: "0 3 * * *"
