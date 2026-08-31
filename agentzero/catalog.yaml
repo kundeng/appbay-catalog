@@ -11,8 +11,12 @@ source:
   url: https://github.com/frdel/agent-zero
 readiness: augmented
 required_inputs:
-  - ANTHROPIC_API_KEY
-  - OPENAI_API_KEY
+  - name: ANTHROPIC_API_KEY
+    description: Anthropic API key. Issued by Anthropic — appbay cannot generate it.
+    type: secret
+  - name: OPENAI_API_KEY
+    description: OpenAI API key. Issued by OpenAI — appbay cannot generate it.
+    type: secret
 traits_summary:
   - ingress (web UI on port 80)
 maintainer: appbay

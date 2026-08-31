@@ -11,6 +11,8 @@ source:
   url: https://github.com/huggingface/huggingface_hub
 readiness: raw
 required_inputs:
-  - HF_TOKEN
+  - name: HF_TOKEN
+    description: Hugging Face access token, for gated or private model downloads.
+    type: secret
 traits_summary: []
 maintainer: appbay

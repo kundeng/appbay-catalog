@@ -10,7 +10,9 @@ source:
   url: https://github.com/lyogavin/airllm
 readiness: augmented
 required_inputs:
-  - HF_TOKEN
+  - name: HF_TOKEN
+    description: Hugging Face access token, for gated or private model downloads.
+    type: secret
 traits_summary:
   - ingress (API on port 5000)
 maintainer: appbay

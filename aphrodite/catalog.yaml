@@ -11,8 +11,12 @@ source:
   url: https://github.com/PygmalionAI/aphrodite-engine
 readiness: augmented
 required_inputs:
-  - HF_TOKEN
-  - APHRODITE_MODEL
+  - name: HF_TOKEN
+    description: Hugging Face access token, for gated or private model downloads.
+    type: secret
+  - name: APHRODITE_MODEL
+    description: Model repo to serve, e.g. meta-llama/Llama-3-8B-Instruct.
+    type: string
 traits_summary:
   - ingress (API on port 2242)
 maintainer: appbay

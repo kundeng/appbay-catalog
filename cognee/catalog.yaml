@@ -12,7 +12,9 @@ source:
   url: https://github.com/topoteretes/cognee
 readiness: augmented
 required_inputs:
-  - OPENAI_API_KEY
+  - name: OPENAI_API_KEY
+    description: OpenAI API key. Issued by OpenAI — appbay cannot generate it.
+    type: secret
 traits_summary:
   - ingress (API on port 8000)
 maintainer: appbay

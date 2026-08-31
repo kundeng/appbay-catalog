@@ -6,9 +6,6 @@ tags:
   - tunnel
   - networking
   - cloudflare
-source:
-  type: docker
-  url: https://hub.docker.com/r/cloudflare/cloudflared
 readiness: raw
 required_inputs: []
 traits_summary: []

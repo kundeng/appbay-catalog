@@ -11,8 +11,12 @@ source:
   url: https://github.com/browser-use/web-ui
 readiness: raw
 required_inputs:
-  - OPENAI_API_KEY
-  - ANTHROPIC_API_KEY
+  - name: OPENAI_API_KEY
+    description: OpenAI API key. Issued by OpenAI — appbay cannot generate it.
+    type: secret
+  - name: ANTHROPIC_API_KEY
+    description: Anthropic API key. Issued by Anthropic — appbay cannot generate it.
+    type: secret
 traits_summary:
   - ingress (web UI on port 7788)
 maintainer: appbay
